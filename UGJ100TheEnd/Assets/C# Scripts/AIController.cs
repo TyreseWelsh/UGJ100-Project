@@ -89,7 +89,6 @@ public class AIController : MonoBehaviour, IDamagable
                 {
                     if (!isHitting)
                     {
-                        Debug.Log("Trying to hit?");
                         isHitting = true;
                         InvokeRepeating("meleeAttack", 0.1f, 1.0f);
                     }
@@ -128,9 +127,18 @@ public class AIController : MonoBehaviour, IDamagable
         foreach(Collider enemy in hitEnemies)
         {
             Debug.Log("We hit" + enemy.name);
-            enemy.GetComponent<IDamagable>().Damaged(attackDamage);
+            enemy.gameObject.GetComponent<IDamagable>().Damaged(10);
         }
     }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    }
+
 
     enum EnemyType 
     {
