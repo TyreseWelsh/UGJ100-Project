@@ -1,7 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="" />
+    <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/AIController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/AIController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Button.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Button.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Corpse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Corpse.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Door.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Door.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/DrawBridge.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/DrawBridge.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Interfaces.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Interfaces/IDamagable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Interfaces/IDamagable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Interfaces/IInteractible.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/Interfaces/IInteractible.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/PressurePlate.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/PressurePlate.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/TargetDummy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/TargetDummy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/bulletController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/C# Scripts/bulletController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Melee.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Melee/Animations.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Melee/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Melee/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Melee/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Melee/Sounds.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Ranged.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Ranged/Animations.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Ranged/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Ranged/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Ranged/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Enemies/Ranged/Sounds.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Player.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Player/Animations.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Player/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Player/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Player/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Player/Sounds.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/Bullet.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/Bullet.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/Door.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/Door.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/DrawBridge.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/DrawBridge.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/PressurePlate.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Entities/Prefabs/PressurePlate.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Red.mat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Red.mat.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SensorToolkit/Integrations/AdventureCreator/adventure-creator-integration.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SensorToolkit/Integrations/Behavior Designer/behavior-designer-integration.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SensorToolkit/Integrations/Game Creator 2/gamecreator2-integration.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SensorToolkit/Integrations/PlayMaker/demo-scene.unitypackage.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,26 +78,33 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2nc2HLEIfOSki7UurYvdXrOxufh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature-Player-Controller&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2023.2.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;C:\Users\tyres\Documents\Unity Projects\UGJ100-Project\UGJ100TheEnd&quot; -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\tyres\Documents\Unity Projects\UGJ100-Project\UGJ100TheEnd" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -37,7 +112,7 @@
       <method v="2" />
     </configuration>
     <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.6f1\Editor\Unity.exe" />
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2023.2.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;C:\Users\tyres\Documents\Unity Projects\UGJ100-Project\UGJ100TheEnd&quot; -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\tyres\Documents\Unity Projects\UGJ100-Project\UGJ100TheEnd" />
       <option name="PASS_PARENT_ENVS" value="1" />
@@ -74,6 +149,9 @@
       <option name="presentableId" value="Default" />
       <updated>1729257955501</updated>
       <workItem from="1729257957792" duration="178000" />
+      <workItem from="1729337705144" duration="1580000" />
+      <workItem from="1729339848695" duration="2277000" />
+      <workItem from="1729342153782" duration="7845000" />
     </task>
     <servers />
   </component>
