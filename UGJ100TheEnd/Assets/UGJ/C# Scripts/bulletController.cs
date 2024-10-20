@@ -27,4 +27,10 @@ public class bulletController : MonoBehaviour
         }
         Destroy(this.gameObject);
     }
+
+    IEnumerator lifespan()
+    {
+        yield return new WaitForSeconds(2);
+        Destroy(this.gameObject);
+    }
 }
