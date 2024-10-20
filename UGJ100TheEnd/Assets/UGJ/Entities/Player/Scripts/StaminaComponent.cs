@@ -31,7 +31,6 @@ public class StaminaComponent : MonoBehaviour
         if (debugEnabled)
         {
             print("Stamina is now = " + currentStamina);
-
         }
 
         if (delayCoroutine != null)
