@@ -37,6 +37,7 @@ public class DrawBridge : MonoBehaviour, IInteractible
             }
         }
     }
+    public void InteractHeld(GameObject interactingObj) { }
 
     private IEnumerator doorOpen()
     {

@@ -111,6 +111,10 @@ public class AIController : MonoBehaviour, IDamagable
     public void Damaged(int damage)
     {
         curHealth -= damage;
+        if(curHealth <= 0)
+        {
+
+        }
     }
 
     private void shootBullet()
@@ -148,7 +152,8 @@ public class AIController : MonoBehaviour, IDamagable
     {
         if(other.gameObject.tag == "Player")
         {
-            Debug.Log("Player has left radius");
+            
+            StartCoroutine(_followPlayer());
         }
     }
 

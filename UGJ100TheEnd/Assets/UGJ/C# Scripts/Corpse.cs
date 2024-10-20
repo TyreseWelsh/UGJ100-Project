@@ -21,4 +21,5 @@ public class Corpse : MonoBehaviour, IInteractible
         //Increase player health here.
         Destroy(gameObject);
     }
+    public void InteractHeld(GameObject interactingObj) { }
 }

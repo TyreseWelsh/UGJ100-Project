@@ -23,7 +23,16 @@ public class PressurePlate : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Body")
+        if(collision.gameObject.tag == "Corpse")
+        {
+            InteractedObject.GetComponent<IInteractible>().Interact(gameObject);
+
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Corpse")
         {
             InteractedObject.GetComponent<IInteractible>().Interact(gameObject);
 

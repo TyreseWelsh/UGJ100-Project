@@ -124,6 +124,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1985034109940538752}
+  - {fileID: 4927056996239217182}
   m_Father: {fileID: 3082847062037765618}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &363293344609925087
@@ -341,7 +342,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 2967532246166430434}
   mesh: {fileID: 1269782162336250762}
-  maxHealth: 4
+  corpseLoc: {fileID: 0}
+  maxHealth: 100
   maxSpeed: 9
   lives: 5
   dashSpeed: 100
@@ -365,9 +367,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxStamina: 120
   currentStamina: 0
+  negStaminaLimit: -60
   regenDelayTime: 2
   regenAmount: 2
   regenRate: 0.1
+  debugEnabled: 0
+--- !u!1 &2954063411950692947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4927056996239217182}
+  m_Layer: 8
+  m_Name: PickupLoc
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4927056996239217182
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2954063411950692947}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.538, y: 0, z: 0.5860001}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6527846897961161414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8928921991294940563
 GameObject:
   m_ObjectHideFlags: 0

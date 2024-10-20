@@ -9,12 +9,14 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject mesh;
+    [SerializeField] private Transform corpseLoc;
+    [SerializeField] private LayerMask interactibleObj;
     
     private CharacterController controller;
     private StaminaComponent staminaComponent;
     
     [Header("Basic Stats")]
-    [SerializeField] private int maxHealth;
+    [SerializeField] public int maxHealth;
     [SerializeField] private float maxSpeed;
     [SerializeField] private int lives;
 
@@ -31,7 +33,7 @@ public class MainPlayerController : MonoBehaviour, IDamagable
 
     private Vector3 movementDirection;
     private bool holdingCorpse = false;
-
+    private GameObject heldCorpse;
 
     public enum EHealthStates {Alive, Reviving, Dead}
     [Header("")]
@@ -56,6 +58,7 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             controller.Move(currentSpeed * Time.deltaTime * movementDirection);
         }
+
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -89,7 +92,6 @@ public class MainPlayerController : MonoBehaviour, IDamagable
                 switch (staminaComponent.ConsumeStamina(dashCost))
                 {
                     case StaminaComponent.EStaminaAbilityStrength.Full:
-                        gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
                         StartCoroutine(Dash(movementDirection, dashStartTime, dashDuration));
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Reduced:
@@ -115,8 +117,9 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             
             yield return null;
         }
-        
-        gameObject.layer = LayerMask.NameToLayer("Player");
+
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
         controller.velocity.Set(0, 0, 0);
     }
 
@@ -124,33 +127,72 @@ public class MainPlayerController : MonoBehaviour, IDamagable
 
     public void Interact(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.canceled)
         {
+            Debug.Log("Pressed");
             if (currentHealthState == EHealthStates.Alive)
             {
-                // temp: testing revive
-                Damaged(2);
-                //
-            
                 RaycastHit hit;
-                Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit);
+                // temp: testing revive
+
+                //
+
+                if (holdingCorpse)
+                {
+                    heldCorpse.transform.SetParent(null);
+                    holdingCorpse = false;
+                    return;
+                }
+                
+                Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit, interactibleObj);
                 Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
 
                 // if hit object is not null
                 if (hit.collider)
-                {
-                    hit.collider.gameObject.GetComponent<IInteractible>().Interact(gameObject);
+                {   
+                    if(hit.collider.gameObject != null)
+                    {
+                        if(hit.collider.gameObject.GetComponent<IInteractible>() != null)
+                        {
+                            hit.collider.gameObject.GetComponent<IInteractible>().Interact(gameObject);
+                            if (hit.collider.gameObject.tag == "Corpse")
+                            {
+                                heldCorpse = hit.collider.gameObject;
+                                heldCorpse.transform.SetParent(corpseLoc);
+                                holdingCorpse = true;
+                                
+                                
+                            }
+                        }
+                        
+                    }
+                    
                 }
             }
         }
+        if (context.performed) 
+        {
+            Debug.Log("Held");
+            RaycastHit hit;
+            Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit);
+            Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
+            if (hit.collider)
+            {
+                hit.collider.gameObject.GetComponent<IInteractible>().InteractHeld(gameObject);
+
+            }
+        }
+        
     }
+    
 
     void StartRevive()
     {
         currentHealthState = EHealthStates.Reviving;
-        gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
         currentSpeed /= 2;
         StartCoroutine(ReviveCoroutine(Time.time));
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), true);
     }
 
     IEnumerator ReviveCoroutine(float startTime)
@@ -168,8 +210,9 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     {
         currentHealth = maxHealth;
         currentSpeed = maxSpeed;
-        gameObject.layer = LayerMask.NameToLayer("Player");
-        
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), false);
+
         currentHealthState = EHealthStates.Alive;
         //Debug.Log("REVIVED");
     }

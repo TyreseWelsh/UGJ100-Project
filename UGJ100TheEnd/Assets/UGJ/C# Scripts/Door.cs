@@ -23,7 +23,7 @@ public class Door : MonoBehaviour, IInteractible
 
     public void Interact(GameObject interactingObj)
     {
-        Debug.Log("Interacted");
+        
         //gameObject.transform.eulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z);
         if (!isRotating)
         {
@@ -37,7 +37,7 @@ public class Door : MonoBehaviour, IInteractible
             }
         } 
     }
-
+    public void InteractHeld(GameObject interactingObj) { }
     private IEnumerator doorOpen()
     {
         Quaternion startRotation = transform.rotation;
@@ -56,7 +56,7 @@ public class Door : MonoBehaviour, IInteractible
             time += Time.deltaTime * speed;
             
         }
-        Debug.Log("Finished Rotating");
+        
         isRotating = false;
 
     }
@@ -77,7 +77,7 @@ public class Door : MonoBehaviour, IInteractible
             time += Time.deltaTime * speed;
             
         }
-        Debug.Log("Finished Rotating");
+        
         isRotating = false;
     }
 }

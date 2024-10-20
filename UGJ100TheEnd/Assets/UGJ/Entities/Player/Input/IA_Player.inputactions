@@ -47,7 +47,7 @@
                     "id": "f02578cd-ad29-4917-b136-00a9c5e6e521",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold(duration=60,pressPoint=3)",
                     "initialStateCheck": false
                 }
             ],
@@ -78,7 +78,7 @@
                     "name": "",
                     "id": "0ed35259-79d6-46e7-8abd-5132efc1e7b3",
                     "path": "<Keyboard>/e",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
                     "action": "Interact",
