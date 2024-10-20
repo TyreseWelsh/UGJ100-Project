@@ -9,7 +9,7 @@ public class StaminaComponent : MonoBehaviour
     public enum EStaminaAbilityStrength {Full, Reduced, Zero}
 
     [Header("Stamina Stats")]
-    [SerializeField] private int maxStamina = 120;
+    [SerializeField] public int maxStamina = 120;
     [HideInInspector] public int currentStamina;
     
     [SerializeField] private float regenDelayTime = 2f;

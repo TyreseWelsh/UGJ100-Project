@@ -9,19 +9,23 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject mesh;
+    [SerializeField] private GameObject meleeAttackPoint;
     
+    [Header("")]
     private CharacterController controller;
     private StaminaComponent staminaComponent;
     
     [Header("Basic Stats")]
-    [SerializeField] private int maxHealth;
-    [SerializeField] private float maxSpeed;
+    [SerializeField] public int maxHealth;
+    [SerializeField] private float maxSpeed = 9;
     [SerializeField] private int lives;
-
+    public enum EHealthStates {Alive, Reviving, Dead}
+    public EHealthStates currentHealthState = EHealthStates.Alive;
+    
     [Header("Dash Stats")]
-    [SerializeField] private float dashSpeed;
-    [SerializeField] private float dashDuration;
-    [SerializeField] private int dashCost;
+    [SerializeField] private float dashSpeed = 100;
+    [SerializeField] private float dashDuration = 0.05f;
+    [SerializeField] private int dashCost = 40;
     
     [Header("")]
     [SerializeField] private float reviveDuration;
@@ -32,11 +36,19 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     private Vector3 movementDirection;
     private bool holdingCorpse = false;
 
+    [Header("Melee Attack")]
+    private bool canAttack = true;
+    [SerializeField] private int meleeDamage = 10;
+    [SerializeField] private float meleeAttackRate = 0.6f;
+    [SerializeField] private float meleeAttackRange = 2f;
 
-    public enum EHealthStates {Alive, Reviving, Dead}
-    [Header("")]
-    public EHealthStates currentHealthState = EHealthStates.Alive;
-    
+    [Header("Ranged Attack")] 
+    [SerializeField] private float currentThrowForce = 0;
+    [SerializeField] private float throwChargeRate = 0.05f;
+    [SerializeField] private int maxThrowForce = 30;
+    private Vector3 throwVector;
+    private bool chargingThrow;
+    Coroutine throwChargeCoroutine;
     
     // Start is called before the first frame update
     void Start()
@@ -55,6 +67,18 @@ public class MainPlayerController : MonoBehaviour, IDamagable
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             controller.Move(currentSpeed * Time.deltaTime * movementDirection);
+
+            if (chargingThrow)
+            {
+                currentThrowForce += throwChargeRate * Time.deltaTime;
+                if (currentThrowForce > maxThrowForce)
+                {
+                    currentThrowForce = maxThrowForce;
+                }
+
+                throwVector.z = currentThrowForce * 0.4f;
+                throwVector.y = throwVector.z / 14;
+            }
         }
     }
 
@@ -78,6 +102,64 @@ public class MainPlayerController : MonoBehaviour, IDamagable
         }
     }
 
+    public void StartMelee(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (canAttack)
+            {
+                // Attack stuff
+                StartCoroutine(Melee());
+            }
+        }
+    }
+
+    IEnumerator Melee()
+    {
+        // Attack stuff
+        canAttack = false;
+        Collider[] meleeCollisions = Physics.OverlapSphere(meleeAttackPoint.transform.position, meleeAttackRange);
+        foreach (Collider meleeCollision in meleeCollisions)
+        {
+            GameObject collidingObject = meleeCollision.gameObject;
+            if (collidingObject.gameObject.GetComponent<IDamagable>() != null && collidingObject.gameObject.CompareTag("Player"))
+            {
+                collidingObject.gameObject.GetComponent<IDamagable>().Damaged(meleeDamage);
+            }
+        }
+        print("MELEE!");
+        yield return new WaitForSeconds(meleeAttackRate);
+
+        canAttack = true;
+    }
+
+    public void StartThrow(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            chargingThrow = true;
+        }
+        else if (context.canceled)
+        {
+            chargingThrow = false;
+            // Launch object
+            /*if (throwobject != null)
+            {
+                throwobject.GetComponent<Rigidbody>().AddForce(throwVector, ForceMode.Impulse);
+            }*/
+            currentThrowForce = 0;
+        }
+    }
+
+    IEnumerator ChargeThrow()
+    {
+        if (currentThrowForce <= maxThrowForce)
+        {
+            currentThrowForce += throwChargeRate;
+            yield return null;
+        }
+    }
+    
     public void StartDash(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -89,7 +171,7 @@ public class MainPlayerController : MonoBehaviour, IDamagable
                 switch (staminaComponent.ConsumeStamina(dashCost))
                 {
                     case StaminaComponent.EStaminaAbilityStrength.Full:
-                        gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
+                        ToggleInvincibility(true);
                         StartCoroutine(Dash(movementDirection, dashStartTime, dashDuration));
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Reduced:
@@ -115,8 +197,7 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             
             yield return null;
         }
-        
-        gameObject.layer = LayerMask.NameToLayer("Player");
+        ToggleInvincibility(false);
         controller.velocity.Set(0, 0, 0);
     }
 
@@ -128,10 +209,6 @@ public class MainPlayerController : MonoBehaviour, IDamagable
         {
             if (currentHealthState == EHealthStates.Alive)
             {
-                // temp: testing revive
-                Damaged(2);
-                //
-            
                 RaycastHit hit;
                 Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit);
                 Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
@@ -148,7 +225,8 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     void StartRevive()
     {
         currentHealthState = EHealthStates.Reviving;
-        gameObject.layer = LayerMask.NameToLayer("PlayerInvincible");
+        ToggleInvincibility(false);
+
         currentSpeed /= 2;
         StartCoroutine(ReviveCoroutine(Time.time));
     }
@@ -168,10 +246,15 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     {
         currentHealth = maxHealth;
         currentSpeed = maxSpeed;
-        gameObject.layer = LayerMask.NameToLayer("Player");
+        ToggleInvincibility(true);
         
         currentHealthState = EHealthStates.Alive;
-        //Debug.Log("REVIVED");
+    }
+
+    void ToggleInvincibility(bool isInvincible)
+    {
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), isInvincible);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), isInvincible);
     }
     
     public void Damaged(int damage)
