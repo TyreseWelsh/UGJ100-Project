@@ -29,7 +29,7 @@
                     "id": "503993c9-58d6-4c91-9070-95bb0af3944f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Hold",
+                    "interactions": "Hold(duration=0.2)",
                     "initialStateCheck": true
                 },
                 {

@@ -9,8 +9,8 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject mesh;
-    [SerializeField] private Transform corpseLoc;
-    [SerializeField] private LayerMask interactibleObj;
+    [SerializeField] private GameObject pickupPosition;
+    [SerializeField] private LayerMask interactableObjectLayer;
     [SerializeField] private GameObject meleeAttackPoint;
     
     [Header("")]
@@ -36,7 +36,7 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     [HideInInspector] public float currentSpeed;
 
     private Vector3 movementDirection;
-    private bool holdingCorpse = false;
+    private bool holdingCorpse;
     private GameObject heldCorpse;
 
     [Header("Melee Attack")]
@@ -46,7 +46,7 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     [SerializeField] private float meleeAttackRange = 2f;
 
     [Header("Ranged Attack")] 
-    [SerializeField] private float currentThrowForce = 0;
+    [SerializeField] private float currentThrowForce;
     [SerializeField] private float throwChargeRate = 0.05f;
     [SerializeField] private int maxThrowForce = 30;
     private Vector3 throwVector;
@@ -73,14 +73,12 @@ public class MainPlayerController : MonoBehaviour, IDamagable
 
             if (chargingThrow)
             {
+                Debug.Log(currentThrowForce);
                 currentThrowForce += throwChargeRate * Time.deltaTime;
                 if (currentThrowForce > maxThrowForce)
                 {
                     currentThrowForce = maxThrowForce;
                 }
-
-                throwVector.z = currentThrowForce * 0.4f;
-                throwVector.y = throwVector.z / 14;
             }
         }
     }
@@ -120,20 +118,23 @@ public class MainPlayerController : MonoBehaviour, IDamagable
     IEnumerator Melee()
     {
         // Attack stuff
-        canAttack = false;
-        Collider[] meleeCollisions = Physics.OverlapSphere(meleeAttackPoint.transform.position, meleeAttackRange);
-        foreach (Collider meleeCollision in meleeCollisions)
+        if (meleeAttackPoint != null)
         {
-            GameObject collidingObject = meleeCollision.gameObject;
-            if (collidingObject.gameObject.GetComponent<IDamagable>() != null && collidingObject.gameObject.CompareTag("Player"))
+            canAttack = false;
+            Collider[] meleeCollisions = Physics.OverlapSphere(meleeAttackPoint.transform.position, meleeAttackRange);
+            foreach (Collider meleeCollision in meleeCollisions)
             {
-                collidingObject.gameObject.GetComponent<IDamagable>().Damaged(meleeDamage);
+                GameObject collidingObject = meleeCollision.gameObject;
+                if (collidingObject.gameObject.GetComponent<IDamagable>() != null && collidingObject.gameObject.CompareTag("Player"))
+                {
+                    collidingObject.gameObject.GetComponent<IDamagable>().Damaged(meleeDamage);
+                }
             }
-        }
-        print("MELEE!");
-        yield return new WaitForSeconds(meleeAttackRate);
+            print("MELEE!");
+            yield return new WaitForSeconds(meleeAttackRate);
 
-        canAttack = true;
+            canAttack = true; 
+        }
     }
 
     public void StartThrow(InputAction.CallbackContext context)
@@ -146,20 +147,15 @@ public class MainPlayerController : MonoBehaviour, IDamagable
         {
             chargingThrow = false;
             // Launch object
-            /*if (throwobject != null)
+            if (heldCorpse != null)
             {
-                throwobject.GetComponent<Rigidbody>().AddForce(throwVector, ForceMode.Impulse);
-            }*/
+                throwVector = mesh.transform.forward * currentThrowForce * 10;
+                throwVector.y = 40;
+                print("THROWWWW : " + throwVector);
+                heldCorpse.GetComponent<Rigidbody>().AddForce(throwVector, ForceMode.Impulse);
+                DropCorpse();
+            }
             currentThrowForce = 0;
-        }
-    }
-
-    IEnumerator ChargeThrow()
-    {
-        if (currentThrowForce <= maxThrowForce)
-        {
-            currentThrowForce += throwChargeRate;
-            yield return null;
         }
     }
     
@@ -213,19 +209,14 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             Debug.Log("Pressed");
             if (currentHealthState == EHealthStates.Alive)
             {
-                RaycastHit hit;
-                // temp: testing revive
-
-                //
-
                 if (holdingCorpse)
                 {
-                    heldCorpse.transform.SetParent(null);
-                    holdingCorpse = false;
+                    DropCorpse();
                     return;
                 }
                 
-                Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit, interactibleObj);
+                RaycastHit hit;
+                Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit, interactableObjectLayer);
                 Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
 
                 // if hit object is not null
@@ -236,18 +227,15 @@ public class MainPlayerController : MonoBehaviour, IDamagable
                         if(hit.collider.gameObject.GetComponent<IInteractible>() != null)
                         {
                             hit.collider.gameObject.GetComponent<IInteractible>().Interact(gameObject);
-                            if (hit.collider.gameObject.tag == "Corpse")
+                            if (hit.collider.gameObject.CompareTag("Corpse"))
                             {
                                 heldCorpse = hit.collider.gameObject;
-                                heldCorpse.transform.SetParent(corpseLoc);
+                                heldCorpse.transform.position = pickupPosition.transform.position;
+                                pickupPosition.GetComponent<FixedJoint>().connectedBody = heldCorpse.GetComponent<Rigidbody>();
                                 holdingCorpse = true;
-                                
-                                
                             }
                         }
-                        
                     }
-                    
                 }
             }
         }
@@ -259,12 +247,21 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
             if (hit.collider)
             {
-                hit.collider.gameObject.GetComponent<IInteractible>().InteractHeld(gameObject);
-
+                if (hit.collider.gameObject.GetComponent<IInteractible>() != null)
+                {
+                    hit.collider.gameObject.GetComponent<IInteractible>().InteractHeld(gameObject);
+                }
             }
         }
     }
 
+    void DropCorpse()
+    {
+        pickupPosition.GetComponent<FixedJoint>().connectedBody = null;
+        heldCorpse = null;
+        holdingCorpse = false;
+    }
+    
     void StartRevive()
     {
         currentHealthState = EHealthStates.Reviving;
