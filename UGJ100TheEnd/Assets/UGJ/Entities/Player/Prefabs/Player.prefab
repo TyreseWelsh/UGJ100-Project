@@ -26,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644339505322722819}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.61240935, y: -0, z: -0, w: 0.7905408}
-  m_LocalPosition: {x: 0, y: 15.69, z: -4.87}
+  m_LocalRotation: {x: 0.51279104, y: -0, z: -0, w: 0.8585135}
+  m_LocalPosition: {x: 0, y: 15.69, z: -7.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3082847062037765618}
-  m_LocalEulerAnglesHint: {x: 75.528, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 61.7, y: 0, z: 0}
 --- !u!20 &2967532246166430434
 Camera:
   m_ObjectHideFlags: 0
@@ -284,11 +284,35 @@ MonoBehaviour:
     m_ActionId: 747e65b1-2a8e-4e70-aeaf-7469c80bd031
     m_ActionName: 'Gameplay/Dash[/Keyboard/space]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4010644590662434633}
+        m_TargetAssemblyTypeName: MainPlayerController, Assembly-CSharp
+        m_MethodName: StartMelee
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2465b10c-e85f-4bab-ae5d-ce580732dec1
     m_ActionName: 'Gameplay/Melee[/Mouse/leftButton]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4010644590662434633}
+        m_TargetAssemblyTypeName: MainPlayerController, Assembly-CSharp
+        m_MethodName: StartThrow
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 503993c9-58d6-4c91-9070-95bb0af3944f
     m_ActionName: 'Gameplay/Throw[/Keyboard/f]'
   - m_PersistentCalls:
@@ -342,17 +366,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 2967532246166430434}
   mesh: {fileID: 1269782162336250762}
-  corpseLoc: {fileID: 0}
+  pickupPosition: {fileID: 2954063411950692947}
+  interactableObjectLayer:
+    serializedVersion: 2
+    m_Bits: 512
+  meleeAttackPoint: {fileID: 0}
   maxHealth: 100
   maxSpeed: 9
   lives: 5
+  currentHealthState: 0
   dashSpeed: 100
   dashDuration: 0.05
   dashCost: 40
   reviveDuration: 2.5
   currentHealth: 0
   currentSpeed: 0
-  currentHealthState: 0
+  meleeDamage: 10
+  meleeAttackRate: 0.6
+  meleeAttackRange: 2
+  currentThrowForce: 0
+  throwChargeRate: 120
+  maxThrowForce: 100
 --- !u!114 &1552896861080848765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -369,8 +403,8 @@ MonoBehaviour:
   currentStamina: 0
   negStaminaLimit: -60
   regenDelayTime: 2
-  regenAmount: 2
-  regenRate: 0.1
+  regenAmount: 3
+  regenRate: 0.05
   debugEnabled: 0
 --- !u!1 &2954063411950692947
 GameObject:
@@ -381,6 +415,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4927056996239217182}
+  - component: {fileID: 5404171159574788322}
+  - component: {fileID: 2881107596827291038}
   m_Layer: 8
   m_Name: PickupLoc
   m_TagString: Untagged
@@ -397,12 +433,55 @@ Transform:
   m_GameObject: {fileID: 2954063411950692947}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.538, y: 0, z: 0.5860001}
+  m_LocalPosition: {x: 0.422, y: 0.027, z: 0.827}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6527846897961161414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &5404171159574788322
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2954063411950692947}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!138 &2881107596827291038
+FixedJoint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2954063411950692947}
+  serializedVersion: 1
+  m_ConnectedBody: {fileID: 0}
+  m_ConnectedArticulationBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 1
+  m_MassScale: 1
+  m_ConnectedMassScale: 1
 --- !u!1 &8928921991294940563
 GameObject:
   m_ObjectHideFlags: 0
