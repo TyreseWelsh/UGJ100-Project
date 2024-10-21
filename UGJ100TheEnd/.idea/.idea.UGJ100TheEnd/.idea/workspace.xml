@@ -6,10 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CorpseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Characters/Configurable Corpse.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Characters/Configurable Corpse.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +20,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="mock://C:/Users/tyres/Documents/Unity Projects/UGJ100-Project/UGJ100TheEnd/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/tyres/Documents/Unity Projects/UGJ100-Project/UGJ100TheEnd/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/ICanHoldCorpse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -32,19 +31,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Feature-ConvertingPlayerToRigidBody",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature-ConvertingPlayerToRigidBody&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2023.2.20f1\Editor\Unity.exe" />

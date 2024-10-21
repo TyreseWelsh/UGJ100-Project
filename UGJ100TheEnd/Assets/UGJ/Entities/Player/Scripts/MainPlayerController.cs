@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MainPlayerController : MonoBehaviour, IDamageable
+public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 {
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
@@ -38,6 +38,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable
     private Vector3 movementDirection;
     private bool holdingCorpse;
     private GameObject heldCorpse;
+    private ConfigurableJoint heldCorpseJoint;
 
     [Header("Melee Attack")]
     private bool canAttack = true;
@@ -233,11 +234,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable
                             hit.collider.gameObject.GetComponent<IInteractable>().Interact(gameObject);
                             if (hit.collider.gameObject.CompareTag("Corpse"))
                             {
-                                heldCorpse = hit.collider.gameObject;
-                                heldCorpse.transform.position = pickupPosition.transform.position;
-                                heldCorpse.transform.SetParent(pickupPosition.transform);
-                                pickupPosition.GetComponent<FixedJoint>().connectedBody = heldCorpse.GetComponent<Rigidbody>();
-                                holdingCorpse = true;
+                                PickupCorpse(hit.collider.gameObject);
                             }
                         }
                     }
@@ -260,10 +257,32 @@ public class MainPlayerController : MonoBehaviour, IDamageable
         }
     }
 
-    void DropCorpse()
+    public void PickupCorpse(GameObject corpse)
     {
-        pickupPosition.GetComponent<FixedJoint>().connectedBody = null;
-        heldCorpse.transform.SetParent(null);
+        heldCorpse = corpse;
+        if (heldCorpse.GetComponent<CorpseController>() != null)
+        {
+            heldCorpse.GetComponent<CorpseController>().Pickup(gameObject, pickupPosition);
+        }
+        holdingCorpse = true;
+    }
+
+    public void DropCorpse()
+    {
+        //pickupPosition.GetComponent<FixedJoint>().connectedBody = null;
+        if (heldCorpse != null)
+        {
+            if (heldCorpse.GetComponent<CorpseController>() != null)
+            {
+                heldCorpse.GetComponent<CorpseController>().Drop();
+            }
+        }
+        
+        CorpseHasBeenDropped();
+    }
+
+    void CorpseHasBeenDropped()
+    {
         heldCorpse = null;
         holdingCorpse = false;
     }
