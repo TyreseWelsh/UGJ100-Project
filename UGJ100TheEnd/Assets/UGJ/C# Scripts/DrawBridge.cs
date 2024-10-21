@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DrawBridge : MonoBehaviour, IInteractible
+public class DrawBridge : MonoBehaviour, IInteractable
 {
     [SerializeField] private float speed;
     private bool isOpen = false;

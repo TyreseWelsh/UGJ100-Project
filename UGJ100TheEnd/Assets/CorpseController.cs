@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CorpseController : MonoBehaviour, IInteractible
+public class CorpseController : MonoBehaviour, IInteractable
 {
     public CorpseType ECorpse;
 

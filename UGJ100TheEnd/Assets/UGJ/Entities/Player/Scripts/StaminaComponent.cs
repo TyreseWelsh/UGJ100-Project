@@ -10,12 +10,12 @@ public class StaminaComponent : MonoBehaviour
 
     [Header("Stamina Stats")]
     [SerializeField] public int maxStamina = 120;
-    [HideInInspector] public int currentStamina;
+    [HideInInspector] public float currentStamina;
     [SerializeField] public int negStaminaLimit = -60;
     
-    [SerializeField] private float regenDelayTime = 2f;
-    [SerializeField] private int regenAmount = 2;
-    [SerializeField] private float regenRate = 0.1f;
+    [SerializeField] private float regenDelayTime = 3f;
+    [SerializeField] private float regenAmount = 0.5f;
+    [SerializeField] private float regenRate = 0.05f;
     private Coroutine delayCoroutine;
     private Coroutine regenCoroutine;
 
@@ -33,23 +33,24 @@ public class StaminaComponent : MonoBehaviour
         {
             print("Stamina is now = " + currentStamina);
         }
+        
+        // Stopping previous running coroutines
+        StopRegen();
 
-        if (delayCoroutine != null)
+        if (delayCoroutine == null)
         {
-            StopCoroutine(delayCoroutine);
+            delayCoroutine = StartCoroutine(RegenDelay());
         }
-        StartCoroutine(RegenDelay());
     }
     
     IEnumerator RegenDelay()
     {
-        if (regenCoroutine != null)
-        {
-            StopCoroutine(regenCoroutine);
-        }
         yield return new WaitForSeconds(regenDelayTime);
-        
-        regenCoroutine = StartCoroutine(RegenStamina());
+
+        if (regenCoroutine == null)
+        {
+            regenCoroutine = StartCoroutine(RegenStamina());
+        }
     }
     
     IEnumerator RegenStamina()
@@ -67,6 +68,22 @@ public class StaminaComponent : MonoBehaviour
         }
         
         currentStamina = maxStamina;
+        StopCoroutine(regenCoroutine);
+        regenCoroutine = null;
+    }
+
+    void StopRegen()
+    {
+        if (regenCoroutine != null)
+        {
+            StopCoroutine(regenCoroutine);
+            regenCoroutine = null;
+        }
+        if (delayCoroutine != null)
+        {
+            StopCoroutine(delayCoroutine);
+            delayCoroutine = null;
+        }
     }
     
     // This function should be called from the gameobject script that handles the stamina ability

@@ -26,7 +26,7 @@ public class Button : MonoBehaviour
             if (!isPressed)
             {
                 isPressed = true;
-                InteractedObject.GetComponent<IInteractible>().Interact(gameObject);
+                InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
             }
             
 

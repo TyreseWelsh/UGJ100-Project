@@ -17,7 +17,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            InteractedObject.GetComponent<IInteractible>().Interact(gameObject);
+            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
         }
     }
 
@@ -25,7 +25,7 @@ public class PressurePlate : MonoBehaviour
     {
         if(collision.gameObject.tag == "Corpse")
         {
-            InteractedObject.GetComponent<IInteractible>().Interact(gameObject);
+            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
 
         }
     }
@@ -34,7 +34,7 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.gameObject.tag == "Corpse")
         {
-            InteractedObject.GetComponent<IInteractible>().Interact(gameObject);
+            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
 
         }
     }

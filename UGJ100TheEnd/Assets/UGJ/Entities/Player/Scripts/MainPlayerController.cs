@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MainPlayerController : MonoBehaviour, IDamagable
+public class MainPlayerController : MonoBehaviour, IDamageable
 {
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
@@ -125,9 +125,9 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             foreach (Collider meleeCollision in meleeCollisions)
             {
                 GameObject collidingObject = meleeCollision.gameObject;
-                if (collidingObject.gameObject.GetComponent<IDamagable>() != null && collidingObject.gameObject.CompareTag("Player"))
+                if (collidingObject.gameObject.GetComponent<IDamageable>() != null && collidingObject.gameObject.CompareTag("Player"))
                 {
-                    collidingObject.gameObject.GetComponent<IDamagable>().Damaged(meleeDamage);
+                    collidingObject.gameObject.GetComponent<IDamageable>().Damaged(meleeDamage);
                 }
             }
             print("MELEE!");
@@ -224,9 +224,9 @@ public class MainPlayerController : MonoBehaviour, IDamagable
                 {   
                     if(hit.collider.gameObject != null)
                     {
-                        if(hit.collider.gameObject.GetComponent<IInteractible>() != null)
+                        if(hit.collider.gameObject.GetComponent<IInteractable>() != null)
                         {
-                            hit.collider.gameObject.GetComponent<IInteractible>().Interact(gameObject);
+                            hit.collider.gameObject.GetComponent<IInteractable>().Interact(gameObject);
                             if (hit.collider.gameObject.CompareTag("Corpse"))
                             {
                                 heldCorpse = hit.collider.gameObject;
@@ -247,9 +247,9 @@ public class MainPlayerController : MonoBehaviour, IDamagable
             Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
             if (hit.collider)
             {
-                if (hit.collider.gameObject.GetComponent<IInteractible>() != null)
+                if (hit.collider.gameObject.GetComponent<IInteractable>() != null)
                 {
-                    hit.collider.gameObject.GetComponent<IInteractible>().InteractHeld(gameObject);
+                    hit.collider.gameObject.GetComponent<IInteractable>().InteractHeld(gameObject);
                 }
             }
         }

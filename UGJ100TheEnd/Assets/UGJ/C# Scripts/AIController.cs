@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIController : MonoBehaviour, IDamagable
+public class AIController : MonoBehaviour, IDamageable
 {
     [SerializeField] private GameObject playerCharacter;
     private NavMeshAgent navAgent;
@@ -133,7 +133,7 @@ public class AIController : MonoBehaviour, IDamagable
         foreach(Collider enemy in hitEnemies)
         {
             Debug.Log("We hit" + enemy.name);
-            enemy.gameObject.GetComponent<IDamagable>().Damaged(10);
+            enemy.gameObject.GetComponent<IDamageable>().Damaged(10);
         }
     }
 

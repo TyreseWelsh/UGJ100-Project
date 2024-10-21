@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, IInteractible
+public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField]private float speed;
     private bool isOpen = false;
