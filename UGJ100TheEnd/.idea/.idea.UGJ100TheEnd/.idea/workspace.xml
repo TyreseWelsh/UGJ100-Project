@@ -6,22 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CorpseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Button.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Button.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Corpse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Corpse.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Door.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Door.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/DrawBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/DrawBridge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamagable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamagable.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IInteractible.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IInteractible.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/PressurePlate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/PressurePlate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/TargetDummy.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/TargetDummy.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/bulletController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/bulletController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/StaminaComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/StaminaComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,19 +32,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Feature-ConvertingPlayerToRigidBody",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2023.2.20f1\Editor\Unity.exe" />
@@ -108,7 +96,8 @@
       <workItem from="1729339848695" duration="2277000" />
       <workItem from="1729342153782" duration="7845000" />
       <workItem from="1729434167854" duration="25240000" />
-      <workItem from="1729466273168" duration="9684000" />
+      <workItem from="1729466273168" duration="9884000" />
+      <workItem from="1729516386068" duration="1725000" />
     </task>
     <servers />
   </component>

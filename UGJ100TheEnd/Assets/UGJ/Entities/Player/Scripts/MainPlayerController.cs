@@ -12,9 +12,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable
     [SerializeField] private GameObject pickupPosition;
     [SerializeField] private LayerMask interactableObjectLayer;
     [SerializeField] private GameObject meleeAttackPoint;
-    
-    [Header("")]
-    private CharacterController controller;
+
+    [Header("")] 
+    private Rigidbody rb;
     private StaminaComponent staminaComponent;
     
     [Header("Basic Stats")]
@@ -56,7 +56,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         staminaComponent = GetComponent<StaminaComponent>();
         
         currentHealth = maxHealth;
@@ -68,9 +68,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable
     {
         if (currentHealthState != EHealthStates.Dead)
         {
-            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            controller.Move(currentSpeed * Time.deltaTime * movementDirection);
-
             if (chargingThrow)
             {
                 Debug.Log(currentThrowForce);
@@ -80,6 +77,15 @@ public class MainPlayerController : MonoBehaviour, IDamageable
                     currentThrowForce = maxThrowForce;
                 }
             }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentHealthState != EHealthStates.Dead)
+        {
+            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            rb.velocity = movementDirection * currentSpeed;
         }
     }
 
@@ -192,16 +198,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable
     {
         while (Time.time < startTime + duration)
         {
-            controller.Move(dashSpeed * Time.deltaTime * direction);
+            rb.AddForce(direction * dashSpeed, ForceMode.Force);
             
             yield return null;
         }
         ToggleInvincibility(false);
-        controller.velocity.Set(0, 0, 0);
+        rb.velocity = Vector3.zero;
     }
-
-    // This function should work with any stamina ability. Simply call this function in a switch statement and have the switch cases be the enum options
-
+    
     public void Interact(InputAction.CallbackContext context)
     {
         if (context.canceled)
@@ -231,6 +235,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable
                             {
                                 heldCorpse = hit.collider.gameObject;
                                 heldCorpse.transform.position = pickupPosition.transform.position;
+                                heldCorpse.transform.SetParent(pickupPosition.transform);
                                 pickupPosition.GetComponent<FixedJoint>().connectedBody = heldCorpse.GetComponent<Rigidbody>();
                                 holdingCorpse = true;
                             }
@@ -258,6 +263,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable
     void DropCorpse()
     {
         pickupPosition.GetComponent<FixedJoint>().connectedBody = null;
+        heldCorpse.transform.SetParent(null);
         heldCorpse = null;
         holdingCorpse = false;
     }
