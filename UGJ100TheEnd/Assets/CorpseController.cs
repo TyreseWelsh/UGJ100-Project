@@ -40,13 +40,12 @@ public class CorpseController : MonoBehaviour, IInteractable
     {
         gameObject.tag = "Corpse";
         gameObject.layer = LayerMask.NameToLayer("Corpse");
+        EnableCorpseRagdoll();
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
         pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
         corpseRb = GetComponent<Rigidbody>();
-
-        EnableCorpseRagdoll();
     }
 
     private void OnDisable()
@@ -105,9 +104,9 @@ public class CorpseController : MonoBehaviour, IInteractable
         transform.SetParent(pickingObject.transform);
         
         pickupJoint.connectedBody = pickingObject.GetComponent<Rigidbody>();
-        pickupJoint.xMotion = ConfigurableJointMotion.Locked;
-        pickupJoint.yMotion = ConfigurableJointMotion.Locked;
-        pickupJoint.zMotion = ConfigurableJointMotion.Locked;
+        //pickupJoint.xMotion = ConfigurableJointMotion.Locked;
+        //pickupJoint.yMotion = ConfigurableJointMotion.Locked;
+        //pickupJoint.zMotion = ConfigurableJointMotion.Locked;
     }
     
     public void Drop()

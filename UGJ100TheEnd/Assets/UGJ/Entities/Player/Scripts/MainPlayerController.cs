@@ -224,10 +224,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.canceled)
         {
-            //
-            Damaged(100);
-            //
-            
             Debug.Log("Pressed");
             if (currentHealthState == EHealthStates.Alive)
             {
@@ -260,6 +256,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         if (context.performed) 
         {
+            //
+            Damaged(100);
+            //
             Debug.Log("Held");
             RaycastHit hit;
             Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit);
@@ -346,6 +345,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Spawn a new player object and call its StartRevive function
     private void Die()
     {
+        InputActionAsset playerInputAsset = playerInput.actions;
+        playerInput.actions = null;
+        
         // Creating new player
         GameObject newPlayer = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
         MainPlayerController mainPlayerScript = newPlayer.GetComponent<MainPlayerController>();
@@ -353,6 +355,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         {
             mainPlayerScript.StartRevive();
         }
+        mainPlayerScript.playerInput.actions = playerInputAsset;
         
         // Disable this player
         Destroy(characterController);
