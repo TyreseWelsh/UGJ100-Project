@@ -14,11 +14,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private GameObject meleeAttackPoint;
 
     [Header("")] 
-    private Rigidbody rb;
+    //private Rigidbody rb;
+    private CharacterController characterController;
+    private Animator characterAnimator;
+    private PlayerInput playerInput;
     private StaminaComponent staminaComponent;
     
     [Header("Basic Stats")]
-    [SerializeField] public int maxHealth;
+    [SerializeField] public int maxHealth = 100;
     [SerializeField] private float maxSpeed = 9;
     [SerializeField] private int lives;
     public enum EHealthStates {Alive, Reviving, Dead}
@@ -30,7 +33,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private int dashCost = 40;
     
     [Header("")]
-    [SerializeField] private float reviveDuration;
+    [SerializeField] private float reviveDuration = 2.5f;
 
     [HideInInspector] public int currentHealth;
     [HideInInspector] public float currentSpeed;
@@ -53,13 +56,19 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private Vector3 throwVector;
     private bool chargingThrow;
     Coroutine throwChargeCoroutine;
-    
+
+    private void Awake()
+    {
+        //rb = GetComponent<Rigidbody>();
+        characterController = GetComponent<CharacterController>();
+        characterAnimator = GetComponent<Animator>();
+        playerInput  = GetComponent<PlayerInput>();
+        staminaComponent = GetComponent<StaminaComponent>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        staminaComponent = GetComponent<StaminaComponent>();
-        
         currentHealth = maxHealth;
         currentSpeed = maxSpeed;
     }
@@ -86,12 +95,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         if (currentHealthState != EHealthStates.Dead)
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            rb.velocity = movementDirection * currentSpeed;
+            //rb.velocity = movementDirection * currentSpeed;
+            characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
         }
     }
 
     public void Look(InputAction.CallbackContext context)
     {
+        Debug.Log("LOOKING");
         if (context.performed)
         {
             if (currentHealthState != EHealthStates.Dead)
@@ -199,18 +210,24 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + duration)
         {
-            rb.AddForce(direction * dashSpeed, ForceMode.Force);
+            //rb.AddForce(direction * dashSpeed, ForceMode.Force);
+            characterController.Move(dashSpeed * Time.deltaTime * direction);
             
             yield return null;
         }
         ToggleInvincibility(false);
-        rb.velocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
+        characterController.velocity.Set(0, 0, 0);
     }
     
     public void Interact(InputAction.CallbackContext context)
     {
         if (context.canceled)
         {
+            //
+            Damaged(100);
+            //
+            
             Debug.Log("Pressed");
             if (currentHealthState == EHealthStates.Alive)
             {
@@ -287,10 +304,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         holdingCorpse = false;
     }
     
-    void StartRevive()
+    public void StartRevive()
     {
         currentHealthState = EHealthStates.Reviving;
-        ToggleInvincibility(false);
+        ToggleInvincibility(true);
 
         currentSpeed /= 2;
         StartCoroutine(ReviveCoroutine(Time.time));
@@ -300,7 +317,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + reviveDuration)
         {
-            //Debug.Log("Reviving...");
+            Debug.Log("Reviving...");
             yield return null;
         }
         
@@ -309,9 +326,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     void Revive()
     {
+        Debug.Log("REVIVED!!");
         currentHealth = maxHealth;
         currentSpeed = maxSpeed;
-        ToggleInvincibility(true);
+        ToggleInvincibility(false);
         
         currentHealthState = EHealthStates.Alive;
     }
@@ -320,6 +338,34 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Enemy"), isInvincible);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Bullet"), isInvincible);
+    }
+    
+    // Enable ragdoll 
+    // Disable relevant player components
+    // Enable relevant corpse components
+    // Spawn a new player object and call its StartRevive function
+    private void Die()
+    {
+        // Creating new player
+        GameObject newPlayer = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
+        MainPlayerController mainPlayerScript = newPlayer.GetComponent<MainPlayerController>();
+        if (mainPlayerScript != null)
+        {
+            mainPlayerScript.StartRevive();
+        }
+        
+        // Disable this player
+        Destroy(characterController);
+        Destroy(characterAnimator);
+        Destroy(playerInput);
+        Destroy(staminaComponent);
+
+        Destroy(mainCamera.gameObject);
+        
+        // Enable this corpse
+        gameObject.GetComponent<CorpseController>().enabled = true;
+        
+        Destroy(this);
     }
     
     public void Damaged(int damage)
@@ -331,7 +377,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
             if (lives > 0)
             {
-                StartRevive();
+                Die();
             }
             else
             {

@@ -15,19 +15,61 @@ public class CorpseController : MonoBehaviour, IInteractable
     };
     public CorpseType ECorpse;
 
-    private GameObject holdingObject;
+    private Rigidbody corpseRb;
     private ConfigurableJoint pickupJoint;
-    
+    [Header("Environment Collider")]
+    private SphereCollider environmentCollider;
+    [SerializeField] private float environmentColliderHeight;
+    [SerializeField] private float environmentColliderRadius;
+
+    private GameObject holdingObject;
+    private Rigidbody[] childrenRigidbodies;
+
+    private void Awake()
+    {
+        childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         pickupJoint = GetComponent<ConfigurableJoint>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        
+        gameObject.tag = "Corpse";
+        gameObject.layer = LayerMask.NameToLayer("Corpse");
+        environmentCollider = gameObject.AddComponent<SphereCollider>();
+        environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
+        environmentCollider.radius = environmentColliderRadius;
+        pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
+        corpseRb = GetComponent<Rigidbody>();
+
+        EnableCorpseRagdoll();
+    }
+
+    private void OnDisable()
+    {
+        DisableCorpseRagdoll();
+    }
+
+    void EnableCorpseRagdoll()
+    {
+        Debug.Log("EnableRagdoll");
+        foreach (Rigidbody rb in childrenRigidbodies)
+        {
+            rb.isKinematic = false;
+        }
+    }
+
+    void DisableCorpseRagdoll()
+    {
+        Debug.Log("DisableRagdoll");
+        foreach (Rigidbody rb in childrenRigidbodies)
+        {
+            rb.isKinematic = true;
+        }
     }
 
     public void Interact(GameObject interactingObj) 
@@ -72,9 +114,9 @@ public class CorpseController : MonoBehaviour, IInteractable
     {
         transform.SetParent(null);
         pickupJoint.connectedBody = null;
-        pickupJoint.xMotion = ConfigurableJointMotion.Free;
-        pickupJoint.yMotion = ConfigurableJointMotion.Free;
-        pickupJoint.zMotion = ConfigurableJointMotion.Free;
+        //pickupJoint.xMotion = ConfigurableJointMotion.Free;
+       // pickupJoint.yMotion = ConfigurableJointMotion.Free;
+        //pickupJoint.zMotion = ConfigurableJointMotion.Free;
     }
 
     void OnJointBreak(float breakForce)
