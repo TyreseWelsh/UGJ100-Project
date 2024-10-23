@@ -15,15 +15,7 @@ public class HUD : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(playerCharacter != null)
-        {
-            playerScript = playerCharacter.GetComponent<MainPlayerController>();
-            staminaScript = playerCharacter.GetComponent<StaminaComponent>();
-
-            healthSlider.maxValue = playerScript.maxHealth;
-            newMaxStamina = staminaScript.maxStamina + Mathf.Abs(staminaScript.negStaminaLimit);
-            staminaSlider.maxValue = newMaxStamina;
-        }
+        InitialisePlayerHUD();
     }
 
     // Update is called once per frame
@@ -42,5 +34,25 @@ public class HUD : MonoBehaviour
         healthSlider.value = playerScript.currentHealth;
         
 
+    }
+
+    void InitialisePlayerHUD()
+    {
+        if(playerCharacter != null)
+        {
+            playerScript = playerCharacter.GetComponent<MainPlayerController>();
+            staminaScript = playerCharacter.GetComponent<StaminaComponent>();
+
+            healthSlider.maxValue = playerScript.maxHealth;
+            newMaxStamina = staminaScript.maxStamina + Mathf.Abs(staminaScript.negStaminaLimit);
+            staminaSlider.maxValue = newMaxStamina;
+        }
+    }
+    
+    public void SetReferencedPlayer(GameObject newPlayer)
+    {
+        playerCharacter = newPlayer;
+        
+        InitialisePlayerHUD();
     }
 }

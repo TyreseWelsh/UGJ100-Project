@@ -33,6 +33,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Block",
+                    "type": "Button",
+                    "id": "1b5f78a3-eb1b-4cb6-9668-45ec08e8dff5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "747e65b1-2a8e-4e70-aeaf-7469c80bd031",
@@ -48,6 +57,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold(duration=60,pressPoint=3)",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DamageSelf",
+                    "type": "Button",
+                    "id": "6d491029-afb8-4ee2-a239-96e0542263a2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -66,7 +84,7 @@
                 {
                     "name": "",
                     "id": "3c5c06c8-99fd-434c-936c-a7143fa3f49d",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
@@ -104,6 +122,28 @@
                     "processors": "",
                     "groups": "Mouse&Keyboard",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "433d9341-80e1-40b5-b435-bfa74593dd4b",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Keyboard",
+                    "action": "DamageSelf",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7be526e9-4508-47b5-94a2-4e0d8dda6deb",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse&Keyboard",
+                    "action": "Block",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

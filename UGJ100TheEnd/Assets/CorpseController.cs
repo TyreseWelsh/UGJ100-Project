@@ -131,7 +131,6 @@ public class CorpseController : MonoBehaviour, IInteractable
         holdingObject = mainObject;
         
         gameObject.transform.position = pickingObject.transform.position;
-        transform.SetParent(pickingObject.transform);
         
         pickupJoint.connectedBody = pickingObject.GetComponent<Rigidbody>();
         pickupJoint.xMotion = ConfigurableJointMotion.Locked;
@@ -141,7 +140,6 @@ public class CorpseController : MonoBehaviour, IInteractable
     
     public void Drop()
     {
-        transform.SetParent(null);
         pickupJoint.connectedBody = null;
         pickupJoint.xMotion = ConfigurableJointMotion.Free;
         pickupJoint.yMotion = ConfigurableJointMotion.Free;

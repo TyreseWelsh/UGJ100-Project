@@ -3778,6 +3778,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: f02578cd-ad29-4917-b136-00a9c5e6e521
     m_ActionName: 'Gameplay/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1b5f78a3-eb1b-4cb6-9668-45ec08e8dff5
+    m_ActionName: 'Gameplay/Block[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4816818256309563093}
+        m_TargetAssemblyTypeName: MainPlayerController, Assembly-CSharp
+        m_MethodName: DamageSelf
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6d491029-afb8-4ee2-a239-96e0542263a2
+    m_ActionName: 'Gameplay/DamageSelf[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Mouse&Keyboard
   m_DefaultActionMap: Gameplay
@@ -3795,6 +3815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b40949fad907c49a1b9d6f336fda95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPrefab: {fileID: 8411485761323222833}
   mainCamera: {fileID: 1334635461646721004}
   mesh: {fileID: 5938014354163077021}
   pickupPosition: {fileID: 2771627412929860733}
@@ -3818,6 +3839,7 @@ MonoBehaviour:
   currentThrowForce: 0
   throwChargeRate: 120
   maxThrowForce: 100
+  playerHUD: {fileID: 0}
 --- !u!114 &2264810823241157514
 MonoBehaviour:
   m_ObjectHideFlags: 0

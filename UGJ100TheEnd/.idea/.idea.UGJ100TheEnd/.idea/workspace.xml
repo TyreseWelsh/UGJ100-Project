@@ -7,8 +7,10 @@
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/CorpseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Characters/Player_Knight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Characters/Player_Knight.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Input/IA_Player.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Input/IA_Player.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +100,7 @@
       <workItem from="1729466273168" duration="9884000" />
       <workItem from="1729516386068" duration="1725000" />
       <workItem from="1729602114202" duration="1154000" />
-      <workItem from="1729688925898" duration="142000" />
+      <workItem from="1729688925898" duration="5630000" />
     </task>
     <servers />
   </component>

@@ -14,7 +14,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private GameObject meleeAttackPoint;
 
     [Header("")] 
-    //private Rigidbody rb;
     private CharacterController characterController;
     private Animator characterAnimator;
     private PlayerInput playerInput;
@@ -57,9 +56,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private bool chargingThrow;
     Coroutine throwChargeCoroutine;
 
+    [Header("HUD")]
+    [SerializeField] private HUD playerHUD;
+    
     private void Awake()
     {
-        //rb = GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
@@ -97,14 +98,13 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         if (currentHealthState != EHealthStates.Dead)
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            //rb.velocity = movementDirection * currentSpeed;
             characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
         }
     }
-
+    
     public void Look(InputAction.CallbackContext context)
     {
-        Debug.Log("LOOKING");
+        //Debug.Log("LOOKING");
         if (context.performed)
         {
             if (currentHealthState != EHealthStates.Dead)
@@ -212,13 +212,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + duration)
         {
-            //rb.AddForce(direction * dashSpeed, ForceMode.Force);
             characterController.Move(dashSpeed * Time.deltaTime * direction);
             
             yield return null;
         }
         ToggleInvincibility(false);
-        //rb.velocity = Vector3.zero;
         characterController.velocity.Set(0, 0, 0);
     }
     
@@ -258,9 +256,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         if (context.performed) 
         {
-            //
-            Damaged(100);
-            //
             Debug.Log("Held");
             RaycastHit hit;
             Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit);
@@ -304,13 +299,27 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         heldCorpse = null;
         holdingCorpse = false;
     }
+
+    public void DamageSelf(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("Damaged self");
+            Damaged(maxHealth);
+        }
+    }
     
     public void StartRevive()
     {
+        Debug.Log("REVIVE!");
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
 
+        currentHealth = maxHealth;
+        staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
+        playerHUD.SetReferencedPlayer(gameObject);
+        
         StartCoroutine(ReviveCoroutine(Time.time));
     }
 
@@ -318,7 +327,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + reviveDuration)
         {
-            Debug.Log("Reviving...");
+            //Debug.Log("Reviving...");
             yield return null;
         }
         
@@ -352,13 +361,17 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Creating new player
         GameObject newPlayer = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
-        MainPlayerController mainPlayerScript = newPlayer.GetComponent<MainPlayerController>();
-        if (mainPlayerScript != null)
+        MainPlayerController newPlayerScript = newPlayer.GetComponent<MainPlayerController>();
+        if (newPlayerScript != null)
         {
-            mainPlayerScript.StartRevive();
+            Debug.Log("Spawn new player");
+            newPlayerScript.StartRevive();
+            newPlayerScript.playerInput.actions = playerInputAsset;
+            newPlayerScript.lives = lives;
         }
-        mainPlayerScript.playerInput.actions = playerInputAsset;
         
+        Debug.Log("Destroy scripts");
+
         // Disable this player
         Destroy(characterController);
         Destroy(characterAnimator);
@@ -369,6 +382,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Enable this corpse
         gameObject.GetComponent<CorpseController>().enabled = true;
+        
+        Debug.Log("Scripts destroyed and ragdoll enabled");
+        
         
         Destroy(this);
     }
