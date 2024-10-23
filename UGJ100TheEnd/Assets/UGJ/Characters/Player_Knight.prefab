@@ -980,7 +980,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2771627412929860733}
   serializedVersion: 4
-  m_Mass: 0.0000001
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -998,7 +998,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!1 &3262221866264703584
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,8 +3833,8 @@ MonoBehaviour:
   maxStamina: 120
   currentStamina: 0
   negStaminaLimit: -60
-  regenDelayTime: 3
-  regenAmount: 0.5
+  regenDelayTime: 2
+  regenAmount: 3
   regenRate: 0.05
   debugEnabled: 0
 --- !u!135 &4491926962045784796
