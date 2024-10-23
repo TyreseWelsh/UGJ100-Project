@@ -25,9 +25,10 @@ public class StaminaComponent : MonoBehaviour
     private void Start()
     {
         currentStamina = maxStamina;
+        negStaminaLimit = -(maxStamina / 2);
     }
 
-    void StartRegenDelay()
+    public void StartRegenDelay(float delay)
     {
         if (debugEnabled)
         {
@@ -39,13 +40,13 @@ public class StaminaComponent : MonoBehaviour
 
         if (delayCoroutine == null)
         {
-            delayCoroutine = StartCoroutine(RegenDelay());
+            delayCoroutine = StartCoroutine(RegenDelay(delay));
         }
     }
     
-    IEnumerator RegenDelay()
+    IEnumerator RegenDelay(float delay)
     {
-        yield return new WaitForSeconds(regenDelayTime);
+        yield return new WaitForSeconds(delay);
 
         if (regenCoroutine == null)
         {
@@ -94,20 +95,20 @@ public class StaminaComponent : MonoBehaviour
         if (currentStamina >= staminaCost)
         {
             currentStamina -= staminaCost;
-            StartRegenDelay();
+            StartRegenDelay(regenDelayTime);
             return EStaminaAbilityStrength.Full;
         }
 
         // If the stamina cost would reduce player stamina to negaitve half of max stamina, the ability wont be used
         // Allowing the player to go into negative stamina gives them a bit of leeway, however there is a limit to how far negative they can go
-        if (currentStamina - staminaCost < -(maxStamina / 2))
+        if (currentStamina - staminaCost < negStaminaLimit)
         {
             return EStaminaAbilityStrength.Zero;
         }
 
         // If the above "if" statements dont apply, use ability at reduced strength
         currentStamina -= staminaCost;
-        StartRegenDelay();
+        StartRegenDelay(regenDelayTime);
         return EStaminaAbilityStrength.Reduced;
     }
 }

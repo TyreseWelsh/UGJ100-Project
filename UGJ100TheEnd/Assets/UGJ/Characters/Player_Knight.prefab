@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3686657737689943479}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_ChestEndEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7209754186385060195}
   - component: {fileID: 4894490200194827137}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LoinCloth_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2307505861007446347}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightAnkleEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,9 +168,9 @@ GameObject:
   - component: {fileID: 5056036899339109000}
   - component: {fileID: 4605305841241043394}
   - component: {fileID: 3331436874141243170}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_RightLeg
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -315,13 +315,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -351,7 +351,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8640552055932961836}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightUpLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4027960005689911658}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +416,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1488306395633528436}
   - component: {fileID: 86619605168656462}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Arms_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,7 +510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8913229091892211579}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftUpLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7599120035369209030}
   - component: {fileID: 4780998932506169071}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Legs_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -639,9 +639,9 @@ GameObject:
   - component: {fileID: 519070333371822089}
   - component: {fileID: 6737610195286016229}
   - component: {fileID: 5970792698289677433}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_RightArm
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -786,13 +786,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -822,7 +822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 929650820568079542}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -853,7 +853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8334147084296614122}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightElbowEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -884,7 +884,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6413114084081472021}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_ChestOriginEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -915,7 +915,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7003019768680851473}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_Spine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -950,9 +950,9 @@ GameObject:
   m_Component:
   - component: {fileID: 905031767765940223}
   - component: {fileID: 5635741483040279659}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: PickupPosition
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1008,9 +1008,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3878219591995348909}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_LeftFoot
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1039,7 +1039,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8933831779837023113}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftHipEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1073,9 +1073,9 @@ GameObject:
   - component: {fileID: 2176238913798255141}
   - component: {fileID: 6726366691540444}
   - component: {fileID: 753245195087956857}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Hips
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1135,7 +1135,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 256
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1169,7 +1169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6612549547119900758}
   - component: {fileID: 9103816081286440726}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Head_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1261,7 +1261,7 @@ GameObject:
   m_Component:
   - component: {fileID: 16784363993940851}
   - component: {fileID: 8402893778762868433}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Torso_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1359,7 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4239479923685639703}
   - component: {fileID: 4331407099387689838}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: LowerVisor_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1452,7 +1452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8678570340488926413}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftAnkleEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1486,9 +1486,9 @@ GameObject:
   - component: {fileID: 4803191552436030057}
   - component: {fileID: 3671482689272158050}
   - component: {fileID: 3878231469646115368}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_LeftForeArm
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1633,13 +1633,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -1669,7 +1669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3273201871640194509}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightWristEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1701,7 +1701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4170590156701250868}
   - component: {fileID: 6588487795034836356}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: EarMuffs_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1793,7 +1793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5493732867303719520}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightShoulderEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1916,9 +1916,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2894338889201105218}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_RightFoot
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1950,9 +1950,9 @@ GameObject:
   - component: {fileID: 3224803622967222062}
   - component: {fileID: 6756211795194146472}
   - component: {fileID: 5034435223955942483}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_RightForeArm
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2097,13 +2097,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -2134,7 +2134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 762481191565912503}
   - component: {fileID: 3591200276519852476}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: UpperVisor_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2225,7 +2225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4392305794247460893}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_HipsEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2256,7 +2256,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 357124840352799817}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftElbowEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2287,7 +2287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6958161929325275510}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_Hips
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2369,7 +2369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8900953307789816739}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2401,7 +2401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9014636270339286497}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_HeadEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2435,9 +2435,9 @@ GameObject:
   - component: {fileID: 2705461028511499260}
   - component: {fileID: 4139855358547379441}
   - component: {fileID: 4293899144738783912}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_RightUpLeg
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2582,13 +2582,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -2621,9 +2621,9 @@ GameObject:
   - component: {fileID: 5082893590939717955}
   - component: {fileID: 6715245898989448815}
   - component: {fileID: 7075291837616726332}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_LeftArm
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2768,13 +2768,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -2804,9 +2804,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5010490542477887750}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_Reference
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2852,7 +2852,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6971573074686194316}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2883,7 +2883,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 341621048091818344}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftWristEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2917,9 +2917,9 @@ GameObject:
   - component: {fileID: 131691860381863236}
   - component: {fileID: 124645527312452406}
   - component: {fileID: 5037354036479182362}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_LeftUpLeg
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3064,13 +3064,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -3100,7 +3100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6842444686542571231}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3131,7 +3131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3656722917505195738}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3163,7 +3163,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4348110536502353702}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftKneeEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3194,7 +3194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6953276877316252166}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3225,7 +3225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3944773217132599713}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3257,7 +3257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3584814363147586197}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftShoulderEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3288,9 +3288,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6971313048153478456}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_RightHand
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3319,9 +3319,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1686334953133094928}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: SK_Knight
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3362,9 +3362,9 @@ GameObject:
   - component: {fileID: 1629430445789882337}
   - component: {fileID: 4028820082879642092}
   - component: {fileID: 7052544146434765948}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Spine
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3507,13 +3507,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -3543,7 +3543,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8572629002894296767}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftFoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3574,7 +3574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065030831187285892}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightLeg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3815,7 +3815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8b40949fad907c49a1b9d6f336fda95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 8411485761323222833}
   mainCamera: {fileID: 1334635461646721004}
   mesh: {fileID: 5938014354163077021}
   pickupPosition: {fileID: 2771627412929860733}
@@ -3872,7 +3871,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1536
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -3894,7 +3893,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ECorpse: 0
   meshMainJoint: {fileID: 753245195087956857}
-  jointBreakForce: 21000
+  bodyDurability: 100
+  jointBreakForce: 150000
   environmentColliderHeight: 0.8
   environmentColliderRadius: 0.2
 --- !u!1 &8608225156023713672
@@ -3909,9 +3909,9 @@ GameObject:
   - component: {fileID: 7576396142203884853}
   - component: {fileID: 2430112348681764687}
   - component: {fileID: 305549830831530044}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_LeftLeg
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4056,13 +4056,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -4093,7 +4093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4587454100753638755}
   - component: {fileID: 1792500431786719105}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: ShoulderPads_low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4185,7 +4185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6002614811506060615}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_LeftForeArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4217,7 +4217,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486423279182912130}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightKneeEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4248,7 +4248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4030794556873554047}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Ctrl_RightHipEffector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4282,9 +4282,9 @@ GameObject:
   - component: {fileID: 1619577735589984657}
   - component: {fileID: 8209500918104490471}
   - component: {fileID: 1141343062375172461}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_Head
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4427,13 +4427,13 @@ ConfigurableJoint:
   m_RotationDriveMode: 0
   m_AngularXDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
   m_AngularYZDrive:
     serializedVersion: 4
-    positionSpring: 2
+    positionSpring: 1
     positionDamper: 0.5
     maximumForce: 3.4028233e+38
     useAcceleration: 0
@@ -4463,9 +4463,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7993027533080211958}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Knight_LeftHand
-  m_TagString: Corpse
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

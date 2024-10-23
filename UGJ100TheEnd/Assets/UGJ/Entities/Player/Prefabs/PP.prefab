@@ -3599,6 +3599,14 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f02578cd-ad29-4917-b136-00a9c5e6e521
     m_ActionName: 'Gameplay/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1b5f78a3-eb1b-4cb6-9668-45ec08e8dff5
+    m_ActionName: 'Gameplay/Block[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d491029-afb8-4ee2-a239-96e0542263a2
+    m_ActionName: 'Gameplay/DamageSelf[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Mouse&Keyboard
   m_DefaultActionMap: Gameplay
@@ -3623,22 +3631,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   meleeAttackPoint: {fileID: 0}
-  maxHealth: 0
+  maxHealth: 100
   maxSpeed: 9
-  lives: 0
+  lives: 5
   currentHealthState: 0
   dashSpeed: 100
   dashDuration: 0.05
   dashCost: 40
-  reviveDuration: 0
+  reviveDuration: 2.5
   currentHealth: 0
   currentSpeed: 0
   meleeDamage: 10
   meleeAttackRate: 0.6
   meleeAttackRange: 2
   currentThrowForce: 0
-  throwChargeRate: 0.05
-  maxThrowForce: 30
+  throwChargeRate: 120
+  maxThrowForce: 100
+  playerHUD: {fileID: 0}
 --- !u!114 &5259247546174511977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3692,6 +3701,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ECorpse: 0
+  meshMainJoint: {fileID: 0}
+  bodyDurability: 100
+  jointBreakForce: 21000
+  environmentColliderHeight: 0
+  environmentColliderRadius: 0
 --- !u!1 &7558781801091246521
 GameObject:
   m_ObjectHideFlags: 0

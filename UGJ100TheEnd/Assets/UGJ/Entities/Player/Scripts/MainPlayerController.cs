@@ -56,6 +56,13 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private bool chargingThrow;
     Coroutine throwChargeCoroutine;
 
+    [Header("Blocking")]
+    [SerializeField] private int blockCost;
+    [SerializeField] private float blockConsumptionRate;
+    [SerializeField] private float brokenBlockRegenDelay = 4;
+    private Coroutine blockCoroutine;
+    private bool isBlocking;
+    
     [Header("HUD")]
     [SerializeField] private HUD playerHUD;
     
@@ -161,6 +168,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
+            if(heldCorpse != null)
             chargingThrow = true;
         }
         else if (context.canceled)
@@ -176,6 +184,48 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 DropCorpse();
             }
             currentThrowForce = 0;
+        }
+    }
+
+    public void StartBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isBlocking = true;
+            if (blockCoroutine != null)
+            {
+                StopCoroutine(blockCoroutine);
+            }
+            blockCoroutine = StartCoroutine(Block());
+        }
+
+        if (context.canceled)
+        {
+            StopBlocking();
+        }
+    }
+
+    IEnumerator Block()
+    {
+        while (staminaComponent.currentStamina > staminaComponent.negStaminaLimit)
+        {
+            Debug.Log("BLOCKING");
+            staminaComponent.ConsumeStamina(blockCost);
+            
+            yield return new WaitForSeconds(blockConsumptionRate);
+            yield return null;
+        }
+      
+        StopBlocking();
+    }
+    
+    void StopBlocking()
+    {
+        Debug.Log("Stopped blocking");
+        isBlocking = false;
+        if (blockCoroutine != null)
+        {
+            StopCoroutine(blockCoroutine);
         }
     }
     
@@ -282,7 +332,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     public void DropCorpse()
     {
-        //pickupPosition.GetComponent<FixedJoint>().connectedBody = null;
         if (heldCorpse != null)
         {
             if (heldCorpse.GetComponent<CorpseController>() != null)
@@ -298,6 +347,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         heldCorpse = null;
         holdingCorpse = false;
+        
+        chargingThrow = false;
+        currentThrowForce = 0;
     }
 
     public void DamageSelf(InputAction.CallbackContext context)
@@ -388,8 +440,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         Destroy(this);
     }
-    
-    public void Damaged(int damage)
+
+    private void TakeDamage(int damage)
     {
         currentHealth -= damage;
         if (currentHealth <= 0)
@@ -405,6 +457,35 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 Debug.Log("NO PLAYER LIVES REMAINING - Restart game!");
                 currentHealthState = EHealthStates.Dead;
             }
+        }
+    }
+    
+    public void Damaged(int damage)
+    {
+        if (isBlocking)
+        {
+            switch (staminaComponent.ConsumeStamina(damage))
+            {
+                case StaminaComponent.EStaminaAbilityStrength.Full:
+                    break;
+                case StaminaComponent.EStaminaAbilityStrength.Reduced:
+                    TakeDamage(damage / 2);
+                    break;
+                case StaminaComponent.EStaminaAbilityStrength.Zero:
+                    Debug.Log("BLOCK BROKEN!!!");
+                    StopBlocking();
+                    staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
+                    TakeDamage(damage / 2);
+                    staminaComponent.StartRegenDelay(brokenBlockRegenDelay);
+                    break;
+                default:
+                    TakeDamage(damage);
+                    break;
+            }
+        }
+        else
+        {
+            TakeDamage(damage);
         }
     }
 }

@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class CorpseController : MonoBehaviour, IInteractable
+public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 {
     public enum CorpseType
     {
@@ -19,6 +19,7 @@ public class CorpseController : MonoBehaviour, IInteractable
     private ConfigurableJoint pickupJoint;
     [SerializeField] private FixedJoint meshMainJoint;
 
+    [SerializeField] private int bodyDurability = 100;
     [SerializeField] float jointBreakForce = 21000;
     [Header("Environment Collider")]
     private SphereCollider environmentCollider;
@@ -140,27 +141,58 @@ public class CorpseController : MonoBehaviour, IInteractable
     
     public void Drop()
     {
-        pickupJoint.connectedBody = null;
-        pickupJoint.xMotion = ConfigurableJointMotion.Free;
-        pickupJoint.yMotion = ConfigurableJointMotion.Free;
-        pickupJoint.zMotion = ConfigurableJointMotion.Free;
+        if (pickupJoint.connectedBody != null)
+        {
+            pickupJoint.connectedBody = null;
+            pickupJoint.xMotion = ConfigurableJointMotion.Free;
+            pickupJoint.yMotion = ConfigurableJointMotion.Free;
+            pickupJoint.zMotion = ConfigurableJointMotion.Free;
+        }
+    }
+
+    public void Damaged(int damage)
+    {
+        bodyDurability -= damage;
+
+        if (bodyDurability <= 0)
+        {
+            // Body destroyed
+            Destroy(gameObject);
+        }
     }
 
     void OnJointBreak(float breakForce)
     {
-            if (holdingObject != null)
-            {
-                if (holdingObject.GetComponent<ICanHoldCorpse>() != null)
-                {
-                    Debug.Log("Joint Broken");
-                    holdingObject.GetComponent<ICanHoldCorpse>().DropCorpse();
-                }
-            }
+        Debug.Log("Break force = " + breakForce);
 
-            pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
+        // Reduce limb velocities to prevent body flying off
+        foreach (Rigidbody rb in childrenRigidbodies)
+        {
+            if (rb != null)
+            {
+                /*Debug.Log("BEFORE: Limb vel = " + rb.velocity);
+                rb.velocity = Vector3.Scale(rb.velocity, new Vector3(0.001f, 0.001f, 0.001f));
+                Debug.Log("AFTER: Limb vel = " + rb.velocity);*/
+                rb.velocity = Vector3.zero;
+            }
+        }
+        
+        if (holdingObject != null)
+        {
+            if (holdingObject.GetComponent<ICanHoldCorpse>() != null)
+            {
+                Debug.Log("Joint Broken");
+                holdingObject.GetComponent<ICanHoldCorpse>().DropCorpse();
+            }
+        }
+
+        pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
+        if (pickupJoint != null)
+        {
             pickupJoint.projectionMode = JointProjectionMode.PositionAndRotation;
             pickupJoint.projectionDistance = 0.01f;
             pickupJoint.breakForce = 21000;
             pickupJoint.enablePreprocessing = false;
+        }
     }
 }
