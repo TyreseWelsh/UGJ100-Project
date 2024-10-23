@@ -17,6 +17,9 @@ public class CorpseController : MonoBehaviour, IInteractable
 
     private Rigidbody corpseRb;
     private ConfigurableJoint pickupJoint;
+    [SerializeField] private FixedJoint meshMainJoint;
+
+    [SerializeField] float jointBreakForce = 21000;
     [Header("Environment Collider")]
     private SphereCollider environmentCollider;
     [SerializeField] private float environmentColliderHeight;
@@ -33,7 +36,7 @@ public class CorpseController : MonoBehaviour, IInteractable
     // Start is called before the first frame update
     void Start()
     {
-        pickupJoint = GetComponent<ConfigurableJoint>();
+        //pickupJoint = GetComponent<ConfigurableJoint>();
     }
 
     private void OnEnable()
@@ -41,11 +44,38 @@ public class CorpseController : MonoBehaviour, IInteractable
         gameObject.tag = "Corpse";
         gameObject.layer = LayerMask.NameToLayer("Corpse");
         EnableCorpseRagdoll();
+        
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
+        InitPickupJoint();
+    }
+
+    void InitPickupJoint()
+    {
+        Destroy(gameObject.GetComponent<MainPlayerController>().pickupPosition);
+        
         pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
+        pickupJoint.projectionMode = JointProjectionMode.PositionAndRotation;
+        pickupJoint.projectionDistance = 0.01f;
+        pickupJoint.breakForce = jointBreakForce;
+        pickupJoint.enablePreprocessing = false;
+        
+        InitCorpseRigidbody();
+    }
+    
+    void InitCorpseRigidbody()
+    {
         corpseRb = GetComponent<Rigidbody>();
+        corpseRb.mass = 10;
+        corpseRb.drag = 1;
+        corpseRb.angularDrag = 5;
+        corpseRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        corpseRb.includeLayers = LayerMask.GetMask("Default");
+        corpseRb.includeLayers = LayerMask.GetMask("Bullet");
+        corpseRb.includeLayers = LayerMask.GetMask("Enemy");
+        
+        meshMainJoint.connectedBody = corpseRb;
     }
 
     private void OnDisable()
@@ -77,7 +107,7 @@ public class CorpseController : MonoBehaviour, IInteractable
     }
     public void InteractHeld(GameObject interactingObj) 
     {
-        if(interactingObj.tag == "Player")
+        if(interactingObj.CompareTag("Player"))
         {
             MainPlayerController playerScript = interactingObj.GetComponent<MainPlayerController>();
            
@@ -104,18 +134,18 @@ public class CorpseController : MonoBehaviour, IInteractable
         transform.SetParent(pickingObject.transform);
         
         pickupJoint.connectedBody = pickingObject.GetComponent<Rigidbody>();
-        //pickupJoint.xMotion = ConfigurableJointMotion.Locked;
-        //pickupJoint.yMotion = ConfigurableJointMotion.Locked;
-        //pickupJoint.zMotion = ConfigurableJointMotion.Locked;
+        pickupJoint.xMotion = ConfigurableJointMotion.Locked;
+        pickupJoint.yMotion = ConfigurableJointMotion.Locked;
+        pickupJoint.zMotion = ConfigurableJointMotion.Locked;
     }
     
     public void Drop()
     {
         transform.SetParent(null);
         pickupJoint.connectedBody = null;
-        //pickupJoint.xMotion = ConfigurableJointMotion.Free;
-       // pickupJoint.yMotion = ConfigurableJointMotion.Free;
-        //pickupJoint.zMotion = ConfigurableJointMotion.Free;
+        pickupJoint.xMotion = ConfigurableJointMotion.Free;
+        pickupJoint.yMotion = ConfigurableJointMotion.Free;
+        pickupJoint.zMotion = ConfigurableJointMotion.Free;
     }
 
     void OnJointBreak(float breakForce)

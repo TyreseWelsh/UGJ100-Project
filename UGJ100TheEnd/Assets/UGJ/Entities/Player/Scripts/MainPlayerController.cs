@@ -9,7 +9,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [Header("Components")]
     [SerializeField] private Camera mainCamera;
     [SerializeField] private GameObject mesh;
-    [SerializeField] private GameObject pickupPosition;
+    [SerializeField] public GameObject pickupPosition;
     [SerializeField] private LayerMask interactableObjectLayer;
     [SerializeField] private GameObject meleeAttackPoint;
 
@@ -92,6 +92,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void FixedUpdate()
     {
+        characterController.Move(Time.deltaTime * 20f * Vector3.down);
+
         if (currentHealthState != EHealthStates.Dead)
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
