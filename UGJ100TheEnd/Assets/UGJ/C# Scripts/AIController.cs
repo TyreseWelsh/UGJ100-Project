@@ -30,7 +30,7 @@ public class AIController : MonoBehaviour, IDamageable
     private bool isShooting;
     private bool isHitting=false;
     private int curStoppingDistance;
-    private bool isFollowingplayer = false;
+    
 
 
     // Start is called before the first frame update

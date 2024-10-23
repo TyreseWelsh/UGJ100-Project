@@ -38,4 +38,12 @@ public class PressurePlate : MonoBehaviour
 
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Corpse")
+        {
+            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+
+        }
+    }
 }
