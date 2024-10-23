@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,21 +22,20 @@ public class PressurePlate : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "Corpse")
-        {
-            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
-
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Corpse")
         {
             InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
 
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Corpse")
+        {
+            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
         }
     }
 }
