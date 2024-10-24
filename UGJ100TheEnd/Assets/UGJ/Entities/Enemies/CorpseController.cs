@@ -157,6 +157,15 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         if (bodyDurability <= 0)
         {
             // Body destroyed
+            if (holdingObject != null)
+            {
+                MainPlayerController playerScript = holdingObject.GetComponent<MainPlayerController>();
+                if (playerScript != null)
+                {
+                    playerScript.DropCorpse();
+                } 
+            }
+
             Destroy(gameObject);
         }
     }

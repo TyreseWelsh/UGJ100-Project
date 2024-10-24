@@ -5,27 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AIEnemy.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AIEnemy.prefab.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CorpseController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CorpseController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Door.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Door.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/PressurePlate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/PressurePlate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Characters/Player_Knight.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Characters/Player_Knight.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Input/IA_Player.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Input/IA_Player.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/PP.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/PP.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/PP.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/PP.prefab.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/StaminaComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/StaminaComponent.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/Door.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/Door.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/PressurePlate.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/PressurePlate.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,6 +102,7 @@
       <workItem from="1729516386068" duration="1725000" />
       <workItem from="1729602114202" duration="1154000" />
       <workItem from="1729688925898" duration="5630000" />
+      <workItem from="1729751148873" duration="347000" />
     </task>
     <servers />
   </component>

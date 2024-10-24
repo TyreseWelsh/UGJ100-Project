@@ -464,23 +464,34 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (isBlocking)
         {
-            switch (staminaComponent.ConsumeStamina(damage))
+            if (heldCorpse != null)
             {
-                case StaminaComponent.EStaminaAbilityStrength.Full:
-                    break;
-                case StaminaComponent.EStaminaAbilityStrength.Reduced:
-                    TakeDamage(damage / 2);
-                    break;
-                case StaminaComponent.EStaminaAbilityStrength.Zero:
-                    Debug.Log("BLOCK BROKEN!!!");
-                    StopBlocking();
-                    staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
-                    TakeDamage(damage / 2);
-                    staminaComponent.StartRegenDelay(brokenBlockRegenDelay);
-                    break;
-                default:
-                    TakeDamage(damage);
-                    break;
+                IDamageable damageableCorpse = heldCorpse.GetComponent<IDamageable>();
+                if (damageableCorpse != null)
+                {
+                    damageableCorpse.Damaged(damage);
+                }
+            }
+            else
+            {
+                switch (staminaComponent.ConsumeStamina(damage))
+                {
+                    case StaminaComponent.EStaminaAbilityStrength.Full:
+                        break;
+                    case StaminaComponent.EStaminaAbilityStrength.Reduced:
+                        TakeDamage(damage / 2);
+                        break;
+                    case StaminaComponent.EStaminaAbilityStrength.Zero:
+                        Debug.Log("BLOCK BROKEN!!!");
+                        StopBlocking();
+                        staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
+                        TakeDamage(damage / 2);
+                        staminaComponent.StartRegenDelay(brokenBlockRegenDelay);
+                        break;
+                    default:
+                        TakeDamage(damage);
+                        break;
+                }
             }
         }
         else
