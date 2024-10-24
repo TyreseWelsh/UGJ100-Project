@@ -69,7 +69,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        characterAnimator = GetComponent<Animator>();
+        characterAnimator = mesh.GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
     }
@@ -106,6 +106,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
+            characterAnimator.SetFloat("DirectionX", movementDirection.x);
+            characterAnimator.SetFloat("DirectionZ", movementDirection.z);
         }
     }
     
