@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,6 +27,7 @@ public class PressurePlate : MonoBehaviour
         {
             Debug.Log(other.gameObject.name + " exited...");
             InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+
         }
     }
 }
