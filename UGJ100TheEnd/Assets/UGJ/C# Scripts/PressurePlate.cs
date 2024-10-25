@@ -6,11 +6,6 @@ public class PressurePlate : MonoBehaviour
 {
     [SerializeField]
     private GameObject InteractedObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -27,7 +22,6 @@ public class PressurePlate : MonoBehaviour
         {
             Debug.Log(other.gameObject.name + " exited...");
             InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
-
         }
     }
 }
