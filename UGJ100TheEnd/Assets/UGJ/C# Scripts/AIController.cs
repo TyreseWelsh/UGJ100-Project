@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIController : MonoBehaviour, IDamageable
+public class AIController : MonoBehaviour, IDamageable, IInteractable
 {
     [SerializeField] private GameObject playerCharacter;
     private NavMeshAgent navAgent;
@@ -55,7 +55,7 @@ public class AIController : MonoBehaviour, IDamageable
                 break;
         }
         curHealth = maxHealth;
-        StartCoroutine(_followPlayer());
+        //StartCoroutine(_followPlayer());
     }
 
     // Update is called once per frame
@@ -136,6 +136,12 @@ public class AIController : MonoBehaviour, IDamageable
             enemy.gameObject.GetComponent<IDamageable>().Damaged(10);
         }
     }
+
+    public void Interact(GameObject interactingObj)
+    {
+        StartCoroutine(_followPlayer());
+    }
+    public void InteractHeld(GameObject interactingObj) { }
 
     IEnumerator _followPlayer()
     {

@@ -41,11 +41,11 @@ public class DrawBridge : MonoBehaviour, IInteractable
 
     private IEnumerator doorOpen()
     {
-        Quaternion startRotation = transform.rotation;
+        Quaternion startRotation = gameObject.transform.rotation;
         Quaternion endRotation;
         isRotating = true;
-
-        endRotation = Quaternion.Euler(new Vector3(startRotation.x + 90, 0, 0));
+        Debug.Log("Door opening");
+        endRotation = Quaternion.Euler(new Vector3(startRotation.x + 90, StartRotation.y, StartRotation.z));
 
         float time = 0;
 
@@ -66,7 +66,7 @@ public class DrawBridge : MonoBehaviour, IInteractable
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = Quaternion.Euler(StartRotation);
         isRotating = true;
-
+        Debug.Log("Door closing");
         float time = 0;
 
         isOpen = false;
