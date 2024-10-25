@@ -226,6 +226,8 @@ MonoBehaviour:
     m_Bits: 256
   attackPoint: {fileID: 619282969454594366}
   attackDamage: 10
+  damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
+  damageFlashDuration: 0.1
 --- !u!135 &8591804451839850417
 SphereCollider:
   m_ObjectHideFlags: 0

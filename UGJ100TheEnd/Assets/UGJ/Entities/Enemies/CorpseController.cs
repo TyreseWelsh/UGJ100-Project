@@ -21,20 +21,27 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     [SerializeField] private int bodyDurability = 100;
     [SerializeField] float jointBreakForce = 21000;
+    
     [Header("Environment Collider")]
     private SphereCollider environmentCollider;
     [SerializeField] private float environmentColliderHeight;
     [SerializeField] private float environmentColliderRadius;
 
+    [Header("Damaged")]
+    [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private float damageFlashDuration = 0.1f;
+    private SkinnedMeshRenderer[] damageableMeshes;
+    
     private GameObject holdingObject;
     private Rigidbody[] childrenRigidbodies;
+    
+
 
     private void Awake()
     {
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
     
-
     private void OnEnable()
     {
         gameObject.tag = "Corpse";
@@ -146,9 +153,21 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         }
     }
 
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    {
+        meshRender.material = flashMaterial;
+        yield return new WaitForSeconds(flashTime);
+        
+        meshRender.material = originalMaterial;
+    }
+    
     public void Damaged(int damage)
     {
         bodyDurability -= damage;
+        foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
+        {
+            StartCoroutine(DamageFlash(meshRenderer, meshRenderer.material, damageFlashMaterial, damageFlashDuration));
+        }
 
         if (bodyDurability <= 0)
         {

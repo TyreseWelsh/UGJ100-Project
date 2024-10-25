@@ -58,7 +58,7 @@ public class StaminaComponent : MonoBehaviour
     {
         while (currentStamina < maxStamina)
         {
-            currentStamina += regenAmount;
+            GainStamina(regenAmount);
             if (debugEnabled)
             {
                 print("Stamina = " + currentStamina);
@@ -110,5 +110,10 @@ public class StaminaComponent : MonoBehaviour
         currentStamina -= staminaCost;
         StartRegenDelay(regenDelayTime);
         return EStaminaAbilityStrength.Reduced;
+    }
+
+    public void GainStamina(float addedStamina)
+    {
+        currentStamina += addedStamina;
     }
 }

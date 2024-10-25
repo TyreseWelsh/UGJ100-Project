@@ -13,7 +13,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private LayerMask interactableObjectLayer;
     [SerializeField] private GameObject meleeAttackPoint;
 
-    [Header("")] 
+    [Header("")]
+    [SerializeField] private Material meshMaterial;
+
     private CharacterController characterController;
     private Animator characterAnimator;
     private PlayerInput playerInput;
@@ -31,8 +33,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private float dashDuration = 0.05f;
     [SerializeField] private int dashCost = 40;
     
-    [Header("")]
+    [Header("Reviving")]
     [SerializeField] private float reviveDuration = 2.5f;
+    [SerializeField] private Material reviveMaterial;
 
     [HideInInspector] public int currentHealth;
     [HideInInspector] public float currentSpeed;
@@ -59,15 +62,21 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private bool chargingThrow;
     Coroutine throwChargeCoroutine;
 
-    [Header("Blocking")]
+    [Header("Blocking")] [SerializeField] private float parryDuration = 0.2f;
+    [SerializeField] private float parryStaminaGain = 20f;
     [SerializeField] private int blockCost;
     [SerializeField] private float blockConsumptionRate;
     [SerializeField] private float brokenBlockRegenDelay = 4;
     private Coroutine blockCoroutine;
     private bool isBlocking;
+    private bool isParrying;
     
     [Header("HUD")]
     [SerializeField] private HUD playerHUD;
+
+    [Header("Damaged")] 
+    [SerializeField] private Material damageFlashMaterial;
+    private SkinnedMeshRenderer[] damageableMeshes;
     
     private void Awake()
     {
@@ -78,6 +87,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
         MeleeWeapon[] meleeWeapons = GetComponentsInChildren<MeleeWeapon>();
         meleeWeapon = meleeWeapons[0];
+        
+        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     // Start is called before the first frame update
@@ -141,7 +152,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 // Getting the screen mouse position when the mouse is moved
                 Vector2 screenMousePosition = context.ReadValue<Vector2>();
 
-                // 
+                //
                 float cameraToPlayerDistance = Mathf.Abs(mainCamera.transform.position.y - transform.position.y);
                 Vector3 mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
                     screenMousePosition.y, cameraToPlayerDistance));
@@ -158,8 +169,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         {
             if (canAttack)
             {
-                Debug.Log("ATTACK!!");
-                //characterAnimator.SetLayerWeight(1, 1);
                 characterAnimator.SetTrigger("Attack");
                 canAttack = false;
             }
@@ -184,32 +193,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     public void EndMelee()
     {
-        //characterAnimator.ResetTrigger("Attack");
-        //characterAnimator.SetLayerWeight(1, 0);
         canAttack = true;
+        meleeWeapon.ClearDamagedEnemies();
     }
-    
-    /*IEnumerator Melee()
-    {
-        // Attack stuff
-        if (meleeAttackPoint != null)
-        {
-            canAttack = false;
-            Collider[] meleeCollisions = Physics.OverlapSphere(meleeAttackPoint.transform.position, meleeAttackRange);
-            foreach (Collider meleeCollision in meleeCollisions)
-            {
-                GameObject collidingObject = meleeCollision.gameObject;
-                if (collidingObject.gameObject.GetComponent<IDamageable>() != null && collidingObject.gameObject.CompareTag("Player"))
-                {
-                    collidingObject.gameObject.GetComponent<IDamageable>().Damaged(meleeDamage);
-                }
-            }
-            print("MELEE!");
-            yield return new WaitForSeconds(meleeAttackRate);
-
-            canAttack = true; 
-        }
-    }*/
 
     public void StartThrow(InputAction.CallbackContext context)
     {
@@ -240,6 +226,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
+            isParrying = true;
             isBlocking = true;
             if (blockCoroutine != null)
             {
@@ -256,8 +243,15 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     IEnumerator Block()
     {
+        float startTime = Time.time;
+        
         while (staminaComponent.currentStamina > staminaComponent.negStaminaLimit)
         {
+            if (Time.time > startTime + parryDuration)
+            {
+                isParrying = false;
+            }
+            
             Debug.Log("BLOCKING");
             staminaComponent.ConsumeStamina(blockCost);
             
@@ -411,13 +405,24 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             Damaged(maxHealth);
         }
     }
+
+    void SetLimbMaterials(Material newMaterial)
+    {
+        foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
+        {
+            meshRenderer.material = newMaterial;
+        }
+    }
     
     public void StartRevive()
     {
         Debug.Log("REVIVE!");
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
+        canAttack = false;
 
+        SetLimbMaterials(reviveMaterial);
+        meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = false;
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
@@ -440,8 +445,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     void Revive()
     {
         Debug.Log("REVIVED!!");
-        currentHealth = maxHealth;
+        SetLimbMaterials(meshMaterial);
+        meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
+        canAttack = true;
         ToggleInvincibility(false);
         
         currentHealthState = EHealthStates.Alive;
@@ -459,6 +466,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Spawn a new player object and call its StartRevive function
     private void Die()
     {
+        StopAllCoroutines();
+        SetLimbMaterials(meshMaterial);
+        
         InputActionAsset playerInputAsset = playerInput.actions;
         playerInput.actions = null;
         
@@ -476,11 +486,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Debug.Log("Destroy scripts");
 
         // Disable this player
+        Destroy(meleeWeapon.gameObject);
         Destroy(characterController);
         Destroy(characterAnimator);
         Destroy(playerInput);
         Destroy(staminaComponent);
-
         Destroy(mainCamera.gameObject);
         
         // Enable this corpse
@@ -495,6 +505,12 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private void TakeDamage(int damage)
     {
         currentHealth -= damage;
+
+        foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
+        {
+            StartCoroutine(DamageFlash(meshRender, meshRender.material, damageFlashMaterial,0.1f));
+        }
+        
         if (currentHealth <= 0)
         {
             lives--;
@@ -510,10 +526,22 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             }
         }
     }
+
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    {
+        meshRender.material = flashMaterial;
+        yield return new WaitForSeconds(flashTime);
+        
+        meshRender.material = originalMaterial;
+    }
     
     public void Damaged(int damage)
     {
-        if (isBlocking)
+        if (isParrying)
+        {
+            staminaComponent.GainStamina(parryStaminaGain);
+        }
+        else if (isBlocking)
         {
             if (heldCorpse != null)
             {

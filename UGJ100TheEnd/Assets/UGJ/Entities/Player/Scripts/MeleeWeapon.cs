@@ -10,7 +10,7 @@ public class MeleeWeapon : MonoBehaviour
     private MainPlayerController playerScript;
     
     [SerializeField] int damage;
-    private GameObject[] damagedEnemies;
+    private List<GameObject> damagedEnemies;
 
     private void Awake()
     {
@@ -32,13 +32,18 @@ public class MeleeWeapon : MonoBehaviour
         collider.enabled = false;
     }
 
+    public void ClearDamagedEnemies()
+    {
+        damagedEnemies.Clear();
+    }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
             if (!damagedEnemies.Contains(other.gameObject))
             {
-                damagedEnemies.Append(other.gameObject);
+                damagedEnemies.Add(other.gameObject);
                 IDamageable damageableInterface = other.gameObject.GetComponent<IDamageable>();
                 if (damageableInterface != null)
                 {
