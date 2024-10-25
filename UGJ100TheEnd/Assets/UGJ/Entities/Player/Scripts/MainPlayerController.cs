@@ -38,15 +38,18 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [HideInInspector] public float currentSpeed;
 
     private Vector3 movementDirection;
+    private bool gravityOn = true;
     private bool holdingCorpse;
     private GameObject heldCorpse;
     private ConfigurableJoint heldCorpseJoint;
 
-    [Header("Melee Attack")]
-    private bool canAttack = true;
-    [SerializeField] private int meleeDamage = 10;
+    [Header("Melee Attack")] 
+    public int meleeDamage = 10;
     [SerializeField] private float meleeAttackRate = 0.6f;
     [SerializeField] private float meleeAttackRange = 2f;
+    private MeleeWeapon meleeWeapon;
+    private bool canAttack = true;
+    private Coroutine meleeCoroutine;
 
     [Header("Ranged Attack")] 
     [SerializeField] private float currentThrowForce;
@@ -69,9 +72,12 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        characterAnimator = mesh.GetComponent<Animator>();
+        characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
+
+        MeleeWeapon[] meleeWeapons = GetComponentsInChildren<MeleeWeapon>();
+        meleeWeapon = meleeWeapons[0];
     }
 
     // Start is called before the first frame update
@@ -100,14 +106,28 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void FixedUpdate()
     {
-        characterController.Move(Time.deltaTime * 20f * Vector3.down);
+        if (gravityOn)
+        {
+            characterController.Move(Time.deltaTime * 20f * Vector3.down);
+        }
 
         if (currentHealthState != EHealthStates.Dead)
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            //Debug.Log(animationDirectionRotation);
             characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
-            characterAnimator.SetFloat("DirectionX", movementDirection.x);
-            characterAnimator.SetFloat("DirectionZ", movementDirection.z);
+            
+            Quaternion moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
+            if (animationDirectionRotation.y > 180)
+            {
+                animationDirectionRotation.y -= 360;
+            }
+            characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
+            Debug.Log(animationDirectionRotation.y);
+            
+            Vector3 groundVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
+            characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
         }
     }
     
@@ -132,19 +152,44 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
     }
 
-    public void StartMelee(InputAction.CallbackContext context)
+    public void Melee(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             if (canAttack)
             {
-                // Attack stuff
-                StartCoroutine(Melee());
+                Debug.Log("ATTACK!!");
+                //characterAnimator.SetLayerWeight(1, 1);
+                characterAnimator.SetTrigger("Attack");
+                canAttack = false;
             }
         }
     }
 
-    IEnumerator Melee()
+    public void EnableMeleeCollision()
+    {
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.EnableWeapon();
+        }
+    }
+
+    public void DisableMeleeCollision()
+    {
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.DisableWeapon();
+        }
+    }
+    
+    public void EndMelee()
+    {
+        //characterAnimator.ResetTrigger("Attack");
+        //characterAnimator.SetLayerWeight(1, 0);
+        canAttack = true;
+    }
+    
+    /*IEnumerator Melee()
     {
         // Attack stuff
         if (meleeAttackPoint != null)
@@ -164,14 +209,16 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
             canAttack = true; 
         }
-    }
+    }*/
 
     public void StartThrow(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            if(heldCorpse != null)
-            chargingThrow = true;
+            if (heldCorpse != null)
+            {
+                chargingThrow = true;
+            }
         }
         else if (context.canceled)
         {
@@ -264,12 +311,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + duration)
         {
+            gravityOn = false;
             characterController.Move(dashSpeed * Time.deltaTime * direction);
             
             yield return null;
         }
         ToggleInvincibility(false);
         characterController.velocity.Set(0, 0, 0);
+        gravityOn = true;
     }
     
     public void Interact(InputAction.CallbackContext context)

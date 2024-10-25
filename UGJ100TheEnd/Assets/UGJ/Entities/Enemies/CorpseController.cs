@@ -33,12 +33,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     {
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //pickupJoint = GetComponent<ConfigurableJoint>();
-    }
+    
 
     private void OnEnable()
     {
@@ -49,6 +44,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
+        environmentCollider.excludeLayers = LayerMask.GetMask("Player");
         InitPickupJoint();
     }
 

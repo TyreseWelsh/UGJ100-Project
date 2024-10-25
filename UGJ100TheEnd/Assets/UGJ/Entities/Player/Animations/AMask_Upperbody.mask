@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AMask_Upperbody
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Knight_Reference
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_LeftUpLeg
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_LeftUpLeg/Knight_LeftLeg
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_LeftUpLeg/Knight_LeftLeg/Knight_LeftFoot
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_RightUpLeg
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_RightUpLeg/Knight_RightLeg
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_RightUpLeg/Knight_RightLeg/Knight_RightFoot
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine
+    m_Weight: 1
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_Head
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_LeftArm
+    m_Weight: 0
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_LeftArm/Knight_LeftForeArm
+    m_Weight: 1
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_LeftArm/Knight_LeftForeArm/Knight_LeftHand
+    m_Weight: 1
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_RightArm
+    m_Weight: 1
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_RightArm/Knight_RightForeArm
+    m_Weight: 1
+  - m_Path: Knight_Reference/Knight_Hips/Knight_Spine/Knight_RightArm/Knight_RightForeArm/Knight_RightHand
+    m_Weight: 0
+  - m_Path: SK_Knight
+    m_Weight: 0
+  - m_Path: SK_Knight/Arms_low
+    m_Weight: 0
+  - m_Path: SK_Knight/EarMuffs_low
+    m_Weight: 0
+  - m_Path: SK_Knight/Head_low
+    m_Weight: 0
+  - m_Path: SK_Knight/Legs_low
+    m_Weight: 0
+  - m_Path: SK_Knight/LoinCloth_low
+    m_Weight: 0
+  - m_Path: SK_Knight/LowerVisor_low
+    m_Weight: 0
+  - m_Path: SK_Knight/ShoulderPads_low
+    m_Weight: 0
+  - m_Path: SK_Knight/Torso_low
+    m_Weight: 0
+  - m_Path: SK_Knight/UpperVisor_low
+    m_Weight: 0
