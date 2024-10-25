@@ -2600,6 +2600,7 @@ MonoBehaviour:
   brokenBlockRegenDelay: 4
   playerHUD: {fileID: 0}
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
+  damageFlashDuration: 0.1
 --- !u!114 &6503245523482462286
 MonoBehaviour:
   m_ObjectHideFlags: 0
