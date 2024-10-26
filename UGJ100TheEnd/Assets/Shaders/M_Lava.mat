@@ -92,24 +92,29 @@ Material:
     - _ClearCoatSmoothness: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DepthSampleOffset: 0.0034
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _EdgeAmount: 1
     - _EdgeCutoff: 1
-    - _EdgeScale: 100
+    - _EdgeDistance: 1.09
+    - _EdgeScale: 10
     - _EdgeSpeed: 1
     - _EnvironmentReflections: 1
     - _FlowSpeed: 0.01
     - _FoamDensity: 5.72
+    - _FoamDistance: 0.31
     - _FoamSpeed: 0.5
     - _FoamThickness: 3.57
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _InterceptionDepth: 0.04
-    - _MaxHeight: 0.21
+    - _IntersectionDepth: 0.08
+    - _IntersectionPower: 4.1
+    - _MaxHeight: 0.84
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -129,10 +134,14 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1.4578682, g: 0, b: 0, a: 1}
-    - _EdgeColour: {r: 1, g: 0.513595, b: 0, a: 1}
+    - _EdgeColour: {r: 1, g: 0.05991629, b: 0, a: 1}
+    - _EdgeVelocity: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FlowDirection: {r: 1, g: 1, b: 0, a: 0}
     - _FoamColour: {r: 22.363525, g: 1.9859632, b: 0, a: 1}
+    - _FoamColour2: {r: 4.9245777, g: 1.1731611, b: 0, a: 1}
+    - _GlowColour: {r: 1, g: 0.3974151, b: 0, a: 1}
+    - _IntersectionColour: {r: 1, g: 1, b: 1, a: 1}
     - _Scale: {r: 0.1, g: 0.1, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
