@@ -77,8 +77,10 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
         //StartCoroutine(_followPlayer());
     }
 
-    public void Init(EnemyDataTemplate enemyData)
+    public void Init(EnemyDataTemplate enemyData, GameObject playerRef)
     {
+        playerCharacter = playerRef;
+        
         enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), enemyData.type);
         curHealth = enemyData.health;
         navAgent.speed = enemyData.speed;

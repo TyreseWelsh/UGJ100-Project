@@ -14,14 +14,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyType currentEnemyType;
     [SerializeField] private GameObject enemyTemplate;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private GameObject player;
+    
 
-    public void ActivateSpawn()
+    public void ActivateSpawn(GameObject playerRef)
     {
+        player = playerRef;
         switch (currentEnemyType)
         {
             case(EnemyType.Melee):
@@ -44,7 +42,7 @@ public class EnemySpawner : MonoBehaviour
             AIController enemyScript = spawnedEnemy.GetComponent<AIController>();
             if (enemyScript)
             {
-                enemyScript.Init(data);
+                enemyScript.Init(data, player);
             }
         }
     }
