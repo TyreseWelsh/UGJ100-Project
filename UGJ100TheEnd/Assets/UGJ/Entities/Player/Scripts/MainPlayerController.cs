@@ -102,11 +102,36 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Update is called once per frame
     void Update()
     {
+        if (gravityOn)
+        {
+            characterController.Move(Time.deltaTime * 20f * Vector3.down);
+        }
+        
         if (currentHealthState != EHealthStates.Dead)
         {
+            // Movement and Rotation
+            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Quaternion moveRotation = Quaternion.identity;
+            
+            if (movementDirection != Vector3.zero)
+            {
+                characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
+                moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            }
+            Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
+            if (animationDirectionRotation.y > 180)
+            {
+                animationDirectionRotation.y -= 360;
+            }
+            characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
+            
+            Vector3 groundVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
+            characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
+            
+            // Throw
             if (chargingThrow)
             {
-                Debug.Log(currentThrowForce);
+                Debug.Log("Throw force = " + currentThrowForce);
                 currentThrowForce += throwChargeRate * Time.deltaTime;
                 if (currentThrowForce > maxThrowForce)
                 {
@@ -115,37 +140,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             }
         }
     }
-
-    private void FixedUpdate()
-    {
-        if (gravityOn)
-        {
-            characterController.Move(Time.deltaTime * 20f * Vector3.down);
-        }
-
-        if (currentHealthState != EHealthStates.Dead)
-        {
-            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            //Debug.Log(animationDirectionRotation);
-            characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
-            
-            Quaternion moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
-            if (animationDirectionRotation.y > 180)
-            {
-                animationDirectionRotation.y -= 360;
-            }
-            characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
-            Debug.Log(animationDirectionRotation.y);
-            
-            Vector3 groundVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
-            characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
-        }
-    }
     
     public void Look(InputAction.CallbackContext context)
     {
-        //Debug.Log("LOOKING");
         if (context.performed)
         {
             if (currentHealthState != EHealthStates.Dead)
@@ -157,9 +154,13 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 float cameraToPlayerDistance = Mathf.Abs(mainCamera.transform.position.y - transform.position.y);
                 Vector3 mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
                     screenMousePosition.y, cameraToPlayerDistance));
-                mousePoint.y = transform.position.y;
+                //mousePoint.y = transform.position.y;
 
-                mesh.transform.LookAt(mousePoint);
+                Vector3 LookDirection = mousePoint - transform.position;
+                LookDirection.y = 0;
+                
+                //mesh.transform.LookAt(mousePoint);
+                mesh.transform.forward = LookDirection;
             }
         }
     }
@@ -253,7 +254,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 isParrying = false;
             }
             
-            Debug.Log("BLOCKING");
             staminaComponent.ConsumeStamina(blockCost);
             
             yield return new WaitForSeconds(blockConsumptionRate);
@@ -265,7 +265,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     void StopBlocking()
     {
-        Debug.Log("Stopped blocking");
         isBlocking = false;
         if (blockCoroutine != null)
         {
@@ -320,7 +319,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.canceled)
         {
-            Debug.Log("Pressed");
             if (currentHealthState == EHealthStates.Alive)
             {
                 if (holdingCorpse)
@@ -402,7 +400,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
-            Debug.Log("Damaged self");
             Damaged(maxHealth);
         }
     }
@@ -436,7 +433,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + reviveDuration)
         {
-            //Debug.Log("Reviving...");
             yield return null;
         }
         
@@ -478,14 +474,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         MainPlayerController newPlayerScript = newPlayer.GetComponent<MainPlayerController>();
         if (newPlayerScript != null)
         {
-            Debug.Log("Spawn new player");
             newPlayerScript.StartRevive();
             newPlayerScript.playerInput.actions = playerInputAsset;
             newPlayerScript.lives = lives;
         }
         
-        Debug.Log("Destroy scripts");
-
         // Disable this player
         Destroy(meleeWeapon.gameObject);
         Destroy(characterController);
@@ -496,9 +489,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Enable this corpse
         gameObject.GetComponent<CorpseController>().enabled = true;
-        
-        Debug.Log("Scripts destroyed and ragdoll enabled");
-        
         
         Destroy(this);
     }

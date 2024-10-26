@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MeleeWeapon : MonoBehaviour
 {
-    private CapsuleCollider collider;
+    private CapsuleCollider weaponCollider;
     private MainPlayerController playerScript;
     
     [SerializeField] int damage;
@@ -14,7 +14,7 @@ public class MeleeWeapon : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<CapsuleCollider>();
+        weaponCollider = GetComponent<CapsuleCollider>();
         playerScript = GetComponentInParent<MainPlayerController>();
         if (playerScript != null)
         {
@@ -24,17 +24,20 @@ public class MeleeWeapon : MonoBehaviour
 
     public void EnableWeapon()
     {
-        collider.enabled = true;
+        weaponCollider.enabled = true;
     }
 
     public void DisableWeapon()
     {
-        collider.enabled = false;
+        weaponCollider.enabled = false;
     }
 
     public void ClearDamagedEnemies()
     {
-        damagedEnemies.Clear();
+        if (damagedEnemies.Count > 0)
+        {
+            damagedEnemies.Clear();
+        }
     }
     
     private void OnTriggerEnter(Collider other)

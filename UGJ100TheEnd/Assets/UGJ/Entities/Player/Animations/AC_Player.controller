@@ -134,7 +134,7 @@ AnimatorController:
   m_Name: AC_Player
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Direction
+  - m_Name: Rotation
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -225,7 +225,7 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Rotation
     m_Mirror: 0
-  m_BlendParameter: Direction
+  m_BlendParameter: Rotation
   m_BlendParameterY: Speed
   m_MinThreshold: -180
   m_MaxThreshold: 180

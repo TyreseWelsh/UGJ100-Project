@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,14 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
     private NavMeshAgent navAgent;
     private Vector3 target;
     [SerializeField] private SphereCollider distanceCheck;
-    [SerializeField] private EnemyType enemiesAttackType;
+    
+    enum EnemyType 
+    {
+        Ranged,
+        Melee
+    };
+    [SerializeField] private EnemyType enemyType;
+    
     [Header("Ranged Stats")]
     [SerializeField] private int rangedStoppingDistance;
     [SerializeField] private int rangedHealth;
@@ -25,11 +33,12 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
     [SerializeField] LayerMask enemyLayers;
     [SerializeField] Transform attackPoint;
     [SerializeField] int attackDamage;
+    private float attackSpeed;
     private int curHealth;
     private int maxHealth;
     private bool isShooting;
     private bool isHitting=false;
-    private int curStoppingDistance;
+    private float curStoppingDistance;
     private bool isFollowingplayer = false;
     
     [Header("Damaged")]
@@ -47,7 +56,7 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
     void Start()
     {
         navAgent = gameObject.GetComponent<NavMeshAgent>();
-        switch (enemiesAttackType)
+        /*switch (enemyType)
         {
             case EnemyType.Ranged:
                 curStoppingDistance = rangedStoppingDistance;
@@ -64,15 +73,27 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
                 distanceCheck.radius = curStoppingDistance;
                 break;
         }
-        curHealth = maxHealth;
+        curHealth = maxHealth;*/
         //StartCoroutine(_followPlayer());
     }
 
+    public void Init(EnemyDataTemplate enemyData)
+    {
+        enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), enemyData.type);
+        curHealth = enemyData.health;
+        navAgent.speed = enemyData.speed;
+        attackDamage = enemyData.damage;
+        attackSpeed = enemyData.attackSpeed;
+        navAgent.stoppingDistance = enemyData.attackDistance;
+        
+        distanceCheck.radius = enemyData.attackDistance;
+    }
+    
     // Update is called once per frame
     void Update()
     {
         
-        switch (enemiesAttackType)
+        switch (enemyType)
         {
             case EnemyType.Ranged:
                 //Should put attacking logic here.
@@ -168,7 +189,7 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
 
     IEnumerator _followPlayer()
     {
-        while (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) >= curStoppingDistance)
+        while (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) >= navAgent.stoppingDistance)
         {
             
             navAgent.SetDestination(playerCharacter.transform.position);
@@ -193,10 +214,4 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
-
-    enum EnemyType 
-    {
-        Ranged,
-        Melee
-    };
 }

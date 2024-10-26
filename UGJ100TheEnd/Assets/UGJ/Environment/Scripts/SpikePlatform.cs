@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class SpikePlatform : MonoBehaviour
 {
-    private BoxCollider collider;
+    private BoxCollider damageCollider;
     [SerializeField] private int damage = 25;
     
     private void Awake()
     {
-        collider = GetComponent<BoxCollider>();
+        damageCollider = GetComponent<BoxCollider>();
     }
     
     private void OnTriggerEnter(Collider other)
