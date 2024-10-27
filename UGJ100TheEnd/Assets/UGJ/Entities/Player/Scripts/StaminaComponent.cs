@@ -69,7 +69,10 @@ public class StaminaComponent : MonoBehaviour
         }
         
         currentStamina = maxStamina;
-        StopCoroutine(regenCoroutine);
+        if (regenCoroutine != null)
+        {
+            StopCoroutine(regenCoroutine);
+        }
         regenCoroutine = null;
     }
 
@@ -115,5 +118,10 @@ public class StaminaComponent : MonoBehaviour
     public void GainStamina(float addedStamina)
     {
         currentStamina += addedStamina;
+
+        if (currentStamina > maxStamina)
+        {
+            currentStamina = maxStamina;
+        }
     }
 }

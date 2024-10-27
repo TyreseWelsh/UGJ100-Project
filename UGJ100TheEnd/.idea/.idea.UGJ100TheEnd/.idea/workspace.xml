@@ -6,7 +6,29 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel/NavMesh-NavMesh Surface.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/JackTestingLevel/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SamArtScene.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SamArtScene.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SamArtScene.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SamArtScene/Main Camera Profile.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SamArtScene/Main Camera Profile.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Spawner/EnemySpawner.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Spawner/EnemySpawner.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Materials/PM_Player.physicMaterial" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Materials/PM_Player.physicMaterial.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/StaminaComponent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/StaminaComponent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/Bullet.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/Bullet.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,13 +39,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e509afeff7384f24a8f0ac30527ff01c1cbe00/74/57f16bd2/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e509afeff7384f24a8f0ac30527ff01c1cbe00/be/a959b910/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e509afeff7384f24a8f0ac30527ff01c1cbe00/f6/dd6be6b5/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/tyres/Documents/Unity Projects/UGJ100-Project/UGJ100TheEnd/Assets/UGJ/C# Scripts/AIController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/tyres/Documents/Unity Projects/UGJ100-Project/UGJ100TheEnd/Assets/UGJ/C# Scripts/AIController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/ICanHoldCorpse.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/tyres/Documents/Unity Projects/UGJ100-Project/UGJ100TheEnd/Assets/UGJ/C# Scripts/PressurePlate.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://C:/Users/tyres/Documents/Unity Projects/UGJ100-Project/UGJ100TheEnd/Assets/UGJ/C# Scripts/PressurePlate.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MeleeWeapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/SpikePlatform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />

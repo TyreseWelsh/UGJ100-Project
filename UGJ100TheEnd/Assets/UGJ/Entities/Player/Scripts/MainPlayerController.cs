@@ -105,12 +105,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Parrying = " + isParrying + ", Blocking = " + isBlocking);
-        
         if (currentHealthState != EHealthStates.Dead)
         {
             // Movement and Rotation
-            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            //movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
             Quaternion moveRotation = Quaternion.identity;
             
             if (movementDirection != Vector3.zero)
@@ -141,7 +139,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (currentHealthState != EHealthStates.Dead)
         {
-            movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), playerRigidbody.velocity.y, Input.GetAxis("Vertical"));
+            movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxis("Vertical"));
             movementDirection.Normalize();
             if (movementDirection != Vector3.zero)
             {
@@ -278,6 +276,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     void StopBlocking()
     {
+        isParrying = false;
         isBlocking = false;
         if (blockCoroutine != null)
         {
@@ -500,6 +499,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Destroy(playerInput);
         Destroy(staminaComponent);
         Destroy(mainCamera.gameObject);
+        Destroy(pickupPosition);
         
         // Enable this corpse
         gameObject.GetComponent<CorpseController>().enabled = true;
@@ -509,14 +509,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void TakeDamage(int damage)
     {
-        Debug.Log("Taken damage");
 
         currentHealth -= damage;
 
         foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
         {
-            Debug.Log("Flash");
-
             StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
         }
         
@@ -538,7 +535,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
     {
-        Debug.Log("ddamgage flash");
         meshRender.material = flashMaterial;
         yield return new WaitForSeconds(flashTime);
         
@@ -547,7 +543,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     public void Damaged(int damage)
     {
-        Debug.Log("Take damage");
         if (isParrying)
         {
             Debug.Log("parrying");
@@ -590,8 +585,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         else
         {
-            Debug.Log("About to call damage taken");
-
             TakeDamage(damage);
         }
         Debug.Log("skipped everything");

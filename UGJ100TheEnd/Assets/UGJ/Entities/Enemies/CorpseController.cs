@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 {
@@ -58,8 +59,9 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     void InitPickupJoint()
     {
-        Destroy(gameObject.GetComponent<MainPlayerController>().pickupPosition);
+        Debug.Log("Initpickup");
         
+        Debug.Log("IF NOT PROBLEM");
         pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
         pickupJoint.projectionMode = JointProjectionMode.PositionAndRotation;
         pickupJoint.projectionDistance = 0.01f;
@@ -76,9 +78,10 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         corpseRb.drag = 1;
         corpseRb.angularDrag = 5;
         corpseRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        corpseRb.includeLayers = LayerMask.GetMask("Default");
-        corpseRb.includeLayers = LayerMask.GetMask("Bullet");
-        corpseRb.includeLayers = LayerMask.GetMask("Enemy");
+        corpseRb.includeLayers = LayerMask.GetMask("Default", "Bullet", "Enemy");
+        corpseRb.excludeLayers = LayerMask.GetMask("Player", "Corpse", "Limb");
+        /*corpseRb.includeLayers = LayerMask.GetMask("Bullet");
+        corpseRb.includeLayers = LayerMask.GetMask("Enemy");*/
         
         meshMainJoint.connectedBody = corpseRb;
     }

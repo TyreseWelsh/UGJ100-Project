@@ -132,5 +132,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeEnemyData: {fileID: 11400000, guid: 0a40cce72c5130f488ba81dbeb600b99, type: 2}
   rangedEnemyData: {fileID: 11400000, guid: 73c3000e41ee8474492201783f1feef8, type: 2}
-  currentEnemyType: 1
-  enemyTemplate: {fileID: 2275039334832994079, guid: 454efbd2052f6534199b024d439a1df9, type: 3}
+  currentEnemyType: 0
+  enemyTemplate: {fileID: 139590184305379679, guid: a0d0a6eba0666b1408cdb79db4eec2f4, type: 3}
