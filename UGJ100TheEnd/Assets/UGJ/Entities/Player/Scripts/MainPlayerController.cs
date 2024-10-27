@@ -532,6 +532,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
     {
+        Debug.Log("ddamgage flash");
         meshRender.material = flashMaterial;
         yield return new WaitForSeconds(flashTime);
         
@@ -540,6 +541,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     public void Damaged(int damage)
     {
+        Debug.Log("Take damage");
         if (isParrying)
         {
             staminaComponent.GainStamina(parryStaminaGain);
