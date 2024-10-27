@@ -319,14 +319,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + duration)
         {
-            gravityOn = false;
+            playerRigidbody.useGravity = false;
             playerRigidbody.AddForce(direction * dashSpeed, ForceMode.Force);
             
             yield return null;
         }
         ToggleInvincibility(false);
         playerRigidbody.velocity = Vector3.zero;
-        gravityOn = true;
+        playerRigidbody.useGravity = true;
     }
     
     public void Interact(InputAction.CallbackContext context)

@@ -12,7 +12,12 @@ public class SpikePlatform : MonoBehaviour
     {
         damageCollider = GetComponent<BoxCollider>();
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != null)
