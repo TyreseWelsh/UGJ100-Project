@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 {
@@ -15,6 +16,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     [Header("")]
     [SerializeField] private Material meshMaterial;
+    [SerializeField] private GameObject durabilityBar;
 
     private Rigidbody playerRigidbody;
     private BoxCollider playerCollider;
@@ -335,6 +337,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 if (holdingCorpse)
                 {
                     DropCorpse();
+                    durabilityBar.SetActive(false);
                     return;
                 }
                 
@@ -353,6 +356,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                             if (hit.collider.gameObject.CompareTag("Corpse"))
                             {
                                 PickupCorpse(hit.collider.gameObject);
+                                durabilityBar.SetActive(true);
+                                
                             }
                         }
                     }

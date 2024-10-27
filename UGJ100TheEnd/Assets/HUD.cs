@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour
 {
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider staminaSlider;
+    [SerializeField] private Slider corpseDurabilitySlider;
     [SerializeField] private GameObject playerCharacter;
     [SerializeField] private RawImage staminaFill;
     private MainPlayerController playerScript;
@@ -34,6 +35,7 @@ public class HUD : MonoBehaviour
         }
         healthSlider.value = playerScript.currentHealth;
         
+
 
     }
 
