@@ -12,13 +12,10 @@ public class MovingPlatform : MonoBehaviour
         public float waitTime;
     }
     
-    [SerializeField] private float movementRate = 0.1f;
+    [SerializeField] private float movementRate = 5f;
     public List<PlatformPoint> platformPoints;
     [SerializeField] private int startingPoint;
     [SerializeField] private bool startForwards = true;
-    [SerializeField] private bool loop;
-
-    private List<GameObject> objectsOnPlatform = new List<GameObject>();
     
     public Coroutine movementCoroutine;
     
@@ -53,16 +50,6 @@ public class MovingPlatform : MonoBehaviour
         {
             Vector3 movementToAdd = movementRate * Time.deltaTime * directionNormal;
             transform.position += movementToAdd;
-            foreach (GameObject platformObject in objectsOnPlatform)
-            {
-                print(platformObject.name + " on platform");
-
-                if (platformObject != null)
-                {
-                    Debug.Log("Adding:" + movementToAdd);
-                    platformObject.transform.position += movementToAdd * 2.25f;
-                }
-            }
             distanceToTarget = Vector3.Distance(transform.position, platformPoints[targetPoint].point.transform.position);
             yield return null;
         }
@@ -91,28 +78,26 @@ public class MovingPlatform : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+
+        if (other.gameObject == null)
         {
-            if (other.gameObject == null)
-            {
-                print("Object null");
-            }
-            else
-            {
-                print(other.gameObject.name + " has entered");
-                objectsOnPlatform.Add(other.gameObject);
-            }
-            //other.gameObject.transform.SetParent(gameObject.transform);
+            print("Object null");
+        }
+        else
+        {
+            print(other.gameObject.name + " has entered");
+            //objectsOnPlatform.Add(other.gameObject);
+            other.gameObject.transform.SetParent(gameObject.transform, true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.CompareTag("Player"))
-        {
+        /*if(other.CompareTag("Player"))
+        {*/
             print(other.gameObject.name + " has exited");
-            objectsOnPlatform.Remove(other.gameObject);
-            //other.gameObject.transform.SetParent(null);
-        }
+            //objectsOnPlatform.Remove(other.gameObject);
+            other.gameObject.transform.SetParent(null, true);
+        //}
     }
 }

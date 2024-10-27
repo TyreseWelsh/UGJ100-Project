@@ -286,11 +286,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.0266924
+      value: -18.42
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.631
+      value: 1.484
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -402,7 +402,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3609128391471339842, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.824
       objectReference: {fileID: 0}
     - target: {fileID: -2164723733694734865, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -482,7 +482,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2121068503077525663, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.824
       objectReference: {fileID: 0}
     - target: {fileID: 2543257215937438738, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       propertyPath: m_Layer
@@ -603,7 +603,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 581572386110109487}
+      addedObject: {fileID: 181408893869977372}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8621630757780348153}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 344872230494243617}
@@ -2382,14 +2385,41 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
   m_PrefabInstance: {fileID: 8517418389074459063}
   m_PrefabAsset: {fileID: 0}
---- !u!143 &581572386110109487
-CharacterController:
+--- !u!54 &181408893869977372
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8859314065305273574}
-  m_Material: {fileID: 0}
+  serializedVersion: 4
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 4
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 2816
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1
+--- !u!65 &8621630757780348153
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8859314065305273574}
+  m_Material: {fileID: 13400000, guid: 9da78cba138ada542917f4d5985168f2, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2401,13 +2431,8 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.8
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.1, z: 0}
+  m_Size: {x: 0.6, y: 1.6, z: 0.6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &344872230494243617
 Animator:
   serializedVersion: 7
@@ -2593,11 +2618,11 @@ MonoBehaviour:
   meleeAttackPoint: {fileID: 0}
   meshMaterial: {fileID: 2100000, guid: 8759225f065a41f4e9ec724dfa460fca, type: 2}
   maxHealth: 100
-  maxSpeed: 9
+  maxSpeed: 8
   lives: 10
   currentHealthState: 0
-  dashSpeed: 100
-  dashDuration: 0.05
+  dashSpeed: 1600
+  dashDuration: 0.1
   dashCost: 40
   reviveDuration: 2.5
   reviveMaterial: {fileID: 2100000, guid: acf42482309935841b920bddfd99685a, type: 2}
@@ -2649,7 +2674,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 3831
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0

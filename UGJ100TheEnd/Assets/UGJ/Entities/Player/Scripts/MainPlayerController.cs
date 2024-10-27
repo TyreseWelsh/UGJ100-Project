@@ -16,7 +16,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [Header("")]
     [SerializeField] private Material meshMaterial;
 
-    private CharacterController characterController;
+    private Rigidbody playerRigidbody;
+    private BoxCollider playerCollider;
     private Animator characterAnimator;
     private PlayerInput playerInput;
     private StaminaComponent staminaComponent;
@@ -81,7 +82,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<BoxCollider>();
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
@@ -102,11 +104,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Update is called once per frame
     void Update()
     {
-        if (gravityOn)
-        {
-            characterController.Move(Time.deltaTime * 20f * Vector3.down);
-        }
-        
         if (currentHealthState != EHealthStates.Dead)
         {
             // Movement and Rotation
@@ -115,7 +112,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             
             if (movementDirection != Vector3.zero)
             {
-                characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
                 moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
             }
             Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
@@ -124,9 +120,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 animationDirectionRotation.y -= 360;
             }
             characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
-            
-            Vector3 groundVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
-            characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
             
             // Throw
             if (chargingThrow)
@@ -140,7 +133,23 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             }
         }
     }
-    
+
+    private void FixedUpdate()
+    {
+        if (currentHealthState != EHealthStates.Dead)
+        {
+            movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), playerRigidbody.velocity.y, Input.GetAxis("Vertical"));
+            movementDirection.Normalize();
+            if (movementDirection != Vector3.zero)
+            {
+                playerRigidbody.velocity = currentSpeed * movementDirection;
+            }
+            
+            Vector3 groundVelocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
+            characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
+        }
+    }
+
     public void Look(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -154,12 +163,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 float cameraToPlayerDistance = Mathf.Abs(mainCamera.transform.position.y - transform.position.y);
                 Vector3 mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
                     screenMousePosition.y, cameraToPlayerDistance));
-                //mousePoint.y = transform.position.y;
 
                 Vector3 LookDirection = mousePoint - transform.position;
                 LookDirection.y = 0;
                 
-                //mesh.transform.LookAt(mousePoint);
                 mesh.transform.forward = LookDirection;
             }
         }
@@ -196,7 +203,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     public void EndMelee()
     {
         canAttack = true;
-        meleeWeapon.ClearDamagedEnemies();
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.ClearDamagedEnemies();
+        }
     }
 
     public void StartThrow(InputAction.CallbackContext context)
@@ -306,12 +316,12 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         while (Time.time < startTime + duration)
         {
             gravityOn = false;
-            characterController.Move(dashSpeed * Time.deltaTime * direction);
+            playerRigidbody.AddForce(direction * dashSpeed, ForceMode.Force);
             
             yield return null;
         }
         ToggleInvincibility(false);
-        characterController.velocity.Set(0, 0, 0);
+        playerRigidbody.velocity = Vector3.zero;
         gravityOn = true;
     }
     
@@ -414,13 +424,13 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     public void StartRevive()
     {
-        Debug.Log("REVIVE!");
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
         canAttack = false;
 
         SetLimbMaterials(reviveMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        playerRigidbody.velocity = Vector3.zero;
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
@@ -441,7 +451,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     void Revive()
     {
-        Debug.Log("REVIVED!!");
         SetLimbMaterials(meshMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
@@ -471,6 +480,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Creating new player
         GameObject newPlayer = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
+        newPlayer.transform.SetParent(gameObject.transform.parent);
         MainPlayerController newPlayerScript = newPlayer.GetComponent<MainPlayerController>();
         if (newPlayerScript != null)
         {
@@ -481,7 +491,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Disable this player
         Destroy(meleeWeapon.gameObject);
-        Destroy(characterController);
+        Destroy(playerCollider);
+        Destroy(playerRigidbody);
         Destroy(characterAnimator);
         Destroy(playerInput);
         Destroy(staminaComponent);

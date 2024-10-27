@@ -8,8 +8,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CharacterControllerScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AIEnemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AIEnemy.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Spawner/EnemySpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Spawner/EnemySpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Spawner/SpawnTrigger/SpawnTrigger.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Spawner/SpawnTrigger/SpawnTrigger.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Animations/AC_Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Animations/AC_Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MeleeWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MeleeWeapon.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Prefabs/SpikePlatform.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Prefabs/SpikePlatform.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/MovingPlatform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/MovingPlatform.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/InputManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +117,8 @@
       <workItem from="1729751148873" duration="1347000" />
       <workItem from="1729782869028" duration="857000" />
       <workItem from="1729855998991" duration="30367000" />
-      <workItem from="1729928632531" duration="771000" />
+      <workItem from="1729928632531" duration="1465000" />
+      <workItem from="1729974863877" duration="13298000" />
     </task>
     <servers />
   </component>

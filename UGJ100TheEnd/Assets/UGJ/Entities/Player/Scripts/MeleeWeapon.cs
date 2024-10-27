@@ -10,7 +10,7 @@ public class MeleeWeapon : MonoBehaviour
     private MainPlayerController playerScript;
     
     [SerializeField] int damage;
-    private List<GameObject> damagedEnemies;
+    private List<GameObject> damagedEnemies = new List<GameObject>();
 
     private void Awake()
     {

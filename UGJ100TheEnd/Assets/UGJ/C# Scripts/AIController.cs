@@ -50,12 +50,12 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
     private void Awake()
     {
         damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+        navAgent = gameObject.GetComponent<NavMeshAgent>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        navAgent = gameObject.GetComponent<NavMeshAgent>();
         /*switch (enemyType)
         {
             case EnemyType.Ranged:
