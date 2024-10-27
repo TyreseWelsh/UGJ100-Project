@@ -30,8 +30,18 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
     private bool isShooting;
     private bool isHitting=false;
     private int curStoppingDistance;
+    private bool isFollowingplayer = false;
     
+    [Header("Damaged")]
+    [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private float damageFlashDuration = 0.1f;
+    private SkinnedMeshRenderer[] damageableMeshes;
 
+    
+    private void Awake()
+    {
+        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -108,12 +118,25 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
         }
     }
 
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    {
+        meshRender.material = flashMaterial;
+        yield return new WaitForSeconds(flashTime);
+        
+        meshRender.material = originalMaterial;
+    }
+    
     public void Damaged(int damage)
     {
         curHealth -= damage;
+        foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
+        {
+            StartCoroutine(DamageFlash(meshRenderer, meshRenderer.material, damageFlashMaterial, damageFlashDuration));
+        }
+        
         if(curHealth <= 0)
         {
-
+            Destroy(gameObject);
         }
     }
 

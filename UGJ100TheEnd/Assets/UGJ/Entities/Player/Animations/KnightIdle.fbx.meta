@@ -27,7 +27,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -114,7 +114,142 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: KnightIdle(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_Reference
+      parentName: KnightIdle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_Hips
+      parentName: Knight_Reference
+      position: {x: 0.00000038447686, y: 0.5857412, z: 0.021341166}
+      rotation: {x: -0.0000000014273694, y: -4.0091267e-21, z: 8.881784e-14, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_LeftUpLeg
+      parentName: Knight_Hips
+      position: {x: -0.11266475, y: -0.05867524, z: -0.0000000033433465}
+      rotation: {x: -0.0001414941, y: 0.0000068353984, z: 0.0000000010001118, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_LeftLeg
+      parentName: Knight_LeftUpLeg
+      position: {x: -0.0087775905, y: -0.20975232, z: 0.0000016091747}
+      rotation: {x: 0.00028155925, y: -0.000007824929, z: 0.0000000021387292, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: Knight_LeftFoot
+      parentName: Knight_LeftLeg
+      position: {x: -0.009541629, y: -0.22039281, z: -0.00000071917964}
+      rotation: {x: -0.00014006224, y: 0.0000009895298, z: 1.6896651e-10, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_RightUpLeg
+      parentName: Knight_Hips
+      position: {x: 0.112664774, y: -0.05867527, z: -0.0000000057743277}
+      rotation: {x: -0.00014289109, y: -0.0000068204827, z: -9.394971e-10, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Knight_RightLeg
+      parentName: Knight_RightUpLeg
+      position: {x: 0.0087777795, y: -0.2097524, z: -0.0000038359253}
+      rotation: {x: 0.0002804853, y: 0.000007716881, z: -0.0000000018134326, w: 1}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Knight_RightFoot
+      parentName: Knight_RightLeg
+      position: {x: 0.009541456, y: -0.22039276, z: -0.0000006953161}
+      rotation: {x: -0.00013759134, y: -0.0000008963975, z: -5.094031e-10, w: 1}
+      scale: {x: 1, y: 1, z: 0.99999994}
+    - name: Knight_Spine
+      parentName: Knight_Hips
+      position: {x: -3.5045619e-12, y: 0.4233284, z: 0.00000008196546}
+      rotation: {x: -0.0000000014830136, y: 0.000000006954534, z: -0.000000021855783, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_LeftArm
+      parentName: Knight_Spine
+      position: {x: -0.23725043, y: -0.07207031, z: -0.0000000055445133}
+      rotation: {x: 0.0000058876253, y: -0.00001778686, z: -0.0000045638935, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Knight_LeftForeArm
+      parentName: Knight_LeftArm
+      position: {x: -0.30078286, y: 0.000014897051, z: 0.000002964423}
+      rotation: {x: -0.000005890154, y: 0.000018882214, z: -0.00005961913, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Knight_LeftHand
+      parentName: Knight_LeftForeArm
+      position: {x: -0.33847538, y: -0.000043449665, z: -0.00000086864253}
+      rotation: {x: 0.000000001067292, y: -0.0000010884269, z: 0.00035293135, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_RightArm
+      parentName: Knight_Spine
+      position: {x: 0.23725043, y: -0.072070085, z: 0.000000012168517}
+      rotation: {x: 0.000005988278, y: 0.000017847842, z: -0.000009263828, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: Knight_RightForeArm
+      parentName: Knight_RightArm
+      position: {x: 0.30078322, y: 0.000022971924, z: 0.000002845574}
+      rotation: {x: -0.00000598439, y: -0.000018939507, z: 0.00021154275, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: Knight_RightHand
+      parentName: Knight_RightForeArm
+      position: {x: 0.33847567, y: -0.00013702741, z: -0.0000005179997}
+      rotation: {x: -0.0000000026470843, y: 0.0000010708172, z: -0.001112661, w: 0.9999994}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knight_Head
+      parentName: Knight_Spine
+      position: {x: 0.000000111399345, y: 0.36928278, z: 0.000000007663715}
+      rotation: {x: 0.000000002910383, y: 5.3290705e-15, z: 1.7866705e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: SK_Knight
+      parentName: KnightIdle(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LowerVisor_low
+      parentName: SK_Knight
+      position: {x: -0.15480761, y: 1.1735212, z: 0.40858847}
+      rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head_low
+      parentName: SK_Knight
+      position: {x: -0, y: 1.3793304, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: LoinCloth_low
+      parentName: SK_Knight
+      position: {x: 0.012543156, y: 0.3524263, z: 0.15950128}
+      rotation: {x: 0.00000001545431, y: 0.000000015454308, z: 0.7071067, w: 0.7071068}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ShoulderPads_low
+      parentName: SK_Knight
+      position: {x: -0.35070223, y: 0.941703, z: 0.0000000053964744}
+      rotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.49999997}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Torso_low
+      parentName: SK_Knight
+      position: {x: -0, y: 0.8182505, z: 6.7762634e-23}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Legs_low
+      parentName: SK_Knight
+      position: {x: -0.13098304, y: 0.41646147, z: 0.0000000053964717}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arms_low
+      parentName: SK_Knight
+      position: {x: -0.2961535, y: 0.937978, z: 0.0000000053964744}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 1, y: 1, z: 1}
+    - name: UpperVisor_low
+      parentName: SK_Knight
+      position: {x: -0.16966726, y: 1.554512, z: 0.37645325}
+      rotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: EarMuffs_low
+      parentName: SK_Knight
+      position: {x: -0.3621726, y: 1.3355035, z: -2.842171e-16}
+      rotation: {x: 0.5, y: 0.5, z: -0.5, w: -0.49999997}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -123,15 +258,15 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Knight_Reference
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

@@ -84,7 +84,7 @@
                 {
                     "name": "",
                     "id": "3c5c06c8-99fd-434c-936c-a7143fa3f49d",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/middleButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse&Keyboard",
@@ -139,7 +139,7 @@
                 {
                     "name": "",
                     "id": "7be526e9-4508-47b5-94a2-4e0d8dda6deb",
-                    "path": "<Keyboard>/f",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "Mouse&Keyboard",

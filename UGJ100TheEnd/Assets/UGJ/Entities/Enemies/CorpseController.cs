@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-public class CorpseController : MonoBehaviour, IInteractable
+public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 {
     public enum CorpseType
     {
@@ -19,26 +19,29 @@ public class CorpseController : MonoBehaviour, IInteractable
     private ConfigurableJoint pickupJoint;
     [SerializeField] private FixedJoint meshMainJoint;
 
+    [SerializeField] private int bodyDurability = 100;
     [SerializeField] float jointBreakForce = 21000;
+    
     [Header("Environment Collider")]
     private SphereCollider environmentCollider;
     [SerializeField] private float environmentColliderHeight;
     [SerializeField] private float environmentColliderRadius;
 
+    [Header("Damaged")]
+    [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private float damageFlashDuration = 0.1f;
+    private SkinnedMeshRenderer[] damageableMeshes;
+    
     private GameObject holdingObject;
     private Rigidbody[] childrenRigidbodies;
+    
+
 
     private void Awake()
     {
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        //pickupJoint = GetComponent<ConfigurableJoint>();
-    }
-
+    
     private void OnEnable()
     {
         gameObject.tag = "Corpse";
@@ -48,6 +51,7 @@ public class CorpseController : MonoBehaviour, IInteractable
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
+        environmentCollider.excludeLayers = LayerMask.GetMask("Player");
         InitPickupJoint();
     }
 
@@ -140,27 +144,79 @@ public class CorpseController : MonoBehaviour, IInteractable
     
     public void Drop()
     {
-        pickupJoint.connectedBody = null;
-        pickupJoint.xMotion = ConfigurableJointMotion.Free;
-        pickupJoint.yMotion = ConfigurableJointMotion.Free;
-        pickupJoint.zMotion = ConfigurableJointMotion.Free;
+        if (pickupJoint.connectedBody != null)
+        {
+            pickupJoint.connectedBody = null;
+            pickupJoint.xMotion = ConfigurableJointMotion.Free;
+            pickupJoint.yMotion = ConfigurableJointMotion.Free;
+            pickupJoint.zMotion = ConfigurableJointMotion.Free;
+        }
+    }
+
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    {
+        meshRender.material = flashMaterial;
+        yield return new WaitForSeconds(flashTime);
+        
+        meshRender.material = originalMaterial;
+    }
+    
+    public void Damaged(int damage)
+    {
+        bodyDurability -= damage;
+        foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
+        {
+            StartCoroutine(DamageFlash(meshRenderer, meshRenderer.material, damageFlashMaterial, damageFlashDuration));
+        }
+
+        if (bodyDurability <= 0)
+        {
+            // Body destroyed
+            if (holdingObject != null)
+            {
+                MainPlayerController playerScript = holdingObject.GetComponent<MainPlayerController>();
+                if (playerScript != null)
+                {
+                    playerScript.DropCorpse();
+                } 
+            }
+
+            Destroy(gameObject);
+        }
     }
 
     void OnJointBreak(float breakForce)
     {
-            if (holdingObject != null)
-            {
-                if (holdingObject.GetComponent<ICanHoldCorpse>() != null)
-                {
-                    Debug.Log("Joint Broken");
-                    holdingObject.GetComponent<ICanHoldCorpse>().DropCorpse();
-                }
-            }
+        Debug.Log("Break force = " + breakForce);
 
-            pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
+        // Reduce limb velocities to prevent body flying off
+        foreach (Rigidbody rb in childrenRigidbodies)
+        {
+            if (rb != null)
+            {
+                /*Debug.Log("BEFORE: Limb vel = " + rb.velocity);
+                rb.velocity = Vector3.Scale(rb.velocity, new Vector3(0.001f, 0.001f, 0.001f));
+                Debug.Log("AFTER: Limb vel = " + rb.velocity);*/
+                rb.velocity = Vector3.zero;
+            }
+        }
+        
+        if (holdingObject != null)
+        {
+            if (holdingObject.GetComponent<ICanHoldCorpse>() != null)
+            {
+                Debug.Log("Joint Broken");
+                holdingObject.GetComponent<ICanHoldCorpse>().DropCorpse();
+            }
+        }
+
+        pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
+        if (pickupJoint != null)
+        {
             pickupJoint.projectionMode = JointProjectionMode.PositionAndRotation;
             pickupJoint.projectionDistance = 0.01f;
             pickupJoint.breakForce = 21000;
             pickupJoint.enablePreprocessing = false;
+        }
     }
 }

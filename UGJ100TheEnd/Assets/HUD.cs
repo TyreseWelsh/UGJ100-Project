@@ -21,11 +21,12 @@ public class HUD : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         staminaSlider.value =  staminaScript.currentStamina + (newMaxStamina - staminaScript.maxStamina);
         if(staminaScript.currentStamina < 0)
         {
-            staminaFill.color = Color.yellow;
+            //staminaFill.color = new Color(210,98,0,255);      // Supposed to be orange (doesnt work for some reason)
+            staminaFill.color = Color.grey;
+
         }
         else
         {

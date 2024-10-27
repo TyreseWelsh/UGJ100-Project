@@ -6,35 +6,22 @@ public class PressurePlate : MonoBehaviour
 {
     [SerializeField]
     private GameObject InteractedObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (other.gameObject.CompareTag("Corpse"))
         {
+            Debug.Log(other.gameObject.name + " entered...");
             InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
         }
     }
 
-    private void OnTriggerEnter (Collider other)
-    {
-        if (other.gameObject.tag == "Corpse")
-        {
-            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
-
-        }
-    }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.tag == "Corpse")
+        if (other.gameObject.CompareTag("Corpse"))
         {
+            Debug.Log(other.gameObject.name + " exited...");
             InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
-     
         }
     }
 }

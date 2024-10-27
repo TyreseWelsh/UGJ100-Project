@@ -13,7 +13,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private LayerMask interactableObjectLayer;
     [SerializeField] private GameObject meleeAttackPoint;
 
-    [Header("")] 
+    [Header("")]
+    [SerializeField] private Material meshMaterial;
+
     private CharacterController characterController;
     private Animator characterAnimator;
     private PlayerInput playerInput;
@@ -31,22 +33,26 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private float dashDuration = 0.05f;
     [SerializeField] private int dashCost = 40;
     
-    [Header("")]
+    [Header("Reviving")]
     [SerializeField] private float reviveDuration = 2.5f;
+    [SerializeField] private Material reviveMaterial;
 
     [HideInInspector] public int currentHealth;
     [HideInInspector] public float currentSpeed;
 
     private Vector3 movementDirection;
+    private bool gravityOn = true;
     private bool holdingCorpse;
     private GameObject heldCorpse;
     private ConfigurableJoint heldCorpseJoint;
 
-    [Header("Melee Attack")]
-    private bool canAttack = true;
-    [SerializeField] private int meleeDamage = 10;
+    [Header("Melee Attack")] 
+    public int meleeDamage = 10;
     [SerializeField] private float meleeAttackRate = 0.6f;
     [SerializeField] private float meleeAttackRange = 2f;
+    private MeleeWeapon meleeWeapon;
+    private bool canAttack = true;
+    private Coroutine meleeCoroutine;
 
     [Header("Ranged Attack")] 
     [SerializeField] private float currentThrowForce;
@@ -56,8 +62,22 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private bool chargingThrow;
     Coroutine throwChargeCoroutine;
 
+    [Header("Blocking")] [SerializeField] private float parryDuration = 0.2f;
+    [SerializeField] private float parryStaminaGain = 20f;
+    [SerializeField] private int blockCost;
+    [SerializeField] private float blockConsumptionRate;
+    [SerializeField] private float brokenBlockRegenDelay = 4;
+    private Coroutine blockCoroutine;
+    private bool isBlocking;
+    private bool isParrying;
+    
     [Header("HUD")]
     [SerializeField] private HUD playerHUD;
+
+    [Header("Damaged")] 
+    [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private float damageFlashDuration;
+    private SkinnedMeshRenderer[] damageableMeshes;
     
     private void Awake()
     {
@@ -65,6 +85,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
+
+        MeleeWeapon[] meleeWeapons = GetComponentsInChildren<MeleeWeapon>();
+        meleeWeapon = meleeWeapons[0];
+        
+        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     // Start is called before the first frame update
@@ -93,12 +118,28 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void FixedUpdate()
     {
-        characterController.Move(Time.deltaTime * 20f * Vector3.down);
+        if (gravityOn)
+        {
+            characterController.Move(Time.deltaTime * 20f * Vector3.down);
+        }
 
         if (currentHealthState != EHealthStates.Dead)
         {
             movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            //Debug.Log(animationDirectionRotation);
             characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
+            
+            Quaternion moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
+            if (animationDirectionRotation.y > 180)
+            {
+                animationDirectionRotation.y -= 360;
+            }
+            characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
+            Debug.Log(animationDirectionRotation.y);
+            
+            Vector3 groundVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
+            characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
         }
     }
     
@@ -112,7 +153,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 // Getting the screen mouse position when the mouse is moved
                 Vector2 screenMousePosition = context.ReadValue<Vector2>();
 
-                // 
+                //
                 float cameraToPlayerDistance = Mathf.Abs(mainCamera.transform.position.y - transform.position.y);
                 Vector3 mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
                     screenMousePosition.y, cameraToPlayerDistance));
@@ -123,45 +164,48 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
     }
 
-    public void StartMelee(InputAction.CallbackContext context)
+    public void Melee(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             if (canAttack)
             {
-                // Attack stuff
-                StartCoroutine(Melee());
+                characterAnimator.SetTrigger("Attack");
+                canAttack = false;
             }
         }
     }
 
-    IEnumerator Melee()
+    public void EnableMeleeCollision()
     {
-        // Attack stuff
-        if (meleeAttackPoint != null)
+        if (meleeWeapon != null)
         {
-            canAttack = false;
-            Collider[] meleeCollisions = Physics.OverlapSphere(meleeAttackPoint.transform.position, meleeAttackRange);
-            foreach (Collider meleeCollision in meleeCollisions)
-            {
-                GameObject collidingObject = meleeCollision.gameObject;
-                if (collidingObject.gameObject.GetComponent<IDamageable>() != null && collidingObject.gameObject.CompareTag("Player"))
-                {
-                    collidingObject.gameObject.GetComponent<IDamageable>().Damaged(meleeDamage);
-                }
-            }
-            print("MELEE!");
-            yield return new WaitForSeconds(meleeAttackRate);
-
-            canAttack = true; 
+            meleeWeapon.EnableWeapon();
         }
+    }
+
+    public void DisableMeleeCollision()
+    {
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.DisableWeapon();
+        }
+    }
+    
+    public void EndMelee()
+    {
+        canAttack = true;
+        meleeWeapon.ClearDamagedEnemies();
     }
 
     public void StartThrow(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            chargingThrow = true;
+            if (heldCorpse != null)
+            {
+                chargingThrow = true;
+            }
         }
         else if (context.canceled)
         {
@@ -176,6 +220,56 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 DropCorpse();
             }
             currentThrowForce = 0;
+        }
+    }
+
+    public void StartBlock(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isParrying = true;
+            isBlocking = true;
+            if (blockCoroutine != null)
+            {
+                StopCoroutine(blockCoroutine);
+            }
+            blockCoroutine = StartCoroutine(Block());
+        }
+
+        if (context.canceled)
+        {
+            StopBlocking();
+        }
+    }
+
+    IEnumerator Block()
+    {
+        float startTime = Time.time;
+        
+        while (staminaComponent.currentStamina > staminaComponent.negStaminaLimit)
+        {
+            if (Time.time > startTime + parryDuration)
+            {
+                isParrying = false;
+            }
+            
+            Debug.Log("BLOCKING");
+            staminaComponent.ConsumeStamina(blockCost);
+            
+            yield return new WaitForSeconds(blockConsumptionRate);
+            yield return null;
+        }
+      
+        StopBlocking();
+    }
+    
+    void StopBlocking()
+    {
+        Debug.Log("Stopped blocking");
+        isBlocking = false;
+        if (blockCoroutine != null)
+        {
+            StopCoroutine(blockCoroutine);
         }
     }
     
@@ -212,12 +306,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + duration)
         {
+            gravityOn = false;
             characterController.Move(dashSpeed * Time.deltaTime * direction);
             
             yield return null;
         }
         ToggleInvincibility(false);
         characterController.velocity.Set(0, 0, 0);
+        gravityOn = true;
     }
     
     public void Interact(InputAction.CallbackContext context)
@@ -282,7 +378,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     public void DropCorpse()
     {
-        //pickupPosition.GetComponent<FixedJoint>().connectedBody = null;
         if (heldCorpse != null)
         {
             if (heldCorpse.GetComponent<CorpseController>() != null)
@@ -298,6 +393,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         heldCorpse = null;
         holdingCorpse = false;
+        
+        chargingThrow = false;
+        currentThrowForce = 0;
     }
 
     public void DamageSelf(InputAction.CallbackContext context)
@@ -308,13 +406,24 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             Damaged(maxHealth);
         }
     }
+
+    void SetLimbMaterials(Material newMaterial)
+    {
+        foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
+        {
+            meshRenderer.material = newMaterial;
+        }
+    }
     
     public void StartRevive()
     {
         Debug.Log("REVIVE!");
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
+        canAttack = false;
 
+        SetLimbMaterials(reviveMaterial);
+        meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = false;
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
@@ -337,8 +446,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     void Revive()
     {
         Debug.Log("REVIVED!!");
-        currentHealth = maxHealth;
+        SetLimbMaterials(meshMaterial);
+        meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
+        canAttack = true;
         ToggleInvincibility(false);
         
         currentHealthState = EHealthStates.Alive;
@@ -356,6 +467,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Spawn a new player object and call its StartRevive function
     private void Die()
     {
+        StopAllCoroutines();
+        SetLimbMaterials(meshMaterial);
+        
         InputActionAsset playerInputAsset = playerInput.actions;
         playerInput.actions = null;
         
@@ -373,11 +487,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Debug.Log("Destroy scripts");
 
         // Disable this player
+        Destroy(meleeWeapon.gameObject);
         Destroy(characterController);
         Destroy(characterAnimator);
         Destroy(playerInput);
         Destroy(staminaComponent);
-
         Destroy(mainCamera.gameObject);
         
         // Enable this corpse
@@ -388,10 +502,16 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         Destroy(this);
     }
-    
-    public void Damaged(int damage)
+
+    private void TakeDamage(int damage)
     {
         currentHealth -= damage;
+
+        foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
+        {
+            StartCoroutine(DamageFlash(meshRender, meshRender.material, damageFlashMaterial,damageFlashDuration));
+        }
+        
         if (currentHealth <= 0)
         {
             lives--;
@@ -405,6 +525,58 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 Debug.Log("NO PLAYER LIVES REMAINING - Restart game!");
                 currentHealthState = EHealthStates.Dead;
             }
+        }
+    }
+
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    {
+        meshRender.material = flashMaterial;
+        yield return new WaitForSeconds(flashTime);
+        
+        meshRender.material = originalMaterial;
+    }
+    
+    public void Damaged(int damage)
+    {
+        if (isParrying)
+        {
+            staminaComponent.GainStamina(parryStaminaGain);
+        }
+        else if (isBlocking)
+        {
+            if (heldCorpse != null)
+            {
+                IDamageable damageableCorpse = heldCorpse.GetComponent<IDamageable>();
+                if (damageableCorpse != null)
+                {
+                    damageableCorpse.Damaged(damage);
+                }
+            }
+            else
+            {
+                switch (staminaComponent.ConsumeStamina(damage))
+                {
+                    case StaminaComponent.EStaminaAbilityStrength.Full:
+                        break;
+                    case StaminaComponent.EStaminaAbilityStrength.Reduced:
+                        TakeDamage(damage / 2);
+                        break;
+                    case StaminaComponent.EStaminaAbilityStrength.Zero:
+                        Debug.Log("BLOCK BROKEN!!!");
+                        StopBlocking();
+                        staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
+                        TakeDamage(damage / 2);
+                        staminaComponent.StartRegenDelay(brokenBlockRegenDelay);
+                        break;
+                    default:
+                        TakeDamage(damage);
+                        break;
+                }
+            }
+        }
+        else
+        {
+            TakeDamage(damage);
         }
     }
 }
