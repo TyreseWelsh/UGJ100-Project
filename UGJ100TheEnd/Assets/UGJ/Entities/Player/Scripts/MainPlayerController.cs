@@ -16,7 +16,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [Header("")]
     [SerializeField] private Material meshMaterial;
 
-    private CharacterController characterController;
+    private Rigidbody playerRigidbody;
+    private BoxCollider playerCollider;
     private Animator characterAnimator;
     private PlayerInput playerInput;
     private StaminaComponent staminaComponent;
@@ -76,12 +77,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     [Header("Damaged")] 
     [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration;
     private SkinnedMeshRenderer[] damageableMeshes;
     
     private void Awake()
     {
-        characterController = GetComponent<CharacterController>();
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<BoxCollider>();
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
@@ -104,9 +107,25 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (currentHealthState != EHealthStates.Dead)
         {
+            // Movement and Rotation
+            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            Quaternion moveRotation = Quaternion.identity;
+            
+            if (movementDirection != Vector3.zero)
+            {
+                moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+            }
+            Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
+            if (animationDirectionRotation.y > 180)
+            {
+                animationDirectionRotation.y -= 360;
+            }
+            characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
+            
+            // Throw
             if (chargingThrow)
             {
-                Debug.Log(currentThrowForce);
+                Debug.Log("Throw force = " + currentThrowForce);
                 currentThrowForce += throwChargeRate * Time.deltaTime;
                 if (currentThrowForce > maxThrowForce)
                 {
@@ -118,34 +137,22 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void FixedUpdate()
     {
-        if (gravityOn)
-        {
-            characterController.Move(Time.deltaTime * 20f * Vector3.down);
-        }
-
         if (currentHealthState != EHealthStates.Dead)
         {
-            movementDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-            //Debug.Log(animationDirectionRotation);
-            characterController.Move(currentSpeed * Time.deltaTime * movementDirection);
-            
-            Quaternion moveRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
-            Vector3 animationDirectionRotation = mesh.gameObject.transform.rotation.eulerAngles - moveRotation.eulerAngles;
-            if (animationDirectionRotation.y > 180)
+            movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), playerRigidbody.velocity.y, Input.GetAxis("Vertical"));
+            movementDirection.Normalize();
+            if (movementDirection != Vector3.zero)
             {
-                animationDirectionRotation.y -= 360;
+                playerRigidbody.velocity = currentSpeed * movementDirection;
             }
-            characterAnimator.SetFloat("Rotation", animationDirectionRotation.y);
-            Debug.Log(animationDirectionRotation.y);
             
-            Vector3 groundVelocity = new Vector3(characterController.velocity.x, 0, characterController.velocity.z);
+            Vector3 groundVelocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
             characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
         }
     }
-    
+
     public void Look(InputAction.CallbackContext context)
     {
-        //Debug.Log("LOOKING");
         if (context.performed)
         {
             if (currentHealthState != EHealthStates.Dead)
@@ -157,9 +164,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 float cameraToPlayerDistance = Mathf.Abs(mainCamera.transform.position.y - transform.position.y);
                 Vector3 mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
                     screenMousePosition.y, cameraToPlayerDistance));
-                mousePoint.y = transform.position.y;
 
-                mesh.transform.LookAt(mousePoint);
+                Vector3 LookDirection = mousePoint - transform.position;
+                LookDirection.y = 0;
+                
+                mesh.transform.forward = LookDirection;
             }
         }
     }
@@ -195,7 +204,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     public void EndMelee()
     {
         canAttack = true;
-        meleeWeapon.ClearDamagedEnemies();
+        if (meleeWeapon != null)
+        {
+            meleeWeapon.ClearDamagedEnemies();
+        }
     }
 
     public void StartThrow(InputAction.CallbackContext context)
@@ -253,7 +265,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 isParrying = false;
             }
             
-            Debug.Log("BLOCKING");
             staminaComponent.ConsumeStamina(blockCost);
             
             yield return new WaitForSeconds(blockConsumptionRate);
@@ -265,7 +276,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     void StopBlocking()
     {
-        Debug.Log("Stopped blocking");
         isBlocking = false;
         if (blockCoroutine != null)
         {
@@ -307,12 +317,12 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         while (Time.time < startTime + duration)
         {
             gravityOn = false;
-            characterController.Move(dashSpeed * Time.deltaTime * direction);
+            playerRigidbody.AddForce(direction * dashSpeed, ForceMode.Force);
             
             yield return null;
         }
         ToggleInvincibility(false);
-        characterController.velocity.Set(0, 0, 0);
+        playerRigidbody.velocity = Vector3.zero;
         gravityOn = true;
     }
     
@@ -320,7 +330,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.canceled)
         {
-            Debug.Log("Pressed");
             if (currentHealthState == EHealthStates.Alive)
             {
                 if (holdingCorpse)
@@ -402,7 +411,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
-            Debug.Log("Damaged self");
             Damaged(maxHealth);
         }
     }
@@ -417,13 +425,13 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     public void StartRevive()
     {
-        Debug.Log("REVIVE!");
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
         canAttack = false;
 
         SetLimbMaterials(reviveMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        playerRigidbody.velocity = Vector3.zero;
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
@@ -436,7 +444,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         while (Time.time < startTime + reviveDuration)
         {
-            //Debug.Log("Reviving...");
             yield return null;
         }
         
@@ -445,7 +452,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     void Revive()
     {
-        Debug.Log("REVIVED!!");
         SetLimbMaterials(meshMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
@@ -475,20 +481,19 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Creating new player
         GameObject newPlayer = Instantiate(gameObject, gameObject.transform.position, Quaternion.identity);
+        newPlayer.transform.SetParent(gameObject.transform.parent);
         MainPlayerController newPlayerScript = newPlayer.GetComponent<MainPlayerController>();
         if (newPlayerScript != null)
         {
-            Debug.Log("Spawn new player");
             newPlayerScript.StartRevive();
             newPlayerScript.playerInput.actions = playerInputAsset;
             newPlayerScript.lives = lives;
         }
         
-        Debug.Log("Destroy scripts");
-
         // Disable this player
         Destroy(meleeWeapon.gameObject);
-        Destroy(characterController);
+        Destroy(playerCollider);
+        Destroy(playerRigidbody);
         Destroy(characterAnimator);
         Destroy(playerInput);
         Destroy(staminaComponent);
@@ -496,9 +501,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         
         // Enable this corpse
         gameObject.GetComponent<CorpseController>().enabled = true;
-        
-        Debug.Log("Scripts destroyed and ragdoll enabled");
-        
         
         Destroy(this);
     }
@@ -509,7 +511,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
         foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
         {
-            StartCoroutine(DamageFlash(meshRender, meshRender.material, damageFlashMaterial,damageFlashDuration));
+            StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
         }
         
         if (currentHealth <= 0)
@@ -530,6 +532,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
     {
+        Debug.Log("ddamgage flash");
         meshRender.material = flashMaterial;
         yield return new WaitForSeconds(flashTime);
         
@@ -538,6 +541,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     public void Damaged(int damage)
     {
+        Debug.Log("Take damage");
         if (isParrying)
         {
             staminaComponent.GainStamina(parryStaminaGain);

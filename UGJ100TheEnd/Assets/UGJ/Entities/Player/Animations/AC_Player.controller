@@ -134,7 +134,7 @@ AnimatorController:
   m_Name: AC_Player
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Direction
+  - m_Name: Rotation
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -188,7 +188,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: bb78a005c53d3d44f9c0b20fdda86a1c, type: 2}
     m_Threshold: -180
-    m_Position: {x: -170, y: 900}
+    m_Position: {x: -170, y: 1200}
     m_TimeScale: -0.4
     m_CycleOffset: 0
     m_DirectBlendParameter: Direction
@@ -196,7 +196,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 78d5c1c906d117845b0bd9f92c7a6f29, type: 2}
     m_Threshold: -90
-    m_Position: {x: -90, y: 900}
+    m_Position: {x: -90, y: 1200}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Speed
@@ -212,7 +212,7 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 78d5c1c906d117845b0bd9f92c7a6f29, type: 2}
     m_Threshold: 90
-    m_Position: {x: 90, y: 900}
+    m_Position: {x: 90, y: 1200}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
@@ -220,18 +220,18 @@ BlendTree:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: bb78a005c53d3d44f9c0b20fdda86a1c, type: 2}
     m_Threshold: 180
-    m_Position: {x: 170, y: 900}
+    m_Position: {x: 170, y: 1200}
     m_TimeScale: -0.4
     m_CycleOffset: 0
     m_DirectBlendParameter: Rotation
     m_Mirror: 0
-  m_BlendParameter: Direction
+  m_BlendParameter: Rotation
   m_BlendParameterY: Speed
   m_MinThreshold: -180
   m_MaxThreshold: 180
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
-  m_BlendType: 1
+  m_BlendType: 2
 --- !u!1101 &1114698104258703704
 AnimatorStateTransition:
   m_ObjectHideFlags: 1

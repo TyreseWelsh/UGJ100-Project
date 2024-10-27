@@ -30,16 +30,17 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     [Header("Damaged")]
     [SerializeField] private Material damageFlashMaterial;
     [SerializeField] private float damageFlashDuration = 0.1f;
-    private SkinnedMeshRenderer[] damageableMeshes;
+    private SkinnedMeshRenderer[] limbMeshes;
+
     
     private GameObject holdingObject;
     private Rigidbody[] childrenRigidbodies;
-    
 
 
     private void Awake()
     {
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
+        limbMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
     
     private void OnEnable()
@@ -89,7 +90,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     void EnableCorpseRagdoll()
     {
-        Debug.Log("EnableRagdoll");
         foreach (Rigidbody rb in childrenRigidbodies)
         {
             rb.isKinematic = false;
@@ -98,7 +98,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     void DisableCorpseRagdoll()
     {
-        Debug.Log("DisableRagdoll");
         foreach (Rigidbody rb in childrenRigidbodies)
         {
             rb.isKinematic = true;
@@ -131,7 +130,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     // PickingObject = The object which we will connect the corpses joint to (in the players case it is the PickupLocation)
     public void Pickup(GameObject mainObject, GameObject pickingObject)
     {
-        Debug.Log("Picked up");
         holdingObject = mainObject;
         
         gameObject.transform.position = pickingObject.transform.position;
@@ -164,7 +162,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     public void Damaged(int damage)
     {
         bodyDurability -= damage;
-        foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
+        foreach (SkinnedMeshRenderer meshRenderer in limbMeshes)
         {
             StartCoroutine(DamageFlash(meshRenderer, meshRenderer.material, damageFlashMaterial, damageFlashDuration));
         }
