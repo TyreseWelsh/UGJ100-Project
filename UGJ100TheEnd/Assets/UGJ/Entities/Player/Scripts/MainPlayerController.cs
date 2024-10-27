@@ -69,8 +69,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private float blockConsumptionRate;
     [SerializeField] private float brokenBlockRegenDelay = 4;
     private Coroutine blockCoroutine;
-    private bool isBlocking;
-    private bool isParrying;
+    private bool isBlocking = false;
+    private bool isParrying = false;
     
     [Header("HUD")]
     [SerializeField] private HUD playerHUD;
@@ -105,6 +105,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Parrying = " + isParrying + ", Blocking = " + isBlocking);
+        
         if (currentHealthState != EHealthStates.Dead)
         {
             // Movement and Rotation
@@ -507,10 +509,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void TakeDamage(int damage)
     {
+        Debug.Log("Taken damage");
+
         currentHealth -= damage;
 
         foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
         {
+            Debug.Log("Flash");
+
             StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
         }
         
@@ -544,10 +550,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Debug.Log("Take damage");
         if (isParrying)
         {
+            Debug.Log("parrying");
+
             staminaComponent.GainStamina(parryStaminaGain);
         }
         else if (isBlocking)
         {
+            Debug.Log("blocking");
+
             if (heldCorpse != null)
             {
                 IDamageable damageableCorpse = heldCorpse.GetComponent<IDamageable>();
@@ -580,7 +590,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         else
         {
+            Debug.Log("About to call damage taken");
+
             TakeDamage(damage);
         }
+        Debug.Log("skipped everything");
+
     }
 }
