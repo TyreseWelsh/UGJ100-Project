@@ -43,6 +43,7 @@ public class AIController : MonoBehaviour, IDamageable, IInteractable
     
     [Header("Damaged")]
     [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration = 0.1f;
     private SkinnedMeshRenderer[] damageableMeshes;
 

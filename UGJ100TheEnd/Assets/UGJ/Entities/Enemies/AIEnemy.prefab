@@ -227,6 +227,7 @@ MonoBehaviour:
   attackPoint: {fileID: 619282969454594366}
   attackDamage: 10
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
+  originalMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   damageFlashDuration: 0.1
 --- !u!135 &8591804451839850417
 SphereCollider:

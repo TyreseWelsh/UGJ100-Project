@@ -77,6 +77,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     [Header("Damaged")] 
     [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration;
     private SkinnedMeshRenderer[] damageableMeshes;
     
@@ -510,7 +511,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
         foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
         {
-            StartCoroutine(DamageFlash(meshRender, meshRender.material, damageFlashMaterial,damageFlashDuration));
+            StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
         }
         
         if (currentHealth <= 0)
