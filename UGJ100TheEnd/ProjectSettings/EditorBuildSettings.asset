@@ -4,5 +4,18 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/UGJ/Scenes/MainMenu.unity
+    guid: 798393e100e462c43ba2505b42a072ef
+  - enabled: 1
+    path: Assets/UGJ/Scenes/S_Level1.unity
+    guid: 5cbe85a97c9bf6e4baad08cab2b08d59
+  - enabled: 1
+    path: Assets/UGJ/Scenes/s_Level2.unity
+    guid: 4eadf4ee7df02594185a78ddf72e6248
+  - enabled: 1
+    path: Assets/UGJ/Scenes/S_Level3.unity
+    guid: 9b78e8ce21ff19a47bdd03173fe554ce
   m_configObjects: {}
+  m_UseUCBPForAssetBundles: 0
