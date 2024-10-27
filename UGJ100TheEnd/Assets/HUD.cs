@@ -8,7 +8,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private Slider healthSlider;
     [SerializeField] private Slider staminaSlider;
     [SerializeField] private GameObject playerCharacter;
-    [SerializeField] private Image staminaFill;
+    [SerializeField] private RawImage staminaFill;
     private MainPlayerController playerScript;
     private StaminaComponent staminaScript;
     private int newMaxStamina;
