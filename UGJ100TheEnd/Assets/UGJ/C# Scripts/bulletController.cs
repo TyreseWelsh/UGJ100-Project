@@ -22,7 +22,7 @@ public class bulletController : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            other.gameObject.GetComponent<IDamageable>().Damaged(10);
+            other.gameObject.GetComponent<IDamageable>().Damaged(10, gameObject);
 
         }
         Destroy(this.gameObject);

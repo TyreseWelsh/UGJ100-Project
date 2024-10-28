@@ -13,11 +13,6 @@ public class SpikePlatform : MonoBehaviour
         damageCollider = GetComponent<BoxCollider>();
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject != null)
@@ -25,7 +20,7 @@ public class SpikePlatform : MonoBehaviour
             IDamageable damageableInterface = other.gameObject.GetComponent<IDamageable>();
             if (damageableInterface != null)
             {
-                damageableInterface.Damaged(damage);
+                damageableInterface.Damaged(damage, gameObject);
             }
         }
     }

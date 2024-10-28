@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Corpse
   - Enemy
+  - Limb
   layers:
   - Default
   - TransparentFX

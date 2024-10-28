@@ -44,6 +44,7 @@ public class AIController : MonoBehaviour, IDamageable
     private float attackSpeed;
     private int curHealth;
     private int maxHealth;
+    private float curSpeed;
     private bool isShooting;
     private bool isHitting=false;
     private float curStoppingDistance;
@@ -94,13 +95,17 @@ public class AIController : MonoBehaviour, IDamageable
         
         enemyType = (EnemyType) Enum.Parse(typeof(EnemyType), enemyData.type);
         curHealth = enemyData.health;
-        navAgent.speed = enemyData.speed;
+        curSpeed = enemyData.speed;
+        navAgent.speed = curSpeed;
         attackDamage = enemyData.damage;
         attackSpeed = enemyData.attackSpeed;
         navAgent.stoppingDistance = enemyData.attackDistance;
         
         distanceCheck.radius = enemyData.attackDistance;
         Debug.Log("Attack distance = " + enemyData.attackDistance);
+
+        MainPlayerController.onPlayerDeath += FindNewPlayer;
+        StartCoroutine(_followPlayer());
     }
     
     // Update is called once per frame
@@ -113,53 +118,67 @@ public class AIController : MonoBehaviour, IDamageable
                 Vector3 lookDirection = playerCharacter.transform.position - transform.position;
                 lookDirection.y = 0;
                 mesh.transform.forward = lookDirection;
-            }
-            
-            switch (enemyType)
-            {
-                case EnemyType.Ranged:
-                    //Should put attacking logic here.
-                    if (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) <= 9)
-                    {
-                    
-                        if (!isShooting)
+
+
+
+                switch (enemyType)
+                {
+                    case EnemyType.Ranged:
+                        //Should put attacking logic here.
+                        if (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) <=
+                            navAgent.stoppingDistance)
                         {
-                            isShooting = true;
-                            enemyAnimator.SetTrigger("Attack");
-                            InvokeRepeating("shootBullet", 0.1f, 1.0f);
+
+                            if (!isShooting)
+                            {
+                                isShooting = true;
+                                enemyAnimator.SetTrigger("Attack");
+                                navAgent.speed = 0;
+                                InvokeRepeating("shootBullet", 0.1f, 1.0f);
+                            }
+
                         }
-                    
-                    }
-                    else
-                    {
-                        if (isShooting)
+                        else
                         {
-                            isShooting = false;
-                            CancelInvoke("shootBullet");
-                        }
-                    }
-                    break;
-                case EnemyType.Melee:
-                    //Should put attacking logic here
-                    if(Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) <= 2f)
-                    {
-                        if (!isHitting)
-                        {
-                            isHitting = true;
-                            enemyAnimator.SetTrigger("Attack");
-                            InvokeRepeating("meleeAttack", 0.1f, 1.0f);
+                            if (isShooting)
+                            {
+                                isShooting = false;
+                                navAgent.speed = curSpeed;
+                                CancelInvoke("shootBullet");
+                            }
                         }
 
-                    }
-                    else
-                    {
-                        if (isHitting)
+                        break;
+                    case EnemyType.Melee:
+                        //Should put attacking logic here
+                        if (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) <=
+                            navAgent.stoppingDistance)
                         {
-                            isHitting = false;
-                            CancelInvoke("meleeAttack");
+                            if (!isHitting)
+                            {
+                                isHitting = true;
+                                enemyAnimator.SetTrigger("Attack");
+                                navAgent.speed = 0;
+                                InvokeRepeating("meleeAttack", 0.1f, 1.0f);
+                            }
+
                         }
-                    }
-                    break;
+                        else
+                        {
+                            if (isHitting)
+                            {
+                                isHitting = false;
+                                navAgent.speed = curSpeed;
+                                CancelInvoke("meleeAttack");
+                            }
+                        }
+
+                        break;
+                }
+            }
+            else
+            {
+                StopAllCoroutines();
             }
         }
     }
@@ -171,6 +190,11 @@ public class AIController : MonoBehaviour, IDamageable
         if(Vector3.Distance(transform.position, playerCharacter.transform.position) <= rangedStoppingDistance)
     }*/
 
+    void FindNewPlayer(GameObject newPlayer)
+    {
+        playerCharacter = newPlayer;
+    }
+    
     public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
     {
         meshRender.material = flashMaterial;
@@ -179,7 +203,7 @@ public class AIController : MonoBehaviour, IDamageable
         meshRender.material = originalMaterial;
     }
     
-    public void Damaged(int damage)
+    public void Damaged(int damage, GameObject attacker)
     {
         curHealth -= damage;
         foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
@@ -226,6 +250,8 @@ public class AIController : MonoBehaviour, IDamageable
         GameObject curBullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, Quaternion.identity);
         Rigidbody bulletRB = curBullet.GetComponent<Rigidbody>();
         bulletRB.velocity = shootDirection * bulletSpeed;
+        
+        navAgent.speed = curSpeed;
 
     }
     private void meleeAttack()
@@ -234,8 +260,9 @@ public class AIController : MonoBehaviour, IDamageable
         foreach(Collider enemy in hitEnemies)
         {
             Debug.Log("We hit" + enemy.name);
-            enemy.gameObject.GetComponent<IDamageable>().Damaged(10);
+            enemy.gameObject.GetComponent<IDamageable>().Damaged(10, gameObject);
         }
+        navAgent.speed = curSpeed;
     }
 
     /*public void Interact(GameObject interactingObj)
@@ -249,13 +276,15 @@ public class AIController : MonoBehaviour, IDamageable
 
     IEnumerator _followPlayer()
     {
-        while (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) >= navAgent.stoppingDistance)
-        {
+        /*while (Vector3.Distance(gameObject.transform.position, playerCharacter.transform.position) >= navAgent.stoppingDistance)
+        {*/
             navAgent.SetDestination(playerCharacter.transform.position);
             enemyAnimator.SetFloat("Speed", navAgent.velocity.magnitude);
             yield return new WaitForSeconds(0.2f);
             yield return null;
-        }
+            
+            StartCoroutine(_followPlayer());
+       // }
     }
 
     private void OnTriggerExit(Collider other)
@@ -264,6 +293,11 @@ public class AIController : MonoBehaviour, IDamageable
         {
             StartCoroutine(_followPlayer());
         }*/
+    }
+
+    private void OnDisable()
+    {
+        MainPlayerController.onPlayerDeath -= FindNewPlayer;
     }
 
     private void OnDrawGizmosSelected()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
@@ -82,6 +83,9 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration;
     private SkinnedMeshRenderer[] damageableMeshes;
+
+    public delegate void OnPlayerDeath(GameObject newPlayer);
+    public static OnPlayerDeath onPlayerDeath;
     
     private void Awake()
     {
@@ -320,7 +324,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         while (Time.time < startTime + duration)
         {
             playerRigidbody.useGravity = false;
-            playerRigidbody.AddForce(direction * dashSpeed, ForceMode.Force);
+            playerRigidbody.AddForce((dashSpeed * Time.deltaTime * direction) * 1100, ForceMode.Force);
             
             yield return null;
         }
@@ -358,7 +362,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                             {
                                 PickupCorpse(hit.collider.gameObject);
                                 durabilityBar.SetActive(true);
-                                
                             }
                         }
                     }
@@ -417,7 +420,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
-            Damaged(maxHealth);
+            Damaged(maxHealth, gameObject);
         }
     }
 
@@ -429,12 +432,12 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
     }
     
-    public void StartRevive()
+    public void StartRevive(GameObject attacker)
     {
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
         canAttack = false;
-
+        
         SetLimbMaterials(reviveMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = false;
         playerRigidbody.velocity = Vector3.zero;
@@ -461,9 +464,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         SetLimbMaterials(meshMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
+        
         canAttack = true;
         ToggleInvincibility(false);
-        
+        onPlayerDeath?.Invoke(gameObject);
         currentHealthState = EHealthStates.Alive;
     }
 
@@ -477,7 +481,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     // Disable relevant player components
     // Enable relevant corpse components
     // Spawn a new player object and call its StartRevive function
-    private void Die()
+    private void Die(GameObject attacker)
     {
         StopAllCoroutines();
         SetLimbMaterials(meshMaterial);
@@ -491,7 +495,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         MainPlayerController newPlayerScript = newPlayer.GetComponent<MainPlayerController>();
         if (newPlayerScript != null)
         {
-            newPlayerScript.StartRevive();
+            newPlayerScript.StartRevive(attacker);
             newPlayerScript.playerInput.actions = playerInputAsset;
             newPlayerScript.lives = lives;
         }
@@ -512,28 +516,30 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Destroy(this);
     }
 
-    private void TakeDamage(int damage)
+    private void TakeDamage(int damage, GameObject attacker)
     {
-
-        currentHealth -= damage;
-
-        foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
+        if (currentHealthState == EHealthStates.Alive)
         {
-            StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
-        }
-        
-        if (currentHealth <= 0)
-        {
-            lives--;
+            currentHealth -= damage;
 
-            if (lives > 0)
+            foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
             {
-                Die();
+                StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
             }
-            else
+        
+            if (currentHealth <= 0)
             {
-                Debug.Log("NO PLAYER LIVES REMAINING - Restart game!");
-                currentHealthState = EHealthStates.Dead;
+                lives--;
+
+                if (lives > 0)
+                {
+                    Die(attacker);
+                }
+                else
+                {
+                    currentHealthState = EHealthStates.Dead;
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
             }
         }
     }
@@ -546,7 +552,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         meshRender.material = originalMaterial;
     }
     
-    public void Damaged(int damage)
+    public void Damaged(int damage, GameObject attacker)
     {
         if (isParrying)
         {
@@ -563,7 +569,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 IDamageable damageableCorpse = heldCorpse.GetComponent<IDamageable>();
                 if (damageableCorpse != null)
                 {
-                    damageableCorpse.Damaged(damage);
+                    damageableCorpse.Damaged(damage, gameObject);
                 }
             }
             else
@@ -573,24 +579,24 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                     case StaminaComponent.EStaminaAbilityStrength.Full:
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Reduced:
-                        TakeDamage(damage / 2);
+                        TakeDamage(damage / 2, attacker);
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Zero:
                         Debug.Log("BLOCK BROKEN!!!");
                         StopBlocking();
                         staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
-                        TakeDamage(damage / 2);
+                        TakeDamage(damage / 2, attacker);
                         staminaComponent.StartRegenDelay(brokenBlockRegenDelay);
                         break;
                     default:
-                        TakeDamage(damage);
+                        TakeDamage(damage, attacker);
                         break;
                 }
             }
         }
         else
         {
-            TakeDamage(damage);
+            TakeDamage(damage, attacker);
         }
         Debug.Log("skipped everything");
 

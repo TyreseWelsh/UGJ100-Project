@@ -9,6 +9,8 @@ public class DrawBridge : MonoBehaviour, IInteractable
     private Vector3 StartRotation;
     private bool isRotating = false;
 
+    private int activationCounter = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +41,22 @@ public class DrawBridge : MonoBehaviour, IInteractable
     }
     public void InteractHeld(GameObject interactingObj) { }
 
+    public void BringDown()
+    {
+        activationCounter++;
+        StartCoroutine(doorOpen());
+    }
+
+    public void BringUp()
+    {
+        activationCounter--;
+
+        if (activationCounter <= 0)
+        {
+            StartCoroutine(doorClose());
+        }
+    }
+    
     private IEnumerator doorOpen()
     {
         Quaternion startRotation = gameObject.transform.rotation;
@@ -50,7 +68,7 @@ public class DrawBridge : MonoBehaviour, IInteractable
         float time = 0;
 
         isOpen = true;
-        while (time < 1)
+        while (time <= 1)
         {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;
@@ -71,7 +89,7 @@ public class DrawBridge : MonoBehaviour, IInteractable
 
         isOpen = false;
 
-        while (time < 1)
+        while (time <= 1)
         {
             transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
             yield return null;

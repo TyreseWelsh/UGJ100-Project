@@ -50,7 +50,7 @@ public class MeleeWeapon : MonoBehaviour
                 IDamageable damageableInterface = other.gameObject.GetComponent<IDamageable>();
                 if (damageableInterface != null)
                 {
-                    damageableInterface.Damaged(damage);
+                    damageableInterface.Damaged(damage, gameObject);
                 }
             }
         }

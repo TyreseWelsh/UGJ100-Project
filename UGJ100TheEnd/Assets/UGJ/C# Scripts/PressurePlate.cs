@@ -11,8 +11,16 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Corpse"))
         {
-            Debug.Log(other.gameObject.name + " entered...");
-            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+            DrawBridge drawBridgeScript = InteractedObject.GetComponent<DrawBridge>();
+            if (drawBridgeScript != null)
+            {
+                print("Draw bridge");
+                drawBridgeScript.BringDown();
+            }
+            else
+            {
+                InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+            }
         }
     }
 
@@ -20,8 +28,15 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Corpse"))
         {
-            Debug.Log(other.gameObject.name + " exited...");
-            InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+            DrawBridge drawBridgeScript = InteractedObject.GetComponent<DrawBridge>();
+            if (drawBridgeScript != null)
+            {
+                drawBridgeScript.BringUp();
+            }
+            else
+            {
+                InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+            }
         }
     }
 }

@@ -85,19 +85,22 @@ public class MovingPlatform : MonoBehaviour
         }
         else
         {
-            print(other.gameObject.name + " has entered");
-            //objectsOnPlatform.Add(other.gameObject);
-            other.gameObject.transform.SetParent(gameObject.transform, true);
+            if (!other.gameObject.CompareTag("Limb"))
+            {
+                print(other.gameObject.name + " has entered");
+                //objectsOnPlatform.Add(other.gameObject);
+                other.gameObject.transform.SetParent(gameObject.transform, true);
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        /*if(other.CompareTag("Player"))
-        {*/
+        if(!other.CompareTag("Limb"))
+        {
             print(other.gameObject.name + " has exited");
             //objectsOnPlatform.Remove(other.gameObject);
             other.gameObject.transform.SetParent(null, true);
-        //}
+        }
     }
 }

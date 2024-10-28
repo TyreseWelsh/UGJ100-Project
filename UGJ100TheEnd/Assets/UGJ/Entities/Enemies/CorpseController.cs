@@ -158,7 +158,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         meshRender.material = originalMaterial;
     }
     
-    public void Damaged(int damage)
+    public void Damaged(int damage, GameObject attacker)
     {
         bodyDurability -= damage;
         foreach (SkinnedMeshRenderer meshRenderer in limbMeshes)
