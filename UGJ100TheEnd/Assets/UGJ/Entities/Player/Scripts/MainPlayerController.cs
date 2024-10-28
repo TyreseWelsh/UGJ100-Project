@@ -20,7 +20,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private GameObject durabilityBar;
 
     private Rigidbody playerRigidbody;
-    private BoxCollider playerCollider;
+    private CapsuleCollider playerCollider;
     private Animator characterAnimator;
     private PlayerInput playerInput;
     private StaminaComponent staminaComponent;
@@ -28,7 +28,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [Header("Basic Stats")]
     [SerializeField] public int maxHealth = 100;
     [SerializeField] private float maxSpeed = 9;
-    [SerializeField] private int lives;
+    [SerializeField] public int lives;
     public enum EHealthStates {Alive, Reviving, Dead}
     public EHealthStates currentHealthState = EHealthStates.Alive;
     
@@ -90,7 +90,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<BoxCollider>();
+        playerCollider = GetComponent<CapsuleCollider>();
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
@@ -321,8 +321,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     IEnumerator Dash(Vector3 direction, float startTime, float duration)
     {
+        Debug.Log("DASH");
         while (Time.time < startTime + duration)
         {
+            Debug.Log("Dashing!!");
             playerRigidbody.useGravity = false;
             playerRigidbody.AddForce((dashSpeed * Time.deltaTime * direction) * 1100, ForceMode.Force);
             
@@ -418,10 +420,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     public void DamageSelf(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        /*if (context.performed)
         {
             Damaged(maxHealth, gameObject);
-        }
+        }*/
     }
 
     void SetLimbMaterials(Material newMaterial)
@@ -464,6 +466,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         SetLimbMaterials(meshMaterial);
         meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
+        StopAllCoroutines();
         
         canAttack = true;
         ToggleInvincibility(false);

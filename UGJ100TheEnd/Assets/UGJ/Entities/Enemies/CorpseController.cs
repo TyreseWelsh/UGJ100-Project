@@ -17,7 +17,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     [SerializeField] private FixedJoint meshMainJoint;
 
     [SerializeField] private int bodyDurability = 100;
-    [SerializeField] float jointBreakForce = 21000;
+    [SerializeField] float jointBreakForce = 150000;
     
     [Header("Environment Collider")]
     private SphereCollider environmentCollider;
@@ -76,8 +76,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         corpseRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         corpseRb.includeLayers = LayerMask.GetMask("Default", "Bullet", "Enemy");
         corpseRb.excludeLayers = LayerMask.GetMask("Player", "Corpse", "Limb");
-        /*corpseRb.includeLayers = LayerMask.GetMask("Bullet");
-        corpseRb.includeLayers = LayerMask.GetMask("Enemy");*/
+
         
         meshMainJoint.connectedBody = corpseRb;
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class HUD : MonoBehaviour
     [SerializeField] private Slider corpseDurabilitySlider;
     [SerializeField] private GameObject playerCharacter;
     [SerializeField] private RawImage staminaFill;
+    [SerializeField] private TextMeshProUGUI livesText;
     private MainPlayerController playerScript;
     private StaminaComponent staminaScript;
     private int newMaxStamina;
@@ -34,8 +36,8 @@ public class HUD : MonoBehaviour
             staminaFill.color = Color.green;
         }
         healthSlider.value = playerScript.currentHealth;
-        
 
+        livesText.text = playerScript.lives.ToString();
 
     }
 

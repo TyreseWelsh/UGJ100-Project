@@ -6,27 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/DrawBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/DrawBridge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/PressurePlate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/PressurePlate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/bulletController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/bulletController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Settings/High_PipelineAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/High_PipelineAsset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Demon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Demon.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MeleeWeapon.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MeleeWeapon.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/DrawBridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/DrawBridge.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/LevelTransition.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/LevelTransition.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Prefabs/SpikePlatform.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Prefabs/SpikePlatform.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/MovingPlatform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/MovingPlatform.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/SpikePlatform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/SpikePlatform.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,7 +59,7 @@
 }]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="$USER_HOME$/Desktop/HellKnight\UGJ100TheEnd.exe" />
+      <option name="EXE_PATH" value="$USER_HOME$/Desktop/Hellknight\UGJ100TheEnd.exe" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="C:\Users\tyres\Desktop\HellKnight" />
       <option name="PASS_PARENT_ENVS" value="1" />
