@@ -6,17 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Settings/High_PipelineAsset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Settings/High_PipelineAsset.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/DrawBridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/DrawBridge.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UI/Button.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UI/Button.png.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,19 +46,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Release&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Desktop/Hellknight\UGJ100TheEnd.exe" />
@@ -127,6 +129,7 @@
       <workItem from="1729974863877" duration="13578000" />
       <workItem from="1730056319266" duration="61000" />
       <workItem from="1730056442258" duration="673000" />
+      <workItem from="1730139625035" duration="1433000" />
     </task>
     <servers />
   </component>

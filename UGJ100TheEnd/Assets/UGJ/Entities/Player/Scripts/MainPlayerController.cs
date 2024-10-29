@@ -547,7 +547,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
     }
 
-    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material startingMaterial, Material flashMaterial, float flashTime)
     {
         meshRender.material = flashMaterial;
         yield return new WaitForSeconds(flashTime);

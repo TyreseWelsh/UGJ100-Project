@@ -208,6 +208,7 @@ MonoBehaviour:
   environmentColliderHeight: 0.8
   environmentColliderRadius: 0.2
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 9f9cf59bd7087c449b00e02567ebd32f, type: 2}
   damageFlashDuration: 0.1
 --- !u!1 &161194788432203644
 GameObject:

@@ -26,6 +26,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     [Header("Damaged")]
     [SerializeField] private Material damageFlashMaterial;
+    [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration = 0.1f;
     private SkinnedMeshRenderer[] limbMeshes;
 
@@ -149,7 +150,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         }
     }
 
-    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material startingMaterial, Material flashMaterial, float flashTime)
     {
         meshRender.material = flashMaterial;
         yield return new WaitForSeconds(flashTime);
@@ -162,7 +163,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         bodyDurability -= damage;
         foreach (SkinnedMeshRenderer meshRenderer in limbMeshes)
         {
-            StartCoroutine(DamageFlash(meshRenderer, meshRenderer.material, damageFlashMaterial, damageFlashDuration));
+            StartCoroutine(DamageFlash(meshRenderer, originalMaterial, damageFlashMaterial, damageFlashDuration));
         }
 
         if (bodyDurability <= 0)
@@ -211,7 +212,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         {
             pickupJoint.projectionMode = JointProjectionMode.PositionAndRotation;
             pickupJoint.projectionDistance = 0.01f;
-            pickupJoint.breakForce = 21000;
+            pickupJoint.breakForce = jointBreakForce;
             pickupJoint.enablePreprocessing = false;
         }
     }

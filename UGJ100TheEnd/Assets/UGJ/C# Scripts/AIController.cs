@@ -195,12 +195,12 @@ public class AIController : MonoBehaviour, IDamageable
         playerCharacter = newPlayer;
     }
     
-    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material originalMaterial, Material flashMaterial, float flashTime)
+    public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material startingMaterial, Material flashMaterial, float flashTime)
     {
         meshRender.material = flashMaterial;
         yield return new WaitForSeconds(flashTime);
         
-        meshRender.material = originalMaterial;
+        meshRender.material = startingMaterial;
     }
     
     public void Damaged(int damage, GameObject attacker)
@@ -208,7 +208,7 @@ public class AIController : MonoBehaviour, IDamageable
         curHealth -= damage;
         foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
         {
-            StartCoroutine(DamageFlash(meshRenderer, meshRenderer.material, damageFlashMaterial, damageFlashDuration));
+            StartCoroutine(DamageFlash(meshRenderer, originalMaterial, damageFlashMaterial, damageFlashDuration));
         }
         
         if(curHealth <= 0)
