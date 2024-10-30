@@ -65,30 +65,6 @@ public class AIController : MonoBehaviour, IDamageable
         navAgent = gameObject.GetComponent<NavMeshAgent>();
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        /*switch (enemyType)
-        {
-            case EnemyType.Ranged:
-                curStoppingDistance = rangedStoppingDistance;
-                navAgent.stoppingDistance = curStoppingDistance;
-                navAgent.speed = rangedSpeed;
-                maxHealth = rangedHealth;
-                distanceCheck.radius = curStoppingDistance;
-                break;
-            case EnemyType.Melee:
-                curStoppingDistance = meleeStoppingDistance;
-                navAgent.stoppingDistance = curStoppingDistance;
-                navAgent.speed = meleeSpeed;
-                maxHealth = meleeHealth;
-                distanceCheck.radius = curStoppingDistance;
-                break;
-        }
-        curHealth = maxHealth;*/
-        //StartCoroutine(_followPlayer());
-    }
-
     public void Init(EnemyDataTemplate enemyData, GameObject playerRef)
     {
         playerCharacter = playerRef;
@@ -102,7 +78,6 @@ public class AIController : MonoBehaviour, IDamageable
         navAgent.stoppingDistance = enemyData.attackDistance;
         
         distanceCheck.radius = enemyData.attackDistance;
-        Debug.Log("Attack distance = " + enemyData.attackDistance);
 
         MainPlayerController.onPlayerDeath += FindNewPlayer;
         StartCoroutine(_followPlayer());
@@ -118,8 +93,6 @@ public class AIController : MonoBehaviour, IDamageable
                 Vector3 lookDirection = playerCharacter.transform.position - transform.position;
                 lookDirection.y = 0;
                 mesh.transform.forward = lookDirection;
-
-
 
                 switch (enemyType)
                 {
@@ -175,6 +148,9 @@ public class AIController : MonoBehaviour, IDamageable
 
                         break;
                 }
+                
+                Vector3 groundVelocity = new Vector3(navAgent.velocity.x, 0, navAgent.velocity.z);
+                enemyAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
             }
             else
             {

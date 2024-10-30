@@ -31,6 +31,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] public int lives;
     public enum EHealthStates {Alive, Reviving, Dead}
     public EHealthStates currentHealthState = EHealthStates.Alive;
+    private Vector3 mousePoint;
     
     [Header("Dash Stats")]
     [SerializeField] private float dashSpeed = 100;
@@ -131,13 +132,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             // Throw
             if (chargingThrow)
             {
-                Debug.Log("Throw force = " + currentThrowForce);
+                //Debug.Log("Throw force = " + currentThrowForce);
                 currentThrowForce += throwChargeRate * Time.deltaTime;
                 if (currentThrowForce > maxThrowForce)
                 {
                     currentThrowForce = maxThrowForce;
                 }
             }
+            Debug.Log("Player vel = " + playerRigidbody.velocity.magnitude);
         }
     }
 
@@ -168,7 +170,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
                 //
                 float cameraToPlayerDistance = Mathf.Abs(mainCamera.transform.position.y - transform.position.y);
-                Vector3 mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
+                mousePoint = mainCamera.ScreenToWorldPoint(new Vector3(screenMousePosition.x,
                     screenMousePosition.y, cameraToPlayerDistance));
 
                 Vector3 LookDirection = mousePoint - transform.position;
@@ -232,8 +234,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             if (heldCorpse != null)
             {
                 throwVector = mesh.transform.forward * currentThrowForce * 10;
-                throwVector.y = 40;
-                print("THROWWWW : " + throwVector);
+                throwVector.y = 50;
+                //print("THROWWWW : " + throwVector);
                 heldCorpse.GetComponent<Rigidbody>().AddForce(throwVector, ForceMode.Impulse);
                 DropCorpse();
             }
@@ -326,7 +328,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         {
             Debug.Log("Dashing!!");
             playerRigidbody.useGravity = false;
-            playerRigidbody.AddForce((dashSpeed * Time.deltaTime * direction) * 1100, ForceMode.Force);
+            playerRigidbody.AddForce(dashSpeed * Time.deltaTime * direction * 1100, ForceMode.Force);
             
             yield return null;
         }
@@ -344,7 +346,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                 if (holdingCorpse)
                 {
                     DropCorpse();
-                    durabilityBar.SetActive(false);
                     return;
                 }
                 
@@ -363,7 +364,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                             if (hit.collider.gameObject.CompareTag("Corpse"))
                             {
                                 PickupCorpse(hit.collider.gameObject);
-                                durabilityBar.SetActive(true);
                             }
                         }
                     }
@@ -389,6 +389,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     public void PickupCorpse(GameObject corpse)
     {
         heldCorpse = corpse;
+        durabilityBar.SetActive(true);
         if (heldCorpse.GetComponent<CorpseController>() != null)
         {
             heldCorpse.GetComponent<CorpseController>().Pickup(gameObject, pickupPosition);
@@ -402,6 +403,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         {
             if (heldCorpse.GetComponent<CorpseController>() != null)
             {
+                durabilityBar.SetActive(false);
                 heldCorpse.GetComponent<CorpseController>().Drop();
             }
         }
@@ -446,7 +448,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
-        playerHUD.SetReferencedPlayer(gameObject);
+        //playerHUD.SetReferencedPlayer(gameObject);
         
         StartCoroutine(ReviveCoroutine(Time.time));
     }

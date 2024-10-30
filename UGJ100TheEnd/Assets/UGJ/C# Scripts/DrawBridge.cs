@@ -63,7 +63,7 @@ public class DrawBridge : MonoBehaviour, IInteractable
         Quaternion endRotation;
         isRotating = true;
         Debug.Log("Door opening");
-        endRotation = Quaternion.Euler(new Vector3(startRotation.x + 90, StartRotation.y, StartRotation.z));
+        endRotation = Quaternion.Euler(new Vector3(Mathf.Ceil(startRotation.x + 90), StartRotation.y, StartRotation.z));
 
         float time = 0;
 

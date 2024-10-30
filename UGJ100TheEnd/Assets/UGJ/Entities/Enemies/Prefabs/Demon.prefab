@@ -81,7 +81,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2560
+    m_Bits: 2048
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -98,7 +98,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139590184305379679}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 4499060f2967c3c4d8e8aaec2ec01d91, type: 2}
+  m_Avatar: {fileID: 9000000, guid: cd32cf102330b40489cac643116c60ed, type: 2}
   m_Controller: {fileID: 9100000, guid: 5a5f7011284d3514a8cb9eef8c01536b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -210,6 +210,7 @@ MonoBehaviour:
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
   originalMaterial: {fileID: 2100000, guid: 9f9cf59bd7087c449b00e02567ebd32f, type: 2}
   damageFlashDuration: 0.1
+  minDamageVelocity: 0
 --- !u!1 &161194788432203644
 GameObject:
   m_ObjectHideFlags: 0

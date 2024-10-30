@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class CorpseController : MonoBehaviour, IInteractable, IDamageable
@@ -15,6 +16,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     private Rigidbody corpseRb;
     private ConfigurableJoint pickupJoint;
     [SerializeField] private FixedJoint meshMainJoint;
+    private CapsuleCollider corpseProjectileCollider;
 
     [SerializeField] private int bodyDurability = 100;
     [SerializeField] float jointBreakForce = 150000;
@@ -31,6 +33,8 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     private SkinnedMeshRenderer[] limbMeshes;
 
     
+    [SerializeField] private float minDamageVelocity;
+    
     private GameObject holdingObject;
     private Rigidbody[] childrenRigidbodies;
 
@@ -40,7 +44,16 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
         limbMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
-    
+
+    private void Update()
+    {
+        //Debug.Log("Corpse velocity = " + corpseRb.velocity.magnitude);
+        if (corpseRb.velocity.magnitude > minDamageVelocity)
+        {
+            
+        }
+    }
+
     private void OnEnable()
     {
         gameObject.tag = "Corpse";
@@ -50,8 +63,12 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
+        environmentCollider.includeLayers = LayerMask.GetMask("Enemy");
         environmentCollider.excludeLayers = LayerMask.GetMask("Player");
+        
         InitPickupJoint();
+        InitCorpseRigidbody();
+        InitProjectileCollider();
     }
 
     void InitPickupJoint()
@@ -64,8 +81,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         pickupJoint.projectionDistance = 0.01f;
         pickupJoint.breakForce = jointBreakForce;
         pickupJoint.enablePreprocessing = false;
-        
-        InitCorpseRigidbody();
     }
     
     void InitCorpseRigidbody()
@@ -75,13 +90,24 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         corpseRb.drag = 1;
         corpseRb.angularDrag = 5;
         corpseRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        corpseRb.freezeRotation = false;
         corpseRb.includeLayers = LayerMask.GetMask("Default", "Bullet", "Enemy");
         corpseRb.excludeLayers = LayerMask.GetMask("Player", "Corpse", "Limb");
-
         
         meshMainJoint.connectedBody = corpseRb;
     }
 
+    void InitProjectileCollider()
+    {
+        /*corpseProjectileCollider = gameObject.AddComponent<CapsuleCollider>();
+        corpseProjectileCollider.isTrigger = true;
+        corpseProjectileCollider.radius = 0.5f;
+        corpseProjectileCollider.height = 1.4f;
+        corpseProjectileCollider.excludeLayers = LayerMask.GetMask("Player", "Corpse", "Limb");
+        
+        corpseProjectileCollider.enabled = false;*/
+    }
+    
     private void OnDisable()
     {
         DisableCorpseRagdoll();
@@ -214,6 +240,19 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
             pickupJoint.projectionDistance = 0.01f;
             pickupJoint.breakForce = jointBreakForce;
             pickupJoint.enablePreprocessing = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.gameObject.name);
+        if (corpseRb.velocity.magnitude > 25f)
+        {
+            IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.Damaged(Mathf.FloorToInt(corpseRb.velocity.magnitude), holdingObject);
+            }  
         }
     }
 }

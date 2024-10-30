@@ -6,19 +6,50 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/DemonIdleAnim.fbx.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/DemonIdleAnim.fbx.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/Demon_Attack.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/Demon_Attack.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/Demon_Idle.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/Demon_Idle.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/Demon_Run.anim" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/ArtAssets/Characters/Enemy/Animations/Demon_Run.anim.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/AIController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Corpse.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Corpse.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/DrawBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/DrawBridge.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/TargetDummy.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/TargetDummy.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AC_Enemy.controller" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AC_Enemy.controller.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AIEnemy.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/AIEnemy.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/CorpseController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Demon.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Demon.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/EnemyDataTemplate.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/EnemyDataTemplate.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Enemy_Data_Melee.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Enemy_Data_Melee.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Enemy_Data_Ranged.asset" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Enemy_Data_Ranged.asset.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Melee.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Melee/Animations.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Melee/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Melee/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Melee/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Melee/Sounds.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Ranged.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Ranged/Animations.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Ranged/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Ranged/Mesh.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Ranged/Scripts.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Ranged/Sounds.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/MainMenu.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level3/NavMesh-NavMesh Surface.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/s_Level2/NavMesh-NavMesh Surface.asset.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Button.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UI/Button.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -130,6 +161,7 @@
       <workItem from="1730056319266" duration="61000" />
       <workItem from="1730056442258" duration="673000" />
       <workItem from="1730139625035" duration="1433000" />
+      <workItem from="1730229073710" duration="15036000" />
     </task>
     <servers />
   </component>

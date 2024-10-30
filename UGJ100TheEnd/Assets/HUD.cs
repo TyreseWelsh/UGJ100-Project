@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -15,10 +16,12 @@ public class HUD : MonoBehaviour
     private MainPlayerController playerScript;
     private StaminaComponent staminaScript;
     private int newMaxStamina;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         InitialisePlayerHUD();
+        
+        MainPlayerController.onPlayerDeath += FindNewPlayer;
     }
 
     // Update is called once per frame
@@ -53,11 +56,9 @@ public class HUD : MonoBehaviour
             staminaSlider.maxValue = newMaxStamina;
         }
     }
-    
-    public void SetReferencedPlayer(GameObject newPlayer)
+
+    public void FindNewPlayer(GameObject newPlayer)
     {
         playerCharacter = newPlayer;
-        
-        InitialisePlayerHUD();
     }
 }
