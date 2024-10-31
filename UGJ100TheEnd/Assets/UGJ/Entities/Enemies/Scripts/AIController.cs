@@ -207,6 +207,7 @@ public class AIController : MonoBehaviour, IDamageable
         ResetLimbMaterials();
         
         Destroy(mainCollider);
+        Destroy(enemyAnimator);
         Destroy(navAgent);
         Destroy(attackPoint.gameObject);
         Destroy(distanceCheck.gameObject);
@@ -219,7 +220,6 @@ public class AIController : MonoBehaviour, IDamageable
     
     private void shootBullet()
     {
-        Debug.Log("Shooting");
         //var direction = playerCharacter.transform.position - bulletSpawn.transform.position;
         Vector3 shootDirection = mesh.transform.forward;
         shootDirection.Normalize();
@@ -235,7 +235,6 @@ public class AIController : MonoBehaviour, IDamageable
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
         foreach(Collider enemy in hitEnemies)
         {
-            Debug.Log("We hit" + enemy.name);
             enemy.gameObject.GetComponent<IDamageable>().Damaged(10, gameObject);
         }
         navAgent.speed = curSpeed;

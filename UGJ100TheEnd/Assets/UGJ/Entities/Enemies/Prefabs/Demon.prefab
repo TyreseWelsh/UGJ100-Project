@@ -54,7 +54,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2560
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -81,7 +81,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -410,7 +410,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2343072522635135520}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_RightFoot
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 3450987861569207511}
   - component: {fileID: 3400426876556718561}
   - component: {fileID: 5821624074996464714}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_RightUpLeg
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 6500644795658109094}
   - component: {fileID: 6665111312349878052}
   - component: {fileID: 916772724120060526}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_LeftArm
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -882,7 +882,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1004,7 +1004,7 @@ GameObject:
   - component: {fileID: 7004578783258902778}
   - component: {fileID: 1648431421839865354}
   - component: {fileID: 4341281715225851541}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_Hips
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -1069,7 +1069,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1105,7 +1105,7 @@ GameObject:
   - component: {fileID: 2881134033997498500}
   - component: {fileID: 90295410983044253}
   - component: {fileID: 5890122760037251178}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_LeftUpLeg
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -1292,7 +1292,7 @@ GameObject:
   - component: {fileID: 8044803330399220569}
   - component: {fileID: 3847791013380307865}
   - component: {fileID: 181670373113814735}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_RightForeArm
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -1357,7 +1357,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1803,7 +1803,7 @@ GameObject:
   - component: {fileID: 2855169012827903679}
   - component: {fileID: 1159227590925826917}
   - component: {fileID: 8789690587415845418}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_Spine
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -1868,7 +1868,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -1990,7 +1990,7 @@ GameObject:
   - component: {fileID: 8088240578885160095}
   - component: {fileID: 992178886556997735}
   - component: {fileID: 5761920159866762190}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_RightArm
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -2055,7 +2055,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -2174,7 +2174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8980300898547839257}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_LeftFoot
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -2205,7 +2205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3436187529981219567}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: DemonAttackPoint
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -2334,7 +2334,7 @@ GameObject:
   - component: {fileID: 3414959611745081593}
   - component: {fileID: 5607106254542370490}
   - component: {fileID: 5389358301745940898}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_RightLeg
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -2399,7 +2399,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -2521,7 +2521,7 @@ GameObject:
   - component: {fileID: 3508153408229347509}
   - component: {fileID: 7182142392766194948}
   - component: {fileID: 6073536076586789221}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_LeftForeArm
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -2586,7 +2586,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -2794,7 +2794,7 @@ GameObject:
   - component: {fileID: 4044086995261373531}
   - component: {fileID: 2287655933915255392}
   - component: {fileID: 5680282211540967798}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_Head
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -2856,7 +2856,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -2975,7 +2975,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5255005113132513210}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_RightHand
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -3009,7 +3009,7 @@ GameObject:
   - component: {fileID: 9160679754729853058}
   - component: {fileID: 405172277307535904}
   - component: {fileID: 7546239632164642915}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Character1_LeftLeg
   m_TagString: Limb
   m_Icon: {fileID: 0}
@@ -3074,7 +3074,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2304
+    m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
@@ -3193,7 +3193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2341169190829106962}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: Demon_LeftHand
   m_TagString: Limb
   m_Icon: {fileID: 0}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
 
@@ -16,7 +17,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     private Rigidbody corpseRb;
     private ConfigurableJoint pickupJoint;
     [SerializeField] private FixedJoint meshMainJoint;
-    private CapsuleCollider corpseProjectileCollider;
 
     [SerializeField] private int bodyDurability = 100;
     [SerializeField] float jointBreakForce = 150000;
@@ -26,14 +26,16 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     [SerializeField] private float environmentColliderHeight;
     [SerializeField] private float environmentColliderRadius;
 
+    [Header("Corpse Projectile")]
+    private float minDamageVelocity = 15f;
+    private float currentVelocity = 0;
+    private List<GameObject> hitObjects = new List<GameObject>(); 
+    
     [Header("Damaged")]
     [SerializeField] private Material damageFlashMaterial;
     [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration = 0.1f;
     private SkinnedMeshRenderer[] limbMeshes;
-
-    
-    [SerializeField] private float minDamageVelocity;
     
     private GameObject holdingObject;
     private Rigidbody[] childrenRigidbodies;
@@ -41,16 +43,17 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     private void Awake()
     {
+        corpseRb = GetComponent<Rigidbody>();
+
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
         limbMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     private void Update()
     {
-        //Debug.Log("Corpse velocity = " + corpseRb.velocity.magnitude);
-        if (corpseRb.velocity.magnitude > minDamageVelocity)
+        if (corpseRb != null)
         {
-            
+            currentVelocity = corpseRb.velocity.magnitude;
         }
     }
 
@@ -63,19 +66,22 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
-        environmentCollider.includeLayers = LayerMask.GetMask("Enemy");
-        environmentCollider.excludeLayers = LayerMask.GetMask("Player");
         
         InitPickupJoint();
         InitCorpseRigidbody();
-        InitProjectileCollider();
+        
+        if (corpseRb != null)
+        {
+            Debug.Log("Corpse RB set successfully");
+        }
+        else
+        {
+            print("Failure to set corpse rb");
+        }
     }
 
     void InitPickupJoint()
     {
-        Debug.Log("Initpickup");
-        
-        Debug.Log("IF NOT PROBLEM");
         pickupJoint = gameObject.AddComponent<ConfigurableJoint>();
         pickupJoint.projectionMode = JointProjectionMode.PositionAndRotation;
         pickupJoint.projectionDistance = 0.01f;
@@ -85,27 +91,13 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     
     void InitCorpseRigidbody()
     {
-        corpseRb = GetComponent<Rigidbody>();
         corpseRb.mass = 10;
         corpseRb.drag = 1;
         corpseRb.angularDrag = 5;
         corpseRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         corpseRb.freezeRotation = false;
-        corpseRb.includeLayers = LayerMask.GetMask("Default", "Bullet", "Enemy");
-        corpseRb.excludeLayers = LayerMask.GetMask("Player", "Corpse", "Limb");
         
         meshMainJoint.connectedBody = corpseRb;
-    }
-
-    void InitProjectileCollider()
-    {
-        /*corpseProjectileCollider = gameObject.AddComponent<CapsuleCollider>();
-        corpseProjectileCollider.isTrigger = true;
-        corpseProjectileCollider.radius = 0.5f;
-        corpseProjectileCollider.height = 1.4f;
-        corpseProjectileCollider.excludeLayers = LayerMask.GetMask("Player", "Corpse", "Limb");
-        
-        corpseProjectileCollider.enabled = false;*/
     }
     
     private void OnDisable()
@@ -131,7 +123,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     public void Interact(GameObject interactingObj) 
     {
-        Debug.Log("Corpse not eaten");
     }
     public void InteractHeld(GameObject interactingObj) 
     {
@@ -163,6 +154,8 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         pickupJoint.xMotion = ConfigurableJointMotion.Locked;
         pickupJoint.yMotion = ConfigurableJointMotion.Locked;
         pickupJoint.zMotion = ConfigurableJointMotion.Locked;
+        
+        hitObjects.Clear();
     }
     
     public void Drop()
@@ -210,8 +203,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     void OnJointBreak(float breakForce)
     {
-        Debug.Log("Break force = " + breakForce);
-
         // Reduce limb velocities to prevent body flying off
         foreach (Rigidbody rb in childrenRigidbodies)
         {
@@ -228,7 +219,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         {
             if (holdingObject.GetComponent<ICanHoldCorpse>() != null)
             {
-                Debug.Log("Joint Broken");
                 holdingObject.GetComponent<ICanHoldCorpse>().DropCorpse();
             }
         }
@@ -245,14 +235,20 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.name);
-        if (corpseRb.velocity.magnitude > 25f)
+        if (gameObject.layer == LayerMask.NameToLayer("Corpse") && corpseRb != null)
         {
-            IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
-            if (damageable != null)
+            if (Mathf.FloorToInt(currentVelocity) >= minDamageVelocity)
             {
-                damageable.Damaged(Mathf.FloorToInt(corpseRb.velocity.magnitude), holdingObject);
-            }  
+                if (!hitObjects.Contains(other.gameObject))
+                {
+                    IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+                    if (damageable != null)
+                    {
+                        hitObjects.Add(other.gameObject);
+                        damageable.Damaged(Mathf.FloorToInt(currentVelocity * 2), holdingObject);
+                    }  
+                }
+            }
         }
     }
 }

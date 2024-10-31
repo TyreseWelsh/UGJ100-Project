@@ -60,5 +60,6 @@ public class HUD : MonoBehaviour
     public void FindNewPlayer(GameObject newPlayer)
     {
         playerCharacter = newPlayer;
+        InitialisePlayerHUD();
     }
 }

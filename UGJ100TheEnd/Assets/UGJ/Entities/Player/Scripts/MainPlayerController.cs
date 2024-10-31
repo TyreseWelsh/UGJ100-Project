@@ -75,9 +75,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private Coroutine blockCoroutine;
     private bool isBlocking = false;
     private bool isParrying = false;
-    
-    [Header("HUD")]
-    [SerializeField] private HUD playerHUD;
 
     [Header("Damaged")] 
     [SerializeField] private Material damageFlashMaterial;
@@ -134,12 +131,13 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             {
                 //Debug.Log("Throw force = " + currentThrowForce);
                 currentThrowForce += throwChargeRate * Time.deltaTime;
+                Debug.Log("Throw force = " + currentThrowForce);
                 if (currentThrowForce > maxThrowForce)
                 {
                     currentThrowForce = maxThrowForce;
                 }
             }
-            Debug.Log("Player vel = " + playerRigidbody.velocity.magnitude);
+            //Debug.Log("Player vel = " + playerRigidbody.velocity.magnitude);
         }
     }
 
@@ -323,10 +321,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     IEnumerator Dash(Vector3 direction, float startTime, float duration)
     {
-        Debug.Log("DASH");
         while (Time.time < startTime + duration)
         {
-            Debug.Log("Dashing!!");
             playerRigidbody.useGravity = false;
             playerRigidbody.AddForce(dashSpeed * Time.deltaTime * direction * 1100, ForceMode.Force);
             
@@ -361,7 +357,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                         if(hit.collider.gameObject.GetComponent<IInteractable>() != null)
                         {
                             hit.collider.gameObject.GetComponent<IInteractable>().Interact(gameObject);
-                            if (hit.collider.gameObject.CompareTag("Corpse"))
+                            if (hit.collider.gameObject.CompareTag("Corpse") && heldCorpse == null)
                             {
                                 PickupCorpse(hit.collider.gameObject);
                             }
@@ -372,7 +368,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         if (context.performed) 
         {
-            Debug.Log("Held");
             RaycastHit hit;
             Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit);
             Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
@@ -448,7 +443,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
         currentSpeed /= 2;
-        //playerHUD.SetReferencedPlayer(gameObject);
         
         StartCoroutine(ReviveCoroutine(Time.time));
     }
@@ -508,7 +502,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         // Disable this player
         Destroy(meleeWeapon.gameObject);
         Destroy(playerCollider);
-        Destroy(playerRigidbody);
         Destroy(characterAnimator);
         Destroy(playerInput);
         Destroy(staminaComponent);
@@ -561,14 +554,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (isParrying)
         {
-            Debug.Log("parrying");
-
             staminaComponent.GainStamina(parryStaminaGain);
         }
         else if (isBlocking)
         {
-            Debug.Log("blocking");
-
             if (heldCorpse != null)
             {
                 IDamageable damageableCorpse = heldCorpse.GetComponent<IDamageable>();
@@ -587,7 +576,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                         TakeDamage(damage / 2, attacker);
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Zero:
-                        Debug.Log("BLOCK BROKEN!!!");
                         StopBlocking();
                         staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
                         TakeDamage(damage / 2, attacker);
@@ -603,7 +591,5 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         {
             TakeDamage(damage, attacker);
         }
-        Debug.Log("skipped everything");
-
     }
 }
