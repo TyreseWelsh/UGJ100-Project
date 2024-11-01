@@ -60,6 +60,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private Coroutine meleeCoroutine;
 
     [Header("Ranged Attack")] 
+    [SerializeField] private GameObject throwStartPoint;
     [SerializeField] private float currentThrowForce;
     [SerializeField] private float throwChargeRate = 0.05f;
     [SerializeField] private int maxThrowForce = 30;
@@ -80,6 +81,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [SerializeField] private Material damageFlashMaterial;
     [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration;
+    [SerializeField] private float knockbackForce = 60f;
     private SkinnedMeshRenderer[] damageableMeshes;
 
     public delegate void OnPlayerDeath(GameObject newPlayer);
@@ -129,7 +131,6 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             // Throw
             if (chargingThrow)
             {
-                //Debug.Log("Throw force = " + currentThrowForce);
                 currentThrowForce += throwChargeRate * Time.deltaTime;
                 Debug.Log("Throw force = " + currentThrowForce);
                 if (currentThrowForce > maxThrowForce)
@@ -228,12 +229,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         else if (context.canceled)
         {
             chargingThrow = false;
-            // Launch object
             if (heldCorpse != null)
             {
                 throwVector = mesh.transform.forward * currentThrowForce * 10;
                 throwVector.y = 50;
-                //print("THROWWWW : " + throwVector);
+                heldCorpse.gameObject.transform.position = throwStartPoint.transform.position;
                 heldCorpse.GetComponent<Rigidbody>().AddForce(throwVector, ForceMode.Impulse);
                 DropCorpse();
             }
@@ -514,12 +514,20 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Destroy(this);
     }
 
+    public void DamagedKnockback(GameObject knockbackSource)
+    {
+        Vector3 knockbackDirection = gameObject.transform.position - knockbackSource.transform.position;
+        knockbackDirection.y = 0;
+        playerRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+    }
+    
     private void TakeDamage(int damage, GameObject attacker)
     {
         if (currentHealthState == EHealthStates.Alive)
         {
             currentHealth -= damage;
-
+            DamagedKnockback(attacker);
+            
             foreach (SkinnedMeshRenderer meshRender in damageableMeshes)
             {
                 StartCoroutine(DamageFlash(meshRender, originalMaterial, damageFlashMaterial,damageFlashDuration));
@@ -550,7 +558,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         meshRender.material = originalMaterial;
     }
     
-    public void Damaged(int damage, GameObject attacker)
+    public void Damaged(int damage, GameObject damageSource)
     {
         if (isParrying)
         {
@@ -573,23 +581,23 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                     case StaminaComponent.EStaminaAbilityStrength.Full:
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Reduced:
-                        TakeDamage(damage / 2, attacker);
+                        TakeDamage(damage / 2, damageSource);
                         break;
                     case StaminaComponent.EStaminaAbilityStrength.Zero:
                         StopBlocking();
                         staminaComponent.currentStamina = staminaComponent.negStaminaLimit;
-                        TakeDamage(damage / 2, attacker);
+                        TakeDamage(damage / 2, damageSource);
                         staminaComponent.StartRegenDelay(brokenBlockRegenDelay);
                         break;
                     default:
-                        TakeDamage(damage, attacker);
+                        TakeDamage(damage, damageSource);
                         break;
                 }
             }
         }
         else
         {
-            TakeDamage(damage, attacker);
+            TakeDamage(damage, damageSource);
         }
     }
 }

@@ -11789,10 +11789,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5248950211636114693, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
-      propertyPath: minDamageVelocity
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 7747611863200048777, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
       propertyPath: durabilityBar
       value: 

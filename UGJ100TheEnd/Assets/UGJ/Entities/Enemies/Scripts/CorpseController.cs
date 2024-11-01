@@ -6,15 +6,7 @@ using UnityEngine;
 
 public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 {
-    public enum CorpseType
-    {
-        Ranged,
-        Melee,
-        Player
-    };
-    public CorpseType ECorpse;
-
-    private Rigidbody corpseRb;
+    private Rigidbody corpseRigidbody;
     private ConfigurableJoint pickupJoint;
     [SerializeField] private FixedJoint meshMainJoint;
 
@@ -35,6 +27,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     [SerializeField] private Material damageFlashMaterial;
     [SerializeField] private Material originalMaterial;
     [SerializeField] private float damageFlashDuration = 0.1f;
+    [SerializeField] private float knockbackForce = 0f;
     private SkinnedMeshRenderer[] limbMeshes;
     
     private GameObject holdingObject;
@@ -43,7 +36,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     private void Awake()
     {
-        corpseRb = GetComponent<Rigidbody>();
+        corpseRigidbody = GetComponent<Rigidbody>();
 
         childrenRigidbodies = GetComponentsInChildren<Rigidbody>();
         limbMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
@@ -51,9 +44,9 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     private void Update()
     {
-        if (corpseRb != null)
+        if (corpseRigidbody != null)
         {
-            currentVelocity = corpseRb.velocity.magnitude;
+            currentVelocity = corpseRigidbody.velocity.magnitude;
         }
     }
 
@@ -70,7 +63,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         InitPickupJoint();
         InitCorpseRigidbody();
         
-        if (corpseRb != null)
+        if (corpseRigidbody != null)
         {
             Debug.Log("Corpse RB set successfully");
         }
@@ -91,13 +84,13 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     
     void InitCorpseRigidbody()
     {
-        corpseRb.mass = 10;
-        corpseRb.drag = 1;
-        corpseRb.angularDrag = 5;
-        corpseRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        corpseRb.freezeRotation = false;
+        corpseRigidbody.mass = 10;
+        corpseRigidbody.drag = 1;
+        corpseRigidbody.angularDrag = 5;
+        corpseRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+        corpseRigidbody.freezeRotation = false;
         
-        meshMainJoint.connectedBody = corpseRb;
+        meshMainJoint.connectedBody = corpseRigidbody;
     }
     
     private void OnDisable()
@@ -169,6 +162,13 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         }
     }
 
+    public void DamagedKnockback(GameObject knockbackSource)
+    {
+        Vector3 knockbackDirection = gameObject.transform.position - knockbackSource.transform.position;
+        knockbackDirection.y = 0;
+        corpseRigidbody.AddForce(knockbackDirection * knockbackForce, ForceMode.Impulse);
+    }
+    
     public IEnumerator DamageFlash(SkinnedMeshRenderer meshRender, Material startingMaterial, Material flashMaterial, float flashTime)
     {
         meshRender.material = flashMaterial;
@@ -177,9 +177,10 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         meshRender.material = originalMaterial;
     }
     
-    public void Damaged(int damage, GameObject attacker)
+    public void Damaged(int damage, GameObject damageSource)
     {
         bodyDurability -= damage;
+        DamagedKnockback(damageSource);
         foreach (SkinnedMeshRenderer meshRenderer in limbMeshes)
         {
             StartCoroutine(DamageFlash(meshRenderer, originalMaterial, damageFlashMaterial, damageFlashDuration));
@@ -235,7 +236,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     private void OnCollisionEnter(Collision other)
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Corpse") && corpseRb != null)
+        if (gameObject.layer == LayerMask.NameToLayer("Corpse") && corpseRigidbody != null)
         {
             if (Mathf.FloorToInt(currentVelocity) >= minDamageVelocity)
             {

@@ -137,6 +137,37 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &6313890062234130244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4386176478744235709}
+  m_Layer: 11
+  m_Name: ThrowStartPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4386176478744235709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6313890062234130244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.85, z: 0.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4312828022085082889}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9150672822367525219
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,6 +822,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       insertIndex: 0
       addedObject: {fileID: 8624849943130164656}
+    - targetCorrespondingSourceObject: {fileID: -3609128391471339842, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4386176478744235709}
     - targetCorrespondingSourceObject: {fileID: -7752172816567622159, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6664675906288316549}
@@ -1867,6 +1901,11 @@ ConfigurableJoint:
   m_EnablePreprocessing: 0
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!4 &4312828022085082889 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3609128391471339842, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
+  m_PrefabInstance: {fileID: 8517418389074459063}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4431189545766887790 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -3797293630537492263, guid: a2fa51364dc42d546a15ec701b718fe8, type: 3}
@@ -2831,6 +2870,7 @@ MonoBehaviour:
   meleeDamage: 25
   meleeAttackRate: 0.6
   meleeAttackRange: 2
+  throwStartPoint: {fileID: 6313890062234130244}
   currentThrowForce: 0
   throwChargeRate: 150
   maxThrowForce: 100
@@ -2842,6 +2882,7 @@ MonoBehaviour:
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
   originalMaterial: {fileID: 2100000, guid: 8759225f065a41f4e9ec724dfa460fca, type: 2}
   damageFlashDuration: 0.1
+  knockbackForce: 60
 --- !u!114 &6503245523482462286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2894,13 +2935,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c84e569636a8cd041881be21c9c87853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ECorpse: 0
   meshMainJoint: {fileID: 5034793620026184714}
   bodyDurability: 100
   jointBreakForce: 150000
   environmentColliderHeight: 0
   environmentColliderRadius: 0.4
-  minDamageVelocity: 0
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
   originalMaterial: {fileID: 0}
   damageFlashDuration: 0.1
+  knockbackForce: 0

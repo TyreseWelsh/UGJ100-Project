@@ -6,36 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/HUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/HUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/IDamageable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Animations/AC_Enemy.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Animations/AC_Enemy.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Animations/Demon_Attack.anim" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Animations/Demon_Attack.anim" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Prefabs/Demon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Prefabs/Demon.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/AIController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/CorpseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/Enemy_Data_Melee.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/Enemy_Data_Melee.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/Enemy_Data_Ranged.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/Enemy_Data_Ranged.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Animations/AC_Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Animations/AC_Player.controller" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/UI/GameplayHUD.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/BodyBar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/BodyBar.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/BodyBar2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/BodyBar2.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Bones.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Bones.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Button.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/Button.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthBar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthBar.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthBarEdge.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthBarEdge.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthbarLines 1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthbarLines 1.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthbarLines.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/HealthbarLines.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/StaminaBar.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/StaminaBar.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/StaminaBarLines.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UI/StaminaBarLines.png.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,13 +28,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/cf857eeffdb94669b73b8e38fceb890211200/54/8c3cac5d/NavMeshAgent.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e509afeff7384f24a8f0ac30527ff01c1cbe00/74/57f16bd2/MonoBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e509afeff7384f24a8f0ac30527ff01c1cbe00/be/a959b910/Component.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e509afeff7384f24a8f0ac30527ff01c1cbe00/f6/dd6be6b5/GameObject.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UGJ/C# Scripts/Interfaces/ICanHoldCorpse.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MeleeWeapon.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/SpikePlatform.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/UGJ/Scenes/KillLava.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.7.0/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -149,7 +131,10 @@
       <workItem from="1730139625035" duration="1433000" />
       <workItem from="1730229073710" duration="15599000" />
       <workItem from="1730291339634" duration="10120000" />
-      <workItem from="1730342044460" duration="2262000" />
+      <workItem from="1730342044460" duration="2536000" />
+      <workItem from="1730380152474" duration="1944000" />
+      <workItem from="1730414135356" duration="5882000" />
+      <workItem from="1730475715869" duration="7154000" />
     </task>
     <servers />
   </component>
