@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Enemy_Data", menuName = "Enemy Data Template")]
+[CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy Data Template")]
 public class EnemyDataTemplate : ScriptableObject
 {
     public string type;

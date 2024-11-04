@@ -23,6 +23,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private CapsuleCollider playerCollider;
     private Animator characterAnimator;
     private PlayerInput playerInput;
+    private AttackComponent attackComponent;
     private StaminaComponent staminaComponent;
     
     [Header("Basic Stats")]
@@ -93,6 +94,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         playerCollider = GetComponent<CapsuleCollider>();
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
+        attackComponent = GetComponent<AttackComponent>();
         staminaComponent = GetComponent<StaminaComponent>();
 
         MeleeWeapon[] meleeWeapons = GetComponentsInChildren<MeleeWeapon>();
@@ -184,10 +186,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
-            if (canAttack)
+            /*if (canAttack)
             {
                 characterAnimator.SetTrigger("Attack");
                 canAttack = false;
+            }*/
+            if (attackComponent)
+            {
+                attackComponent.StartAttack();
             }
         }
     }
@@ -504,6 +510,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         Destroy(playerCollider);
         Destroy(characterAnimator);
         Destroy(playerInput);
+        Destroy(attackComponent);
         Destroy(staminaComponent);
         Destroy(mainCamera.gameObject);
         Destroy(pickupPosition);

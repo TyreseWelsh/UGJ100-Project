@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd0a55ac41500614d889e7c2d3bcf1fa, type: 3}
-  m_Name: Enemy_Data_Ranged
+  m_Name: EnemyData_Ranged
   m_EditorClassIdentifier: 
   type: Ranged
   enemyName: RangedDemon

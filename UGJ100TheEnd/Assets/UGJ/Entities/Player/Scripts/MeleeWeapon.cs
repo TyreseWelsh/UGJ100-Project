@@ -42,16 +42,13 @@ public class MeleeWeapon : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        IDamageable damageableInterface = other.gameObject.GetComponent<IDamageable>();
+        if (damageableInterface != null)
         {
             if (!damagedEnemies.Contains(other.gameObject))
             {
                 damagedEnemies.Add(other.gameObject);
-                IDamageable damageableInterface = other.gameObject.GetComponent<IDamageable>();
-                if (damageableInterface != null)
-                {
-                    damageableInterface.Damaged(damage, gameObject);
-                }
+                damageableInterface.Damaged(damage, gameObject);
             }
         }
     }
