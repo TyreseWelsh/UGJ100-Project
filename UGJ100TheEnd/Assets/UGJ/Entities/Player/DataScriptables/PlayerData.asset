@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b2745f3dcf919d44a6838ea2db5bc32, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  health: 100
+  moveSpeed: 8
+  weapon: {fileID: 4838972955085653662, guid: 75bd6aa6e55812541a132f5380f5f8d0, type: 3}
+  basicComboData: {fileID: 11400000, guid: 0112468b30a59f6459b244e24f6d36df, type: 2}
+  damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 8759225f065a41f4e9ec724dfa460fca, type: 2}
+  damageFlashDuration: 0.1
+  knockbackForce: 60
+  lives: 3
+  dashSpeed: 1000
+  dashDuration: 0.05
+  dashCost: 40
+  reviveDuration: 2.5
+  reviveMaterial: {fileID: 2100000, guid: acf42482309935841b920bddfd99685a, type: 2}
+  throwChargeRate: 120
+  maxThrowForce: 80
+  parryDuration: 0.1
+  parryStaminaGain: 60
+  blockCost: 3
+  blockConsumptionRate: 0.1
+  brokenBlockRegenDelay: 4

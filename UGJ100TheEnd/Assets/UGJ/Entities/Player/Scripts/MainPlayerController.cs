@@ -27,89 +27,112 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private StaminaComponent staminaComponent;
     
     [Header("Basic Stats")]
-    [SerializeField] public int maxHealth = 100;
-    [SerializeField] private float maxSpeed = 9;
-    [SerializeField] public int lives;
+    [SerializeField] private PlayerDataTemplate playerData;
+    public int maxHealth;
+    private float maxSpeed;
+    public int lives;
     public enum EHealthStates {Alive, Reviving, Dead}
     public EHealthStates currentHealthState = EHealthStates.Alive;
     private Vector3 mousePoint;
     
     [Header("Dash Stats")]
-    [SerializeField] private float dashSpeed = 100;
-    [SerializeField] private float dashDuration = 0.05f;
-    [SerializeField] private int dashCost = 40;
+    private float dashSpeed;
+    private float dashDuration;
+    private int dashCost;
     
     [Header("Reviving")]
-    [SerializeField] private float reviveDuration = 2.5f;
-    [SerializeField] private Material reviveMaterial;
+    private float reviveDuration;
+    private Material reviveMaterial;
 
     [HideInInspector] public int currentHealth;
     [HideInInspector] public float currentSpeed;
 
     private Vector3 movementDirection;
-    private bool gravityOn = true;
+    private bool gravityOn;
     private bool holdingCorpse;
     private GameObject heldCorpse;
     private ConfigurableJoint heldCorpseJoint;
 
-    [Header("Melee Attack")] 
-    public int meleeDamage = 10;
-    [SerializeField] private float meleeAttackRate = 0.6f;
-    [SerializeField] private float meleeAttackRange = 2f;
-    private MeleeWeapon meleeWeapon;
-    private bool canAttack = true;
-    private Coroutine meleeCoroutine;
-
     [Header("Ranged Attack")] 
     [SerializeField] private GameObject throwStartPoint;
-    [SerializeField] private float currentThrowForce;
-    [SerializeField] private float throwChargeRate = 0.05f;
-    [SerializeField] private int maxThrowForce = 30;
+    private float currentThrowForce;
+    private float throwChargeRate;
+    private int maxThrowForce;
     private Vector3 throwVector;
     private bool chargingThrow;
     Coroutine throwChargeCoroutine;
 
-    [Header("Blocking")] [SerializeField] private float parryDuration = 0.2f;
-    [SerializeField] private float parryStaminaGain = 20f;
-    [SerializeField] private int blockCost;
-    [SerializeField] private float blockConsumptionRate;
-    [SerializeField] private float brokenBlockRegenDelay = 4;
+    [Header("Blocking")] 
+    private float parryDuration;
+    private float parryStaminaGain;
+    private int blockCost;
+    private float blockConsumptionRate;
+    private float brokenBlockRegenDelay;
     private Coroutine blockCoroutine;
-    private bool isBlocking = false;
-    private bool isParrying = false;
+    private bool isBlocking;
+    private bool isParrying;
 
     [Header("Damaged")] 
-    [SerializeField] private Material damageFlashMaterial;
-    [SerializeField] private Material originalMaterial;
-    [SerializeField] private float damageFlashDuration;
-    [SerializeField] private float knockbackForce = 60f;
+    private Material damageFlashMaterial;
+    private Material originalMaterial;
+    private float damageFlashDuration;
+    private float knockbackForce = 60f;
     private SkinnedMeshRenderer[] damageableMeshes;
 
     public delegate void OnPlayerDeath(GameObject newPlayer);
     public static OnPlayerDeath onPlayerDeath;
-    
-    private void Awake()
-    {
-        playerRigidbody = GetComponent<Rigidbody>();
-        playerCollider = GetComponent<CapsuleCollider>();
-        characterAnimator = GetComponent<Animator>();
-        playerInput  = GetComponent<PlayerInput>();
-        attackComponent = GetComponent<AttackComponent>();
-        staminaComponent = GetComponent<StaminaComponent>();
-
-        MeleeWeapon[] meleeWeapons = GetComponentsInChildren<MeleeWeapon>();
-        meleeWeapon = meleeWeapons[0];
-        
-        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
-    }
 
     // Start is called before the first frame update
     void Start()
     {
+        InitPlayerData();
+        
+        playerRigidbody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
+        characterAnimator = GetComponent<Animator>();
+        playerInput  = GetComponent<PlayerInput>();
+        staminaComponent = GetComponent<StaminaComponent>();
+        attackComponent = GetComponent<AttackComponent>();
+        attackComponent.InitData(playerData);
+        
+        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+        
         currentHealth = maxHealth;
         currentSpeed = maxSpeed;
     }
 
+    private void InitPlayerData()
+    {
+        if (playerData)
+        {
+            // Base character data
+            maxHealth = playerData.health;
+            maxSpeed = playerData.moveSpeed;
+            damageFlashMaterial = playerData.damageFlashMaterial;
+            originalMaterial = playerData.originalMaterial;
+            damageFlashDuration = playerData.damageFlashDuration;
+            knockbackForce = playerData.knockbackForce;
+        
+            // Player data
+            lives = playerData.lives;
+            dashSpeed = playerData.dashSpeed;
+            dashDuration = playerData.dashDuration;
+            dashCost = playerData.dashCost;
+            
+            reviveDuration = playerData.reviveDuration;
+            reviveMaterial = playerData.reviveMaterial;
+            
+            throwChargeRate = playerData.throwChargeRate;
+            maxThrowForce = playerData.maxThrowForce;
+            
+            parryDuration = playerData.parryDuration;
+            parryStaminaGain = playerData.parryStaminaGain;
+            blockCost = playerData.blockCost;
+            blockConsumptionRate = playerData.blockConsumptionRate;
+            brokenBlockRegenDelay = playerData.brokenBlockRegenDelay;
+        }
+    }
+    
     // Update is called once per frame
     void Update()
     {
@@ -134,13 +157,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             if (chargingThrow)
             {
                 currentThrowForce += throwChargeRate * Time.deltaTime;
-                Debug.Log("Throw force = " + currentThrowForce);
                 if (currentThrowForce > maxThrowForce)
                 {
                     currentThrowForce = maxThrowForce;
                 }
             }
-            //Debug.Log("Player vel = " + playerRigidbody.velocity.magnitude);
         }
     }
 
@@ -186,40 +207,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         if (context.performed)
         {
-            /*if (canAttack)
-            {
-                characterAnimator.SetTrigger("Attack");
-                canAttack = false;
-            }*/
             if (attackComponent)
             {
                 attackComponent.StartAttack();
             }
-        }
-    }
-
-    public void EnableMeleeCollision()
-    {
-        if (meleeWeapon != null)
-        {
-            meleeWeapon.EnableWeapon();
-        }
-    }
-
-    public void DisableMeleeCollision()
-    {
-        if (meleeWeapon != null)
-        {
-            meleeWeapon.DisableWeapon();
-        }
-    }
-    
-    public void EndMelee()
-    {
-        canAttack = true;
-        if (meleeWeapon != null)
-        {
-            meleeWeapon.ClearDamagedEnemies();
         }
     }
 
@@ -441,10 +432,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     {
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
-        canAttack = false;
+        attackComponent?.SetCanAttack(false);
         
         SetLimbMaterials(reviveMaterial);
-        meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = false;
+        attackComponent.GetCurrentWeapon().GetComponent<MeshRenderer>().enabled = false;
         playerRigidbody.velocity = Vector3.zero;
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
@@ -466,11 +457,11 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     void Revive()
     {
         SetLimbMaterials(meshMaterial);
-        meleeWeapon.gameObject.GetComponent<MeshRenderer>().enabled = true;
+        attackComponent.GetCurrentWeapon().gameObject.GetComponent<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
         StopAllCoroutines();
         
-        canAttack = true;
+        attackComponent?.SetCanAttack(true);
         ToggleInvincibility(false);
         onPlayerDeath?.Invoke(gameObject);
         currentHealthState = EHealthStates.Alive;
@@ -506,7 +497,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         
         // Disable this player
-        Destroy(meleeWeapon.gameObject);
+        Destroy(attackComponent.GetCurrentWeapon());
         Destroy(playerCollider);
         Destroy(characterAnimator);
         Destroy(playerInput);

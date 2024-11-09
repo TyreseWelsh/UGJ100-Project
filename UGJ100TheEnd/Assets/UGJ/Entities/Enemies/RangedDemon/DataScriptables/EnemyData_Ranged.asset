@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd0a55ac41500614d889e7c2d3bcf1fa, type: 3}
+  m_Name: EnemyData_Ranged
+  m_EditorClassIdentifier: 
+  health: 100
+  moveSpeed: 3.5
+  weapon: {fileID: 4922878488285435205, guid: 241a8f37932023d4cbc82d6dbfbfee18, type: 3}
+  basicComboData: {fileID: 11400000, guid: e9b2408bebf5c1e43a43594b464c2d79, type: 2}
+  damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
+  originalMaterial: {fileID: 2100000, guid: 9f9cf59bd7087c449b00e02567ebd32f, type: 2}
+  damageFlashDuration: 0.1
+  knockbackForce: 60
+  type: Ranged
+  enemyName: RangedDemon
+  attackSpeed: 0.8
+  attackDistance: 6
+  projectile: {fileID: 7601256689023936817, guid: 501feefb666296f4d98419ad2251cafc, type: 3}

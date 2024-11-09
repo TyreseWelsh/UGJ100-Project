@@ -44,6 +44,12 @@ public class EnemySpawner : MonoBehaviour
             {
                 enemyScript.Init(data, player);
             }
+
+            AttackComponent_Enemy attackScript = spawnedEnemy.GetComponent<AttackComponent_Enemy>();
+            if (attackScript)
+            {
+                attackScript.InitData(data);
+            }
         }
     }
 }

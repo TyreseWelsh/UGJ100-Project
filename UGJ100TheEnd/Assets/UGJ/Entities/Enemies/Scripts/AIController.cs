@@ -10,10 +10,11 @@ public class AIController : MonoBehaviour, IDamageable
     private Rigidbody enemyRigidbody;
     private BoxCollider mainCollider;
     private Animator enemyAnimator;
-    [SerializeField] private GameObject playerCharacter;
     private NavMeshAgent navAgent;
+    private AttackComponent attackComponent;
+    
+    [SerializeField] private GameObject playerCharacter;
     private Vector3 target;
-    [SerializeField] private SphereCollider distanceCheck;
     
     public enum EHealthStates {Alive, Dead}
     public EHealthStates currentHealthState = EHealthStates.Alive;
@@ -24,23 +25,6 @@ public class AIController : MonoBehaviour, IDamageable
         Melee
     };
     [SerializeField] private EnemyType currentEnemyType;
-    
-    [Header("Ranged Stats")]
-    [SerializeField] private int rangedStoppingDistance;
-    [SerializeField] private int rangedHealth;
-    [SerializeField] private float rangedSpeed;
-    [SerializeField] private int bulletSpeed;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject bulletSpawn;
-    
-    [Header("Melee Stats")]
-    [SerializeField] private int meleeStoppingDistance;
-    [SerializeField] private int meleeHealth;
-    [SerializeField] private float meleeSpeed;
-    [SerializeField] private float attackRange;
-    [SerializeField] LayerMask enemyLayers;
-    [SerializeField] Transform attackPoint;
-    [SerializeField] int attackDamage;
     
     private float attackSpeed;
     private int currentHealth;
@@ -69,6 +53,8 @@ public class AIController : MonoBehaviour, IDamageable
         enemyAnimator = GetComponent<Animator>();
         damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
         navAgent = gameObject.GetComponent<NavMeshAgent>();
+
+        attackComponent = GetComponent<AttackComponent>();
     }
 
     public void Init(EnemyDataTemplate enemyData, GameObject playerRef)
@@ -77,14 +63,11 @@ public class AIController : MonoBehaviour, IDamageable
         
         currentEnemyType = (EnemyType) Enum.Parse(typeof(EnemyType), enemyData.type);
         currentHealth = enemyData.health;
-        currentSpeed = enemyData.speed;
+        currentSpeed = enemyData.moveSpeed;
         navAgent.speed = currentSpeed;
-        attackDamage = enemyData.damage;
         attackSpeed = enemyData.attackSpeed;
         navAgent.stoppingDistance = enemyData.attackDistance;
         
-        distanceCheck.radius = enemyData.attackDistance;
-
         MainPlayerController.onPlayerDeath += FindNewPlayer;
     }
     
@@ -103,7 +86,10 @@ public class AIController : MonoBehaviour, IDamageable
                     navAgent.stoppingDistance)
                 {
                     StopFollowingTarget();
-                    Attack();
+                    if (attackComponent)
+                    {
+                        attackComponent.StartAttack();
+                    }
                 }
                 else
                 {
@@ -116,7 +102,7 @@ public class AIController : MonoBehaviour, IDamageable
                     }
                 }
                 
-                Vector3 groundVelocity = new Vector3(navAgent.velocity.x, 0, navAgent.velocity.z);
+                Vector3 groundVelocity = new Vector3(enemyRigidbody.velocity.x, 0, enemyRigidbody.velocity.z);
                 enemyAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
             }
             else
@@ -132,9 +118,9 @@ public class AIController : MonoBehaviour, IDamageable
         {
             Vector3 directionToNextPoint = targetPath.corners[1] - transform.position;
         
-            enemyRigidbody.velocity = directionToNextPoint.normalized * navAgent.speed;
+            enemyRigidbody.velocity = directionToNextPoint.normalized * currentSpeed;
+
             enemyAnimator.SetFloat("Speed", enemyRigidbody.velocity.magnitude * 100);
-            print("anim = " + enemyAnimator.GetFloat("Speed"));
             yield return new WaitForSeconds(0.2f);
             yield return null;
         }
@@ -148,62 +134,6 @@ public class AIController : MonoBehaviour, IDamageable
             StopCoroutine(followTargetCoroutine);
             followTargetCoroutine = null;
         }
-    }
-    
-    private void Attack()
-    {
-        switch (currentEnemyType)
-        {
-            case EnemyType.Melee:
-                if (attackCoroutine == null)
-                {
-                    attackCoroutine = StartCoroutine("MeleeAttack");
-                }
-                break;
-            case EnemyType.Ranged:
-                if (attackCoroutine == null)
-                {
-                    attackCoroutine = StartCoroutine("RangedAttack");
-                }
-                break;
-            default:
-                print("Error: " + gameObject.name + " has no current EnemyType!");
-                break;
-        }
-    }
-    
-    private IEnumerator MeleeAttack()
-    {
-        yield return new WaitForSeconds(attackSpeed);
-        
-        enemyAnimator.SetTrigger("Attack");
-        
-        //
-        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRange, enemyLayers);
-        foreach(Collider enemy in hitEnemies)
-        {
-            enemy.gameObject.GetComponent<IDamageable>().Damaged(10, gameObject);
-        }
-        
-        StopCoroutine(attackCoroutine);
-        attackCoroutine = null;
-    }
-    
-    private IEnumerator RangedAttack()
-    {
-        yield return new WaitForSeconds(attackSpeed);
-        
-        enemyAnimator.SetTrigger("Attack");
-        
-        //
-        Vector3 shootDirection = mesh.transform.forward;
-        shootDirection.Normalize();
-        GameObject curBullet = Instantiate(bulletPrefab, bulletSpawn.transform.position, Quaternion.identity);
-        Rigidbody bulletRB = curBullet.GetComponent<Rigidbody>();
-        bulletRB.velocity = shootDirection * bulletSpeed;
-        
-        StopCoroutine(attackCoroutine);
-        attackCoroutine = null;
     }
     
     public void DamagedKnockback(GameObject knockbackSource)
@@ -224,7 +154,6 @@ public class AIController : MonoBehaviour, IDamageable
     public void Damaged(int damage, GameObject damageSource)
     {
         currentHealth -= damage;
-        DamagedKnockback(damageSource);
         
         foreach (SkinnedMeshRenderer meshRenderer in damageableMeshes)
         {
@@ -235,6 +164,11 @@ public class AIController : MonoBehaviour, IDamageable
         {
             Die();
         }
+        else
+        {
+            DamagedKnockback(damageSource);
+        }
+        
     }
     
     private void Die()
@@ -245,8 +179,6 @@ public class AIController : MonoBehaviour, IDamageable
         Destroy(mainCollider);
         Destroy(enemyAnimator);
         Destroy(navAgent);
-        Destroy(attackPoint.gameObject);
-        Destroy(distanceCheck.gameObject);
         
         // Enable this corpse
         gameObject.GetComponent<CorpseController>().enabled = true;
@@ -266,17 +198,14 @@ public class AIController : MonoBehaviour, IDamageable
     {
         playerCharacter = newPlayer;
     }
+
+    public GameObject GetMesh()
+    {
+        return mesh;
+    }
     
     private void OnDisable()
     {
         MainPlayerController.onPlayerDeath -= FindNewPlayer;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null)
-            return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 }
