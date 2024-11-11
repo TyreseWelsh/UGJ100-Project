@@ -30,8 +30,10 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     [SerializeField] private float knockbackForce = 0f;
     private SkinnedMeshRenderer[] limbMeshes;
     
-    private GameObject holdingObject;
+    [HideInInspector] public GameObject holdingObject;
     private Rigidbody[] childrenRigidbodies;
+
+    private Coroutine pickupCoroutine;
 
 
     private void Awake()
@@ -52,7 +54,6 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
 
     private void OnEnable()
     {
-        print("CORPSE ENABLED");
         gameObject.tag = "Corpse";
         gameObject.layer = LayerMask.NameToLayer("Corpse");
         EnableCorpseRagdoll();
@@ -60,6 +61,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
         environmentCollider = gameObject.AddComponent<SphereCollider>();
         environmentCollider.center = new Vector3(0, environmentColliderHeight, 0);
         environmentCollider.radius = environmentColliderRadius;
+        environmentCollider.isTrigger = true;
         
         InitPickupJoint();
         InitCorpseRigidbody();
@@ -141,15 +143,31 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     public void Pickup(GameObject mainObject, GameObject pickingObject)
     {
         holdingObject = mainObject;
+
+        if (pickupCoroutine != null)
+        {
+            StopCoroutine(pickupCoroutine);
+            pickupCoroutine = null;
+        }
+        pickupCoroutine = StartCoroutine(MoveToPickupPoint(pickingObject.transform.position, pickingObject));
         
-        gameObject.transform.position = pickingObject.transform.position;
+        hitObjects.Clear();
+    }
+
+    IEnumerator MoveToPickupPoint(Vector3 targetPosition, GameObject pickingObject)
+    {
+        while (transform.position != targetPosition)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * 50f);
+            yield return null;
+        }
         
+        environmentCollider.isTrigger = false;
+
         pickupJoint.connectedBody = pickingObject.GetComponent<Rigidbody>();
         pickupJoint.xMotion = ConfigurableJointMotion.Locked;
         pickupJoint.yMotion = ConfigurableJointMotion.Locked;
         pickupJoint.zMotion = ConfigurableJointMotion.Locked;
-        
-        hitObjects.Clear();
     }
     
     public void Drop()
@@ -161,6 +179,9 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
             pickupJoint.yMotion = ConfigurableJointMotion.Free;
             pickupJoint.zMotion = ConfigurableJointMotion.Free;
         }
+        environmentCollider.isTrigger = true;
+
+        holdingObject = null;
     }
 
     public void DamagedKnockback(GameObject knockbackSource)

@@ -82,23 +82,27 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     public delegate void OnPlayerDeath(GameObject newPlayer);
     public static OnPlayerDeath onPlayerDeath;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        InitPlayerData();
-        
         playerRigidbody = GetComponent<Rigidbody>();
         playerCollider = GetComponent<CapsuleCollider>();
         characterAnimator = GetComponent<Animator>();
         playerInput  = GetComponent<PlayerInput>();
         staminaComponent = GetComponent<StaminaComponent>();
         attackComponent = GetComponent<AttackComponent>();
+
+        InitPlayerData();
         attackComponent.InitData(playerData);
-        
-        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
-        
         currentHealth = maxHealth;
         currentSpeed = maxSpeed;
+        
+        damageableMeshes = GetComponentsInChildren<SkinnedMeshRenderer>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     private void InitPlayerData()
@@ -342,21 +346,24 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                     return;
                 }
                 
-                RaycastHit hit;
-                Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit, interactableObjectLayer);
-                Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
+                //RaycastHit hit;
+                //Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit, interactableObjectLayer);
+                //Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
+                
+                Collider[] interactingObjects = Physics.OverlapSphere(throwStartPoint.transform.position, 1f, interactableObjectLayer);
 
                 // if hit object is not null
-                if (hit.collider)
-                {   
-                    if(hit.collider.gameObject != null)
+                if (interactingObjects.Length > 0)
+                {
+                    GameObject interactingObject = interactingObjects[0].gameObject;
+                    if(interactingObject != null)
                     {
-                        if(hit.collider.gameObject.GetComponent<IInteractable>() != null)
+                        if(interactingObject.GetComponent<IInteractable>() != null)
                         {
-                            hit.collider.gameObject.GetComponent<IInteractable>().Interact(gameObject);
-                            if (hit.collider.gameObject.CompareTag("Corpse") && heldCorpse == null)
+                            interactingObject.GetComponent<IInteractable>().Interact(gameObject);
+                            if (interactingObject.CompareTag("Corpse") && heldCorpse == null)
                             {
-                                PickupCorpse(hit.collider.gameObject);
+                                PickupCorpse(interactingObject);
                             }
                         }
                     }
@@ -433,9 +440,14 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         currentHealthState = EHealthStates.Reviving;
         ToggleInvincibility(true);
         attackComponent?.SetCanAttack(false);
-        
         SetLimbMaterials(reviveMaterial);
-        attackComponent.GetCurrentWeapon().GetComponent<MeshRenderer>().enabled = false;
+        if (attackComponent)
+        {
+            if (attackComponent.GetCurrentWeapon())
+            {
+                attackComponent.GetCurrentWeapon().GetComponentInChildren<MeshRenderer>().enabled = false;
+            }
+        }
         playerRigidbody.velocity = Vector3.zero;
         currentHealth = maxHealth;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
@@ -457,7 +469,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     void Revive()
     {
         SetLimbMaterials(meshMaterial);
-        attackComponent.GetCurrentWeapon().gameObject.GetComponent<MeshRenderer>().enabled = true;
+        attackComponent.GetCurrentWeapon().gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
         currentSpeed = maxSpeed;
         StopAllCoroutines();
         
@@ -496,6 +508,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
             newPlayerScript.lives = lives;
         }
         
+        print("Now destroy scripts");
         // Disable this player
         Destroy(attackComponent.GetCurrentWeapon());
         Destroy(playerCollider);

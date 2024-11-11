@@ -2776,6 +2776,7 @@ MonoBehaviour:
   currentHealth: 0
   currentSpeed: 0
   throwStartPoint: {fileID: 6313890062234130244}
+  damageableMeshes: []
 --- !u!114 &3403115229226815551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2848,6 +2849,6 @@ MonoBehaviour:
   environmentColliderHeight: 0
   environmentColliderRadius: 0.4
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
-  originalMaterial: {fileID: 0}
+  originalMaterial: {fileID: 2100000, guid: 8759225f065a41f4e9ec724dfa460fca, type: 2}
   damageFlashDuration: 0.1
   knockbackForce: 0

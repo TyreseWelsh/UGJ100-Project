@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class DrawBridge : MonoBehaviour, IInteractable
 {
+    [SerializeField] private GameObject bridgeMesh;
     [SerializeField] private float speed;
-    private bool isOpen = false;
-    private Vector3 StartRotation;
-    private bool isRotating = false;
-
-    private int activationCounter = 0;
+    private Quaternion startRotation;
+    private Quaternion endRotation;
+    private float targetRotationZ = 90;
+    private int activationCounter;
+    
+    private Coroutine bridgeDownCoroutine;
+    private Coroutine bridgeUpCoroutine;
 
     // Start is called before the first frame update
     void Start()
     {
-        StartRotation = transform.rotation.eulerAngles;
+        startRotation = Quaternion.Euler(bridgeMesh.transform.rotation.eulerAngles);
+        endRotation = Quaternion.Euler(new Vector3(startRotation.eulerAngles.x, startRotation.eulerAngles.y, startRotation.eulerAngles.z + Mathf.Ceil(targetRotationZ)));
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
+    
     public void Interact(GameObject interactingObj)
     {
-        Debug.Log("Interacted");
+        //Debug.Log("Interacted");
         //gameObject.transform.eulerAngles = new Vector3(gameObject.transform.rotation.x, gameObject.transform.rotation.y + 90, gameObject.transform.rotation.z);
-        if (!isRotating)
+        /*if (!isRotating)
         {
             if (isOpen)
             {
@@ -37,66 +35,65 @@ public class DrawBridge : MonoBehaviour, IInteractable
             {
                 StartCoroutine(doorOpen());
             }
-        }
+        }*/
     }
     public void InteractHeld(GameObject interactingObj) { }
 
     public void BringDown()
     {
         activationCounter++;
-        StartCoroutine(doorOpen());
+        if (bridgeUpCoroutine != null)
+        {
+            StopCoroutine(bridgeUpCoroutine);
+            bridgeUpCoroutine = null;
+        }
+        bridgeDownCoroutine = StartCoroutine(BridgeDown());
     }
 
     public void BringUp()
     {
         activationCounter--;
-
         if (activationCounter <= 0)
         {
-            StartCoroutine(doorClose());
+            if (bridgeDownCoroutine != null)
+            {
+                StopCoroutine(bridgeDownCoroutine);
+                bridgeDownCoroutine = null;
+            }
+            bridgeUpCoroutine = StartCoroutine(BridgeUp());
         }
     }
     
-    private IEnumerator doorOpen()
+    private IEnumerator BridgeDown()
     {
-        Quaternion startRotation = gameObject.transform.rotation;
-        Quaternion endRotation;
-        isRotating = true;
-        Debug.Log("Door opening");
-        endRotation = Quaternion.Euler(new Vector3(Mathf.Ceil(startRotation.x + 90), StartRotation.y, StartRotation.z));
+        Quaternion currentStartRotation = bridgeMesh.transform.rotation;
+        float time = currentStartRotation.eulerAngles.z / targetRotationZ;
 
-        float time = 0;
-
-        isOpen = true;
-        while (time <= 1)
+        while (bridgeMesh.transform.rotation != endRotation)
         {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
-            yield return null;
+            Debug.Log("Bridge going down...");
+            
+            //transform.rotation = Quaternion.Slerp(currentStartRotation, endRotation, time);
+            bridgeMesh.transform.rotation = Quaternion.RotateTowards(currentStartRotation, endRotation, time);
             time += Time.deltaTime * speed;
-
+            yield return null;
         }
-        Debug.Log("Finished Rotating");
-        isRotating = false;
-
+        Debug.Log("Bridge now down!");
     }
-    private IEnumerator doorClose()
+    private IEnumerator BridgeUp()
     {
-        Quaternion startRotation = transform.rotation;
-        Quaternion endRotation = Quaternion.Euler(StartRotation);
-        isRotating = true;
-        Debug.Log("Door closing");
-        float time = 0;
-
-        isOpen = false;
-
-        while (time <= 1)
+        Quaternion currentStartRotation = bridgeMesh.transform.rotation;
+        float time = currentStartRotation.eulerAngles.z / targetRotationZ;
+        
+        while (bridgeMesh.transform.rotation != startRotation)
         {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, time);
-            yield return null;
-            time += Time.deltaTime * speed;
+            Debug.Log("Bridge going up...");
 
+            //transform.rotation = Quaternion.Slerp(currentStartRotation, startRotation, time);
+            bridgeMesh.transform.rotation = Quaternion.RotateTowards(currentStartRotation, startRotation, time);
+            time += Time.deltaTime * speed;
+            yield return null;
         }
-        Debug.Log("Finished Rotating");
-        isRotating = false;
+        Debug.Log("Bridge now up!");
     }
 }

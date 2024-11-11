@@ -11,16 +11,19 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Corpse"))
         {
-            DrawBridge drawBridgeScript = InteractedObject.GetComponent<DrawBridge>();
-            if (drawBridgeScript != null)
-            {
-                print("Draw bridge");
-                drawBridgeScript.BringDown();
-            }
-            else
-            {
-                InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
-            }
+            /*if (!other.gameObject.GetComponent<CorpseController>()?.holdingObject)
+            {*/
+                DrawBridge drawBridgeScript = InteractedObject.GetComponent<DrawBridge>();
+                if (drawBridgeScript != null)
+                {
+                    print("Draw bridge");
+                    drawBridgeScript.BringDown();
+                }
+                else
+                {
+                    InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+                }
+            //}
         }
     }
 
@@ -28,15 +31,18 @@ public class PressurePlate : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Corpse"))
         {
-            DrawBridge drawBridgeScript = InteractedObject.GetComponent<DrawBridge>();
-            if (drawBridgeScript != null)
-            {
-                drawBridgeScript.BringUp();
-            }
-            else
-            {
-                InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
-            }
+            /*if (!other.gameObject.GetComponent<CorpseController>()?.holdingObject)
+            {*/
+                DrawBridge drawBridgeScript = InteractedObject.GetComponent<DrawBridge>();
+                if (drawBridgeScript != null)
+                {
+                    drawBridgeScript.BringUp();
+                }
+                else
+                {
+                    InteractedObject.GetComponent<IInteractable>().Interact(gameObject);
+                }
+            //}
         }
     }
 }
