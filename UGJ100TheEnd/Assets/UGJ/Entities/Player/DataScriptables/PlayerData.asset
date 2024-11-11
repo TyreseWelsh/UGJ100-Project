@@ -21,9 +21,9 @@ MonoBehaviour:
   damageFlashDuration: 0.1
   knockbackForce: 60
   lives: 3
-  dashSpeed: 1000
+  dashSpeed: 1150
   dashDuration: 0.05
-  dashCost: 40
+  dashCost: 36
   reviveDuration: 2.5
   reviveMaterial: {fileID: 2100000, guid: acf42482309935841b920bddfd99685a, type: 2}
   throwChargeRate: 120

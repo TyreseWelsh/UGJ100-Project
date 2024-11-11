@@ -1,10 +1,7 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 {
@@ -48,7 +45,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     [HideInInspector] public float currentSpeed;
 
     private Vector3 movementDirection;
-    private bool gravityOn;
+    private bool gravityOn = true;
     private bool holdingCorpse;
     private GameObject heldCorpse;
     private ConfigurableJoint heldCorpseJoint;
@@ -172,7 +169,10 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     private void FixedUpdate()
     {
         // Applying constant gravity
-        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, Physics.gravity.y, playerRigidbody.velocity.z);
+        if (gravityOn)
+        {
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, Physics.gravity.y, playerRigidbody.velocity.z);
+        }
         
         if (currentHealthState != EHealthStates.Dead)
         {
@@ -327,16 +327,18 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
     
     IEnumerator Dash(Vector3 direction, float startTime, float duration)
     {
+        gravityOn = false;
+        direction.y = 0;
         while (Time.time < startTime + duration)
         {
-            playerRigidbody.useGravity = false;
-            playerRigidbody.AddForce(dashSpeed * Time.deltaTime * direction * 1100, ForceMode.Force);
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
+            playerRigidbody.AddForce(dashSpeed * Time.deltaTime * 1100 * direction , ForceMode.Force);
             
             yield return null;
         }
         ToggleInvincibility(false);
         playerRigidbody.velocity = Vector3.zero;
-        playerRigidbody.useGravity = true;
+        gravityOn = true;
     }
     
     public void Interact(InputAction.CallbackContext context)

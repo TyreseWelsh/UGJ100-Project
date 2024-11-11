@@ -5611,14 +5611,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1331510714}
-    - target: {fileID: 7603475180638874214, guid: 72366c752971a624bad3472419e4cecc, type: 3}
-      propertyPath: level
-      value: s_Level3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7603475180638874214, guid: 72366c752971a624bad3472419e4cecc, type: 3}
-      propertyPath: fadeIn
-      value: 
-      objectReference: {fileID: 7400000, guid: 580210a4619d42048befcc221544e98f, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -29921,17 +29913,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3114759971184630868, guid: b19d6dfeead853942b202c9ed341dc0b, type: 3}
---- !u!114 &1781529009 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7471722929399430749, guid: 686034d4e62ed834b9c29d33140a7775, type: 3}
-  m_PrefabInstance: {fileID: 2028984963}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16452e0c46caedd49816546a34a05f8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1789790793 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5386482722985022515, guid: bc9276949e6c3304a830c5aaa803fc35, type: 3}
@@ -34012,6 +33993,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameplayHUD
       objectReference: {fileID: 0}
+    - target: {fileID: 4004990613054279065, guid: 686034d4e62ed834b9c29d33140a7775, type: 3}
+      propertyPath: playerCharacter
+      value: 
+      objectReference: {fileID: 98581737}
     - target: {fileID: 7471722929399430749, guid: 686034d4e62ed834b9c29d33140a7775, type: 3}
       propertyPath: playerCharacter
       value: 
@@ -35941,6 +35926,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4312828022085082889, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4312828022085082889, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4312828022085082889, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7747611863200048777, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
       propertyPath: dashCost
       value: 25
@@ -35952,7 +35949,7 @@ PrefabInstance:
     - target: {fileID: 7747611863200048777, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
       propertyPath: playerHUD
       value: 
-      objectReference: {fileID: 1781529009}
+      objectReference: {fileID: 0}
     - target: {fileID: 7747611863200048777, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
       propertyPath: durabilityBar
       value: 
@@ -35967,7 +35964,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8194664116180541020, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.132214
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8194664116180541020, guid: 6c985fa069bd256498d7485ccb44b3d7, type: 3}
       propertyPath: m_LocalRotation.w

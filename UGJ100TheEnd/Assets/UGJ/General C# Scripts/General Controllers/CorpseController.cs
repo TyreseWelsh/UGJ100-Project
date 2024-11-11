@@ -1,7 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class CorpseController : MonoBehaviour, IInteractable, IDamageable
@@ -19,7 +17,7 @@ public class CorpseController : MonoBehaviour, IInteractable, IDamageable
     [SerializeField] private float environmentColliderRadius;
 
     [Header("Corpse Projectile")]
-    private float minDamageVelocity = 15f;
+    private float minDamageVelocity = 10f;
     private float currentVelocity = 0;
     private List<GameObject> hitObjects = new List<GameObject>(); 
     
