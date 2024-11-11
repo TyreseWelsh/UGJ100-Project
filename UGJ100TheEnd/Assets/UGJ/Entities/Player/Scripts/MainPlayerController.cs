@@ -171,18 +171,23 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
 
     private void FixedUpdate()
     {
+        // Applying constant gravity
+        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, Physics.gravity.y, playerRigidbody.velocity.z);
+        
         if (currentHealthState != EHealthStates.Dead)
         {
             movementDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxis("Vertical"));
             movementDirection.Normalize();
             if (movementDirection != Vector3.zero)
             {
-                playerRigidbody.velocity = currentSpeed * movementDirection;
+                playerRigidbody.velocity =  new Vector3(movementDirection.x * currentSpeed, playerRigidbody.velocity.y, movementDirection.z * currentSpeed);
             }
             
             Vector3 groundVelocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
             characterAnimator.SetFloat("Speed", groundVelocity.magnitude * 100);
         }
+        
+        print("Y Velocity = " + playerRigidbody.velocity.y);
     }
 
     public void Look(InputAction.CallbackContext context)
@@ -346,11 +351,7 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
                     return;
                 }
                 
-                //RaycastHit hit;
-                //Physics.Raycast(transform.position, mesh.transform.forward * 2, out hit, interactableObjectLayer);
-                //Debug.DrawRay(transform.position, mesh.transform.forward * 2, Color.red, 0.5f);
-                
-                Collider[] interactingObjects = Physics.OverlapSphere(throwStartPoint.transform.position, 1f, interactableObjectLayer);
+                Collider[] interactingObjects = Physics.OverlapSphere(throwStartPoint.transform.position, 0.6f, interactableObjectLayer);
 
                 // if hit object is not null
                 if (interactingObjects.Length > 0)
@@ -450,8 +451,8 @@ public class MainPlayerController : MonoBehaviour, IDamageable, ICanHoldCorpse
         }
         playerRigidbody.velocity = Vector3.zero;
         currentHealth = maxHealth;
+        currentSpeed /= 1.2f;
         staminaComponent.currentStamina = staminaComponent.maxStamina;
-        currentSpeed /= 2;
         
         StartCoroutine(ReviveCoroutine(Time.time));
     }

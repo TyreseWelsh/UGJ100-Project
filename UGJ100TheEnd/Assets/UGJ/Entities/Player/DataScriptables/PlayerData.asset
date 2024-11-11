@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   health: 100
-  moveSpeed: 8
+  moveSpeed: 14
   weapon: {fileID: 4838972955085653662, guid: 75bd6aa6e55812541a132f5380f5f8d0, type: 3}
   basicComboData: {fileID: 11400000, guid: 0112468b30a59f6459b244e24f6d36df, type: 2}
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}

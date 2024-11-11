@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyData_Melee
   m_EditorClassIdentifier: 
   health: 100
-  moveSpeed: 4
+  moveSpeed: 7
   weapon: {fileID: 879933562595672555, guid: 55cdd0b44ecfc674881caa420495f8ca, type: 3}
   basicComboData: {fileID: 11400000, guid: 1383d3b6bc40aa94a95acfcdc3bb8d8f, type: 2}
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}

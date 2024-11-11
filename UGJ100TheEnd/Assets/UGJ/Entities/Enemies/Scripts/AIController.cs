@@ -69,6 +69,8 @@ public class AIController : MonoBehaviour, IDamageable
         navAgent.stoppingDistance = enemyData.attackDistance;
         
         MainPlayerController.onPlayerDeath += FindNewPlayer;
+        
+        targetPath = new NavMeshPath();
     }
     
     // Update is called once per frame
@@ -93,7 +95,6 @@ public class AIController : MonoBehaviour, IDamageable
                 }
                 else
                 {
-                    targetPath = new NavMeshPath();
                     navAgent.CalculatePath(playerCharacter.transform.position, targetPath);
 
                     if (followTargetCoroutine == null)
@@ -112,16 +113,20 @@ public class AIController : MonoBehaviour, IDamageable
         }
     }
 
+    private void FixedUpdate()
+    {
+        enemyRigidbody.velocity = new Vector3(enemyRigidbody.velocity.x, Physics.gravity.y, enemyRigidbody.velocity.z);
+    }
+
     IEnumerator FollowPlayer()
     {
         while (transform.position != targetPath.corners[targetPath.corners.Length - 1])
         {
             Vector3 directionToNextPoint = targetPath.corners[1] - transform.position;
-        
-            enemyRigidbody.velocity = directionToNextPoint.normalized * currentSpeed;
+            enemyRigidbody.velocity = new Vector3(directionToNextPoint.normalized.x * currentSpeed, enemyRigidbody.velocity.y, directionToNextPoint.normalized.z * currentSpeed);
 
             enemyAnimator.SetFloat("Speed", enemyRigidbody.velocity.magnitude * 100);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.08f);
             yield return null;
         }
     }

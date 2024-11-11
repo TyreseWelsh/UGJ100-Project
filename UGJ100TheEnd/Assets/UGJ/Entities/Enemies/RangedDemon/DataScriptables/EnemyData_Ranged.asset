@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyData_Ranged
   m_EditorClassIdentifier: 
   health: 100
-  moveSpeed: 3.5
+  moveSpeed: 6
   weapon: {fileID: 4922878488285435205, guid: 241a8f37932023d4cbc82d6dbfbfee18, type: 3}
   basicComboData: {fileID: 11400000, guid: e9b2408bebf5c1e43a43594b464c2d79, type: 2}
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}

@@ -6,13 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="18e45551-27cb-49f1-b81a-6ed8d9b0598e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UGJ100TheEnd/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Prefabs/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/General/Prefabs/Demon.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/General/Prefabs/Demon.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/MeleeDemon/DataScriptables/EnemyData_Melee.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/MeleeDemon/DataScriptables/EnemyData_Melee.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/RangedDemon/DataScriptables/EnemyData_Ranged.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/RangedDemon/DataScriptables/EnemyData_Ranged.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/AIController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Enemies/Scripts/AIController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Animations/AC_Player.controller" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Animations/AC_Player.controller" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/DataScriptables/PlayerData.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/DataScriptables/PlayerData.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Player/Scripts/MainPlayerController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/DrawBridge.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/DrawBridge.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/PressurePlate.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Entities/Prefabs/PressurePlate.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/DrawBridge.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/DrawBridge.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/PressurePlate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Environment/Scripts/PressurePlate.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/UGJ/General C# Scripts/General Controllers/CorpseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/General C# Scripts/General Controllers/CorpseController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/UGJ/Scenes/S_Level1/NavMesh-NavMesh Surface.asset.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/DynamicsManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,19 +44,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Feature-ComboAttacks&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "Bugfix-Gravity",
+    "ignore.virus.scanning.warn.message": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="$USER_HOME$/Desktop/Hellknight\UGJ100TheEnd.exe" />
@@ -135,7 +141,7 @@
       <workItem from="1730902505926" duration="14000" />
       <workItem from="1730903560819" duration="1551000" />
       <workItem from="1731076944500" duration="29101000" />
-      <workItem from="1731339836490" duration="11349000" />
+      <workItem from="1731339836490" duration="15495000" />
     </task>
     <servers />
   </component>

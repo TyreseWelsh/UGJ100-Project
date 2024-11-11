@@ -71,8 +71,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 139590184305379679}
   serializedVersion: 4
-  m_Mass: 10
-  m_Drag: 0
+  m_Mass: 5
+  m_Drag: 5
   m_AngularDrag: 4
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -148,24 +148,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mesh: {fileID: 6698001898390689633}
   playerCharacter: {fileID: 0}
-  distanceCheck: {fileID: 7615669393645064119}
   currentHealthState: 0
   currentEnemyType: 0
-  rangedStoppingDistance: 8
-  rangedHealth: 5
-  rangedSpeed: 3.5
-  bulletSpeed: 10
-  bulletPrefab: {fileID: 7601256689023936817, guid: 501feefb666296f4d98419ad2251cafc, type: 3}
-  bulletSpawn: {fileID: 0}
-  meleeStoppingDistance: 2
-  meleeHealth: 10
-  meleeSpeed: 3.5
-  attackRange: 0.5
-  enemyLayers:
-    serializedVersion: 2
-    m_Bits: 256
-  attackPoint: {fileID: 0}
-  attackDamage: 10
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
   originalMaterial: {fileID: 2100000, guid: 9f9cf59bd7087c449b00e02567ebd32f, type: 2}
   damageFlashDuration: 0.1
@@ -182,9 +166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27cd6e00931b5f24fb2e976e889f0a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicCombo: {fileID: 0}
-  canAttack: 1
   weaponPosition: {fileID: 2034158252134645519}
+  canAttack: 1
 --- !u!135 &351332584145003305
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -222,11 +205,12 @@ MonoBehaviour:
   bodyDurability: 100
   jointBreakForce: 150000
   environmentColliderHeight: 0.8
-  environmentColliderRadius: 0.2
+  environmentColliderRadius: 0.1
   damageFlashMaterial: {fileID: 2100000, guid: 479cb0d726766144fa7d4605f8ba4aa8, type: 2}
   originalMaterial: {fileID: 2100000, guid: 9f9cf59bd7087c449b00e02567ebd32f, type: 2}
   damageFlashDuration: 0.1
   knockbackForce: 0
+  holdingObject: {fileID: 0}
 --- !u!1 &161194788432203644
 GameObject:
   m_ObjectHideFlags: 0

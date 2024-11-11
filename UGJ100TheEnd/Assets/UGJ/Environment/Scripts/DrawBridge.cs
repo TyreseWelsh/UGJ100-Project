@@ -9,6 +9,8 @@ public class DrawBridge : MonoBehaviour, IInteractable
     private Quaternion startRotation;
     private Quaternion endRotation;
     private float targetRotationZ = 90;
+
+    [SerializeField] int activationNumber;
     private int activationCounter;
     
     private Coroutine bridgeDownCoroutine;
@@ -42,18 +44,21 @@ public class DrawBridge : MonoBehaviour, IInteractable
     public void BringDown()
     {
         activationCounter++;
-        if (bridgeUpCoroutine != null)
+        if (activationCounter >= activationNumber)
         {
-            StopCoroutine(bridgeUpCoroutine);
-            bridgeUpCoroutine = null;
+            if (bridgeUpCoroutine != null)
+            {
+                StopCoroutine(bridgeUpCoroutine);
+                bridgeUpCoroutine = null;
+            }
+            bridgeDownCoroutine = StartCoroutine(BridgeDown());
         }
-        bridgeDownCoroutine = StartCoroutine(BridgeDown());
     }
 
     public void BringUp()
     {
         activationCounter--;
-        if (activationCounter <= 0)
+        if (activationCounter < activationNumber)
         {
             if (bridgeDownCoroutine != null)
             {
